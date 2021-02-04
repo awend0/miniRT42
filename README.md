@@ -5,7 +5,7 @@ Build it yourself
 
 - sudo apt-get install gcc make xorg libxext-dev libbsd-dev  
 - (Only using WSL) Install [XMing](https://sourceforge.net/projects/xming/) on your Windows 10 (just click next, it's ok)  
-make all  
+- make all  
 
 .rt file syntax
 
