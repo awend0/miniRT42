@@ -9,10 +9,10 @@ Basic raytracing engine on C using MiniLibX.
 
 #### .rt file syntax
 
-- R [int] [int] // display resolution (at the moment only 1:1)  
-- A [float] [int],[int],[int] // ambient lighting: intensity, color RGB  
-- c [int],[int],[int] [int],[int],[int] [int] // camera: position, rotation angle as normalized vector, fov  
-- sp [int],[int],[int] [float] [int],[int],[int] [float] [int] // sphere: position, radius, color RGB, reflection rate, specular rate  
+- R [int] [int] __// display resolution (at the moment only 1:1)__  
+- A [float] [int],[int],[int] __// ambient lighting: intensity, color RGB__  
+- c [int],[int],[int] [int],[int],[int] [int] __// camera: position, rotation angle as normalized vector, fov__  
+- sp [int],[int],[int] [float] [int],[int],[int] [float] [int] __// sphere: position, radius, color RGB, reflection rate, specular rate__  
 
 #### Usage
 
