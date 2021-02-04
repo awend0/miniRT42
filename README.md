@@ -17,4 +17,4 @@ sp [int],[int],[int] [float] [int],[int],[int] [float] [int] // sphere: position
 Relish  
 
 # Example
-![Beautiful render](https://github.com/awend0/miniRT/tree/master/screenshotsimage.jpg?raw=true)
+![Beautiful render](https://github.com/awend0/miniRT/blob/master/screenshots/image.jpg?raw=true)
