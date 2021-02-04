@@ -36,8 +36,6 @@ t_light			*ft_parsePoint(char *line)
 	return (ret);
 }
 
-//l -40,0,30 0.7 255,255,255
-
 t_light			*ft_parseA(char *line)
 {
 	char	**words;
@@ -65,7 +63,6 @@ void			ft_parseRes(char *line)
 	g_height = 0;
 	g_width = (float)ft_atoi(words[1]);
 	g_height = (float)ft_atoi(words[2]);
-	printf("%f %f\n", g_width, g_height);
 	free (words);
 }
 
