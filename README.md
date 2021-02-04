@@ -9,11 +9,12 @@ Basic raytracing engine on C using MiniLibX.
 
 #### .rt file syntax
 
-- R [int] [int] *// display resolution (at the moment only 1:1)*  
-- A [float] [int],[int],[int] *// ambient lighting: intensity, color RGB*  
-- c [int],[int],[int] [int],[int],[int] [int] *// camera: position, rotation angle as normalized vector, fov*  
-- sp [int],[int],[int] [float] [int],[int],[int] [float] [int] *// sphere: position, radius, color RGB, reflection rate, specular rate*  
-
+- R [width] [height] *// display resolution (at the moment only 1:1)*  
+- c [x],[y],[z] [rotation x],[rotation y],[rotation z] [FOV] *// camera*  
+- A [intensity] [R],[G],[B] *// ambient lighting
+- l [x],[y],[z] [intensity] [R],[G],[B] *// point lighting*
+- sp [x],[y],[z] [radius] [R],[G],[B] [reflection rate] [specular rate] *// sphere*
+- tr [x],[y],[z] [x],[y],[z] [x],[y],[z] [R],[G],[B] [reflection rate] [specular rate] *// triangle*
 #### Usage
 
 - ./miniRT map.rt --save *// --save: save render as bmp file*  
