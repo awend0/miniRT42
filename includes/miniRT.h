@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 07:50:51 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 10:21:42 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
-#ifndef RECURSION_DEPTH
-# define RECURSION_DEPTH 3
+#ifndef R_DEPTH
+# define R_DEPTH 3
 #endif
 
 typedef struct		s_point{
@@ -172,30 +172,30 @@ typedef struct		s_computeParams{
 /*
 ** Utils;
 */
-float				ft_vecDot(t_point a, t_point b);
-t_point				ft_vecSubtract(t_point O, t_point D);
-float				ft_vecLength(t_point a);
-t_point 			ft_vecMultiply(float k, t_point a);
-t_point 			ft_vecAdd(t_point a, t_point b);
-void				ft_putPixel(t_mlxdata *data, int x, int y, t_color color);
-int					ft_createTrgb(int t, int r, int g, int b);
-t_color				ft_colorMultiply(float a, t_color color);
-t_color				ft_colorAdd(t_color a, t_color b);
+float				ft_vec_dot(t_point a, t_point b);
+t_point				ft_vec_s(t_point O, t_point D);
+float				ft_vec_length(t_point a);
+t_point 			ft_vec_multiply(float k, t_point a);
+t_point 			ft_vec_add(t_point a, t_point b);
+void				ft_putpixel(t_mlxdata *data, int x, int y, t_color color);
+int					ft_create_trgb(int t, int r, int g, int b);
+t_color				ft_color_multiply(float a, t_color color);
+t_color				ft_color_add(t_color a, t_color b);
 char				**ft_split(char	const *s, char c);
 int					ft_atoi(char *str);
-t_point				ft_vecCross(t_point A, t_point B);
-t_point				ft_vecNormalize(t_point vec);
+t_point				ft_vec_cross(t_point A, t_point B);
+t_point				ft_vec_norm(t_point vec);
 float				ft_modv(float vx, float vy, float vz);
-t_point				ft_vecMatrix(float **mat, t_point vec);
+t_point				ft_vec_mat(float **mat, t_point vec);
 
 /*
 ** Render
 */
-t_color				ft_traceRay(t_traceParams args);
-float				ft_computeLighting(t_computeParams args);
-t_closest			ft_closestInter(t_closestParams params);
-t_point				ft_canvasToViewport(float x, float y, t_viewport viewport);
-t_point				ft_reflectRay(t_point R, t_point N);
+t_color				ft_trace_ray(t_traceParams args);
+float				ft_compute_lighting(t_computeParams args);
+t_closest			ft_closest_inter(t_closestParams params);
+t_point				ft_canvas_to_viewport(float x, float y, t_viewport viewport);
+t_point				ft_reflect_ray(t_point R, t_point N);
 
 /*
 ** Parser
@@ -205,8 +205,8 @@ t_parsedData		*ft_parser(int argc, char *argv[]);
 /*
 ** Constructors
 */
-t_object			*ft_createSphere(t_sphereParams params);
-t_object			*ft_createTriangle(t_triangleParams params);
+t_object			*ft_create_sphere(t_sphereParams params);
+t_object			*ft_create_triangle(t_triangleParams params);
 
 /*
 ** Lists

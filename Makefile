@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/02/05 04:43:09 by hasv             ###   ########.fr        #
+#    Updated: 2021/02/05 10:21:15 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME =		miniRT
 CFILE =		srcs/main.c\
 			srcs/render.c\
 			srcs/utils.c\
+			srcs/utils2.c\
+			srcs/utils3.c\
 			srcs/parser.c\
 			srcs/get_next_line.c\
 			srcs/get_next_line_utils.c\

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 07:50:26 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 10:21:50 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern float 	g_width;
 extern float 	g_height;
-extern t_color	g_backgroundColor;
+extern t_color	g_background_color;
 
 float			ft_stof(char *line)
 {
@@ -42,7 +42,7 @@ t_point			ft_stop(char *line)
 	return ((t_point){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});	
 }
 
-t_light			*ft_parsePoint(char *line)
+t_light			*ft_parse_pnt(char *line)
 {
 	char	**words;
 	t_light	*ret;
@@ -57,7 +57,7 @@ t_light			*ft_parsePoint(char *line)
 	return (ret);
 }
 
-t_light			*ft_parseA(char *line)
+t_light			*ft_parse_amb(char *line)
 {
 	char	**words;
 	t_light	*ret;
@@ -70,7 +70,7 @@ t_light			*ft_parseA(char *line)
 	return (ret);
 }
 
-void			ft_parseRes(char *line)
+void			ft_parse_res(char *line)
 {
 	char	**words;
 
@@ -82,7 +82,7 @@ void			ft_parseRes(char *line)
 	free (words);
 }
 
-float			**ft_rotationMatrix(t_point A)
+float			**ft_rotation_matrix(t_point A)
 {
 	float	**ret;
 	t_point B;
@@ -93,8 +93,8 @@ float			**ft_rotationMatrix(t_point A)
 	ret[1] = malloc(3 * sizeof(float));
 	ret[2] = malloc(3 * sizeof(float));
 	B = (t_point){0.0, 0.0, 1.0};
-	C = ft_vecCross(A, B);
-	B = ft_vecCross(C, A);
+	C = ft_vec_cross(A, B);
+	B = ft_vec_cross(C, A);
 	ret[0][0] = B.x;
 	ret[0][1] = C.x;
 	ret[0][1] = C.y;
@@ -106,21 +106,21 @@ float			**ft_rotationMatrix(t_point A)
 	ret[2][2] = A.z;
 	return (ret); 	
 }
-t_camera		ft_parseCam(char *line)
+t_camera		ft_parse_camera(char *line)
 {
 	char	**words;
 	t_camera ret;
 
 	words = ft_split(line, ' ');
 	ret.pos = ft_stop(words[1]);
-	ret.rotation = ft_rotationMatrix(ft_stop(words[2]));
+	ret.rotation = ft_rotation_matrix(ft_stop(words[2]));
 	ret.fov = ft_stof(words[3]);
 	ret.viewport = (t_viewport){1.0, 1.0, 1.0};
 	free (words);
 	return (ret);
 }
 
-t_object		*ft_parseSphere(char *line)
+t_object		*ft_parse_sphere(char *line)
 {
 	char			**words;
 	t_object		*ret;
@@ -137,12 +137,12 @@ t_object		*ft_parseSphere(char *line)
 		params.reflection = ft_stof(words[4]);
 	if (words[5])
 		params.spec = (float)ft_atoi(words[5]);
-	ret = ft_createSphere(params);
+	ret = ft_create_sphere(params);
 	free (words);
 	return (ret);
 }
 
-t_object		*ft_parseTriangle(char *line)
+t_object		*ft_parse_triangle(char *line)
 {
 	char				**words;
 	t_object			*ret;
@@ -160,25 +160,25 @@ t_object		*ft_parseTriangle(char *line)
 		params.reflection = ft_stof(words[5]);
 	if (words[6])
 		params.spec = ft_stof(words[6]);
-	ret = ft_createTriangle(params);
+	ret = ft_create_triangle(params);
 	free (words);
 	return (ret);
 }
 
-t_parsedData	*ft_parseProcessor(char *line, t_parsedData *data)
+t_parsedData	*ft_parse_processor(char *line, t_parsedData *data)
 {
 	if (line[0] == 'R')
-		ft_parseRes(line);
+		ft_parse_res(line);
 	if (line[0] == 'A')
-		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parseA(line)));
+		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parse_amb(line)));
 	if (line[0] == 'c')
-		data->camera = ft_parseCam(line);
+		data->camera = ft_parse_camera(line);
 	if (line[0] == 'l')
-		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parsePoint(line)));
+		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parse_pnt(line)));
 	if (line[0] == 's' && line[1] == 'p')
-		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parseSphere(line)));
+		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_sphere(line)));
 	if (line[0] == 't' && line[1] == 'r')
-		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parseTriangle(line)));
+		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_triangle(line)));
 	return (data);
 }
 
@@ -199,12 +199,12 @@ t_parsedData	*ft_parser(int argc, char *argv[])
 		{
 			i = get_next_line(fd, &line);
 			if (i == 1)
-				ret = ft_parseProcessor(line, ret);
+				ret = ft_parse_processor(line, ret);
 			else if (i == -1)
 				return (0);
 			else if (i == 0)
 			{
-				ret = ft_parseProcessor(line, ret);
+				ret = ft_parse_processor(line, ret);
 				break;
 			}
 		}

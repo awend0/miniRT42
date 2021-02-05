@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 06:22:04 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 10:20:51 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,27 @@
 
 extern float g_width;
 extern float g_height;
-extern t_color g_backgroundColor;
+extern t_color g_background_color;
 
-t_point		ft_reflectRay(t_point R, t_point N)
+t_point		ft_reflect_ray(t_point r, t_point n)
 {
-	return (ft_vecSubtract(ft_vecMultiply(2.0 * ft_vecDot(R, N), N), R));
+	return (ft_vec_s(ft_vec_multiply(2.0 * ft_vec_dot(r, n), n), r));
 }
 
-t_point		ft_canvasToViewport(float x, float y, t_viewport viewport)
+t_point		ft_canvas_to_viewport(float x, float y, t_viewport viewport)
 {
 	t_point	ret;
+
 	ret.x = x * viewport.width / g_width;
 	ret.y = y * viewport.height / g_height;
 	ret.z = viewport.d;
 	return (ret);
 }
 
-t_closest   ft_closestInter(t_closestParams params)
+t_closest	ft_closest_inter(t_closestParams params)
 {
 	t_closest		ret;
-	t_solutions 	solutions;
+	t_solutions		ir;
 	t_objectsList	*cur;
 
 	ret.t = __FLT_MAX__;
@@ -41,15 +42,16 @@ t_closest   ft_closestInter(t_closestParams params)
 	cur = params.objects;
 	while (cur)
 	{
-		solutions = cur->obj->ft_intersect(cur->obj->data, params.origin, params.direction);
-		if (solutions.t1 < ret.t && params.t_min < solutions.t1 && solutions.t1 < params.t_max)
+		ir = cur->obj->ft_intersect(cur->obj->data,
+		params.origin, params.direction);
+		if (ir.t1 < ret.t && params.t_min < ir.t1 && ir.t1 < params.t_max)
 		{
-			ret.t = solutions.t1;
+			ret.t = ir.t1;
 			ret.object = cur->obj;
 		}
-		if (solutions.t2 < ret.t && params.t_min < solutions.t2 && solutions.t2 < params.t_max)
+		if (ir.t2 < ret.t && params.t_min < ir.t2 && ir.t2 < params.t_max)
 		{
-			ret.t = solutions.t2;
+			ret.t = ir.t2;
 			ret.object = cur->obj;
 		}
 		cur = cur->next;
@@ -57,15 +59,15 @@ t_closest   ft_closestInter(t_closestParams params)
 	return (ret);
 }
 
-float		ft_computeLighting(t_computeParams args)
+float		ft_compute_lighting(t_computeParams args)
 {
 	t_point			light;
-	t_point			R;
+	t_point			ray;
 	t_lightsList	*cur;
 	t_closest		blocker;
 	float			intensity;
-	float			normalDotLight;
-	float			RDotView;
+	float			n_l;
+	float			r_v;
 	float			t_max;
 
 	intensity = 0.0;
@@ -79,28 +81,30 @@ float		ft_computeLighting(t_computeParams args)
 		{
 			if (cur->light->e_type == POINT)
 			{
-				light = ft_vecSubtract(cur->light->position, args.P);
+				light = ft_vec_s(cur->light->position, args.P);
 				t_max = 1.0;
 			}
 			else if (cur->light->e_type == DIRECTION)
 				light = cur->light->position;
-			blocker = ft_closestInter((t_closestParams){args.P, light, 0.1, t_max, args.objects});
+			blocker = ft_closest_inter((t_closestParams)
+			{args.P, light, 0.1, t_max, args.objects});
 			if (blocker.object)
 			{
 				cur = cur->next;
 				continue ;
 			}
-			normalDotLight = ft_vecDot(args.obj->ft_getNormal(args.obj->data, args.P), light);
-			if (normalDotLight > 0.0)
-				intensity += cur->light->intensity * normalDotLight /
-				(ft_vecLength(args.obj->ft_getNormal(args.obj->data, args.P)) * ft_vecLength(light));
+			n_l = ft_vec_dot(args.obj->ft_getNormal
+			(args.obj->data, args.P), light);
+			if (n_l > 0.0)
+				intensity += cur->light->intensity * n_l /
+				(ft_vec_length(args.obj->ft_getNormal(args.obj->data, args.P)) * ft_vec_length(light));
 			if (args.obj->spec != -1)
 			{
-				R = ft_reflectRay(light, args.obj->ft_getNormal(args.obj->data, args.P));
-				RDotView = ft_vecDot(R, args.view);
-				if (RDotView > 0.0)
-					intensity += cur->light->intensity * powf(RDotView /
-					(ft_vecLength(R) * ft_vecLength(args.view)), args.obj->spec);
+				ray = ft_reflect_ray(light, args.obj->ft_getNormal(args.obj->data, args.P));
+				r_v = ft_vec_dot(ray, args.view);
+				if (r_v > 0.0)
+					intensity += cur->light->intensity * powf(r_v /
+					(ft_vec_length(ray) * ft_vec_length(args.view)), args.obj->spec);
 			}
 		}
 		cur = cur->next;
@@ -108,30 +112,27 @@ float		ft_computeLighting(t_computeParams args)
 	return (intensity);
 }
 
-t_color     ft_traceRay(t_traceParams args)
+t_color		ft_trace_ray(t_traceParams args)
 {
 	t_closest		closest;
 	t_point			reRay;
 	t_color			colors[2];
 	float			intensity;
 
-
-	closest = ft_closestInter((t_closestParams){args.origin, args.direction,
+	closest = ft_closest_inter((t_closestParams){args.origin, args.direction,
 						args.t_min, args.t_max, args.objects});
 	if (!closest.object)
-		return (g_backgroundColor);
-	closest.inter = ft_vecAdd(args.origin, ft_vecMultiply(closest.t, args.direction));
-	intensity = ft_computeLighting((t_computeParams){closest.inter, ft_vecMultiply(-1, args.direction), closest.object
+		return (g_background_color);
+	closest.inter = ft_vec_add(args.origin, ft_vec_multiply(closest.t, args.direction));
+	intensity = ft_compute_lighting((t_computeParams){closest.inter, ft_vec_multiply(-1, args.direction), closest.object
 													,args.objects, args.lights});
-	colors[0] = ft_colorMultiply(intensity, closest.object->color);
+	colors[0] = ft_color_multiply(intensity, closest.object->color);
 	if (closest.object->refl <= 0 || args.recDepth <= 0)
 		return (colors[0]);
-	reRay = ft_reflectRay(ft_vecMultiply(-1, args.direction),
+	reRay = ft_reflect_ray(ft_vec_multiply(-1, args.direction),
 	closest.object->ft_getNormal(closest.object->data, closest.inter));
-	//if (closest.object->e_type == TRIANGLE)
-		//printf("%f\n%f\n%f\n\n", closest.object->ft_getNormal(closest.object->data, closest.inter).x, closest.object->ft_getNormal(closest.object->data, closest.inter).y, closest.object->ft_getNormal(closest.object->data, closest.inter).z);
-	colors[1] = ft_traceRay((t_traceParams){closest.inter, reRay, args.objects,
+	colors[1] = ft_trace_ray((t_traceParams){closest.inter, reRay, args.objects,
 						args.lights, 0.1, __FLT_MAX__,  args.recDepth -  1});
-	return (ft_colorAdd(ft_colorMultiply(1.0 - closest.object->refl, colors[0]),
-						ft_colorMultiply(closest.object->refl, colors[1])));
+	return (ft_color_add(ft_color_multiply(1.0 - closest.object->refl, colors[0]),
+						ft_color_multiply(closest.object->refl, colors[1])));
 }

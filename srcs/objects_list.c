@@ -6,15 +6,13 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 00:23:59 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 03:24:59 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 08:50:53 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-//  ft_olstadd_back(&((*data)->objects), ft_olstnew(ft_parseSphere(line)));
-
-t_objectsList   *ft_olstnew(t_object *content)
+t_objectsList	*ft_olstnew(t_object *content)
 {
 	t_objectsList	*node;
 
