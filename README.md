@@ -19,7 +19,7 @@ Basic raytracing engine on C using MiniLibX.
 #### Usage
 
 - export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0 *// WSL only*  
-- export DISPLAY=localhost:0.0 *// WSL(2) only  
+- export DISPLAY=localhost:0.0 *// WSL(2) only*  
 - ./miniRT map.rt --save *// --save: save render as bmp file*  
 - Relish  
 
