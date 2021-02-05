@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 02:12:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 03:25:04 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/04 05:01:52 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,14 @@ int			ft_atoi(char *str)
 			return (negative == -1 ? 0 : -1);
 	}
 	return (res * negative);
+}
+
+t_point		ft_vecCross(t_point A, t_point B) 
+{
+	t_point		ret;
+
+	ret.x = A.y * B.z - A.z * B.y;
+	ret.y = A.z * B.x - A.x * B.z;
+	ret.z = A.x * B.y - A.y * B.x;
+	return (ret);
 }

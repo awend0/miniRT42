@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 03:24:59 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 04:32:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ int			main(int argc, char *argv[])
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
-

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 03:25:08 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/04 05:38:16 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,32 @@ typedef struct		s_mlxdata{
 	int				offset;
 }					t_mlxdata;
 
+typedef struct		s_solutions{
+	float			t1;
+	float			t2;
+}					t_solutions;
+
 typedef struct		s_sphere{
 	t_point			center;
 	float			radius;
 }					t_sphere;
 
-typedef struct		s_solutions{
-	float			t1;
-	float			t2;
-}					t_solutions;
+typedef struct		s_triangle{
+	t_point			a;
+	t_point			b;
+	t_point			c;
+	t_point			norm;
+	float			d;
+}					t_triangle;
+
+typedef struct		s_triangleParams{
+	t_point			a;
+	t_point			b;
+	t_point			c;
+	t_color			color;
+	float			reflection;
+	float			spec;
+}					t_triangleParams;
 
 typedef struct		s_sphereParams{
 	t_point			center;
@@ -69,7 +86,8 @@ typedef struct		s_sphereParams{
 
 typedef struct		s_object{
 	enum			type{
-					SPHERE
+					SPHERE,
+					TRIANGLE
 	}				e_type;
 	void			*data;
 	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
@@ -159,7 +177,7 @@ t_color				ft_colorMultiply(float a, t_color color);
 t_color				ft_colorAdd(t_color a, t_color b);
 char				**ft_split(char	const *s, char c);
 int					ft_atoi(char *str);
-
+t_point				ft_vecCross(t_point A, t_point B);
 /*
 ** Render
 */
@@ -178,6 +196,7 @@ t_parsedData		*ft_parser(int argc, char *argv[]);
 ** Constructors
 */
 t_object			*ft_createSphere(t_sphereParams params);
+t_object			*ft_createTriangle(t_triangleParams params);
 
 /*
 ** Lists

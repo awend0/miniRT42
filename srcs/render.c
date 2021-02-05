@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 03:25:01 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 04:20:42 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ float		ft_computeLighting(t_computeParams args)
 			}
 			else if (cur->light->e_type == DIRECTION)
 				light = cur->light->position;
-			blocker = ft_closestInter((t_closestParams){args.P, light, 0.001, t_max, args.objects});
+			blocker = ft_closestInter((t_closestParams){args.P, light, 0.1, t_max, args.objects});
 			if (blocker.object)
 			{
 				cur = cur->next;

@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/02/04 03:25:38 by hasv             ###   ########.fr        #
+#    Updated: 2021/02/05 04:23:33 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME =		miniRT
 
 CFILE =		srcs/main.c\
 			srcs/render.c\
-			srcs/sphere.c\
 			srcs/utils.c\
 			srcs/parser.c\
 			srcs/get_next_line.c\
@@ -22,6 +21,8 @@ CFILE =		srcs/main.c\
 			srcs/ft_split.c\
 			srcs/lights_list.c\
 			srcs/objects_list.c\
+			srcs/sphere.c\
+			srcs/triangle.c\
 
 INCLUDES =	includes/
 
@@ -31,9 +32,7 @@ all: $(NAME)
 
 $(NAME):
 		@echo miniRT start.
-		@export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
-		@export DISPLAY=localhost:0.0
-		gcc -g -Wall -Wextra -Werror -I $(INCLUDES) $(CFILE) $(MLX_FLAGS) -o $(NAME)
+		gcc -Wall -Wextra -Werror -I $(INCLUDES) $(CFILE) $(MLX_FLAGS) -o $(NAME) -O3
 		@echo miniRT compiled!
 
 clean:
