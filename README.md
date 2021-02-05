@@ -15,8 +15,11 @@ Basic raytracing engine on C using MiniLibX.
 - l [X],[Y],[Z] [intensity] [R],[G],[B] *// point lighting*
 - sp [X],[Y],[Z] [radius] [R],[G],[B] [reflection rate] [specular rate] *// sphere*
 - tr [X],[Y],[Z] [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [reflection rate] [specular rate] *// triangle*
+
 #### Usage
 
+- export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0 *// WSL only*  
+- export DISPLAY=localhost:0.0 *// WSL(2) only  
 - ./miniRT map.rt --save *// --save: save render as bmp file*  
 - Relish  
 
