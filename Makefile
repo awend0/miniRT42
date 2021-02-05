@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/02/05 04:23:33 by hasv             ###   ########.fr        #
+#    Updated: 2021/02/05 04:43:09 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,13 @@ CFILE =		srcs/main.c\
 
 INCLUDES =	includes/
 
-MLX_FLAGS =	-Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+MLX_FLAGS =	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
 $(NAME):
 		@echo miniRT start.
+		make -C mlx_linux/
 		gcc -Wall -Wextra -Werror -I $(INCLUDES) $(CFILE) $(MLX_FLAGS) -o $(NAME) -O3
 		@echo miniRT compiled!
 
