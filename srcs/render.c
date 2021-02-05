@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 04:20:42 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 06:22:04 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ t_color     ft_traceRay(t_traceParams args)
 		return (colors[0]);
 	reRay = ft_reflectRay(ft_vecMultiply(-1, args.direction),
 	closest.object->ft_getNormal(closest.object->data, closest.inter));
+	//if (closest.object->e_type == TRIANGLE)
+		//printf("%f\n%f\n%f\n\n", closest.object->ft_getNormal(closest.object->data, closest.inter).x, closest.object->ft_getNormal(closest.object->data, closest.inter).y, closest.object->ft_getNormal(closest.object->data, closest.inter).z);
 	colors[1] = ft_traceRay((t_traceParams){closest.inter, reRay, args.objects,
 						args.lights, 0.1, __FLT_MAX__,  args.recDepth -  1});
 	return (ft_colorAdd(ft_colorMultiply(1.0 - closest.object->refl, colors[0]),

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 02:12:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 05:01:52 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 07:50:34 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,41 @@ t_point		ft_vecCross(t_point A, t_point B)
 	ret.x = A.y * B.z - A.z * B.y;
 	ret.y = A.z * B.x - A.x * B.z;
 	ret.z = A.x * B.y - A.y * B.x;
+	return (ret);
+}
+
+float		ft_modv(float vx, float vy, float vz)
+{
+	return sqrtf(vx * vx + vy * vy + vz * vz);
+}
+
+t_point		ft_vecNormalize(t_point vec)
+{
+	t_point	ret;
+	float	mod_v;
+
+	mod_v = ft_modv(vec.x, vec.y, vec.z);
+	ret.x = vec.x / mod_v;
+	ret.y = vec.y / mod_v;
+	ret.z = vec.z / mod_v;
+	return (ret);
+}
+
+t_point		ft_vecMatrix(float **mat, t_point vec)
+{
+    t_point	ret;
+
+	ret = (t_point){0.0, 0.0, 0.0};
+	ret.x += vec.x*mat[0][0];
+	ret.x += vec.y*mat[0][1];
+	ret.x += vec.z*mat[0][2];
+
+	ret.y += vec.x*mat[1][0];
+	ret.y += vec.y*mat[1][1];
+	ret.y += vec.z*mat[1][2];
+
+	ret.z += vec.x*mat[2][0];
+	ret.z += vec.y*mat[2][1];
+	ret.z += vec.z*mat[2][2];
 	return (ret);
 }

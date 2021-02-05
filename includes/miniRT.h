@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 05:38:16 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 07:50:51 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
 #ifndef RECURSION_DEPTH
-# define RECURSION_DEPTH 10
+# define RECURSION_DEPTH 3
 #endif
 
 typedef struct		s_point{
@@ -39,6 +39,13 @@ typedef struct		s_viewport{
 	float			height;
 	float			d;
 }					t_viewport;
+
+typedef struct		s_camera{
+	t_point			pos;
+	t_viewport		viewport;
+	float			fov;
+	float			**rotation;
+}					t_camera;
 
 typedef struct		s_mlxdata{
 	void			*img;
@@ -127,8 +134,7 @@ typedef struct		s_lightsList{
 typedef struct		s_parsedData{
 	t_objectsList	*objects;
 	t_lightsList	*lights;
-	t_point			origin;
-	t_viewport		viewport;
+	t_camera		camera;
 }					t_parsedData;
 
 typedef struct		s_closestParams{
@@ -178,6 +184,10 @@ t_color				ft_colorAdd(t_color a, t_color b);
 char				**ft_split(char	const *s, char c);
 int					ft_atoi(char *str);
 t_point				ft_vecCross(t_point A, t_point B);
+t_point				ft_vecNormalize(t_point vec);
+float				ft_modv(float vx, float vy, float vz);
+t_point				ft_vecMatrix(float **mat, t_point vec);
+
 /*
 ** Render
 */

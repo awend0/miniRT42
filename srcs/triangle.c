@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 04:46:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 04:21:46 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 06:21:53 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 t_point		ft_getNormalTriangle(void *data, t_point intersection)
 {
-	t_point		ret;
-	t_triangle	*triangle;
-
-	triangle = data;
 	(void)intersection;
-	ret = ft_vecCross(ft_vecSubtract(triangle->a, triangle->c), ft_vecSubtract(triangle->c, triangle->b));
-	return (ret);
+	return (((t_triangle*)data)->norm);
 }
 
 int				ft_checkInter(t_point v1, t_point v2, t_point norm)
@@ -75,7 +70,7 @@ t_object	*ft_createTriangle(t_triangleParams params)
 	triangle->a = params.a;
 	triangle->b = params.b;
 	triangle->c = params.c;
-	triangle->norm = ft_vecCross(ft_vecSubtract(triangle->a, triangle->c), ft_vecSubtract(triangle->c, triangle->b));
+	triangle->norm = ft_vecNormalize(ft_vecCross(ft_vecSubtract(triangle->a, triangle->c), ft_vecSubtract(triangle->c, triangle->b)));
 	triangle->d = -(triangle->a.x * triangle->norm.x + triangle->a.y * triangle->norm.y + triangle->a.z * triangle->norm.z);
 	obj->e_type = TRIANGLE;
 	obj->data = triangle;

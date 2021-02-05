@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 04:32:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 07:47:28 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void		ft_drawCanvas(t_mlxdata *img, t_parsedData *data)
 		y = -g_height / 2;
 		while (y < g_height / 2)
 		{
-			direction = ft_canvasToViewport(x, y, data->viewport);
-			color = ft_traceRay((t_traceParams){data->origin, direction, data->objects, data->lights, 1.0, __FLT_MAX__, RECURSION_DEPTH});
+			direction = ft_vecMatrix(data->camera.rotation, ft_canvasToViewport(x, y, data->camera.viewport));
+			color = ft_traceRay((t_traceParams){data->camera.pos, direction, data->objects, data->lights, 1.0, __FLT_MAX__, RECURSION_DEPTH});
 			ft_putPixel(img, x, y, color);
 			y++;
 		}

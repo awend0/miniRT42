@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/04 05:42:02 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/05 07:50:26 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,40 @@ void			ft_parseRes(char *line)
 	free (words);
 }
 
-t_point			ft_parseCam(char *line)
+float			**ft_rotationMatrix(t_point A)
+{
+	float	**ret;
+	t_point B;
+	t_point C;
+
+	ret = malloc(3 * sizeof(float));
+	ret[0] = malloc(3 * sizeof(float));
+	ret[1] = malloc(3 * sizeof(float));
+	ret[2] = malloc(3 * sizeof(float));
+	B = (t_point){0.0, 0.0, 1.0};
+	C = ft_vecCross(A, B);
+	B = ft_vecCross(C, A);
+	ret[0][0] = B.x;
+	ret[0][1] = C.x;
+	ret[0][1] = C.y;
+	ret[1][0] = B.y;
+	ret[1][1] = C.y;
+	ret[1][2] = A.y;
+	ret[2][0] = B.z;
+	ret[2][1] = C.z;
+	ret[2][2] = A.z;
+	return (ret); 	
+}
+t_camera		ft_parseCam(char *line)
 {
 	char	**words;
-	t_point	ret;
+	t_camera ret;
 
 	words = ft_split(line, ' ');
-	ret = ft_stop(words[1]);
+	ret.pos = ft_stop(words[1]);
+	ret.rotation = ft_rotationMatrix(ft_stop(words[2]));
+	ret.fov = ft_stof(words[3]);
+	ret.viewport = (t_viewport){1.0, 1.0, 1.0};
 	free (words);
 	return (ret);
 }
@@ -145,7 +172,7 @@ t_parsedData	*ft_parseProcessor(char *line, t_parsedData *data)
 	if (line[0] == 'A')
 		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parseA(line)));
 	if (line[0] == 'c')
-		data->origin = ft_parseCam(line);
+		data->camera = ft_parseCam(line);
 	if (line[0] == 'l')
 		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parsePoint(line)));
 	if (line[0] == 's' && line[1] == 'p')
@@ -165,9 +192,6 @@ t_parsedData	*ft_parser(int argc, char *argv[])
 	ret = malloc(sizeof(t_parsedData));
 	ret->lights = 0;
 	ret->objects = 0;
-	ret->viewport.d = 1.0;
-	ret->viewport.height = 1.0;
-	ret->viewport.width = 1.0;
 	if (argc >= 2)
 	{
 		fd = open(argv[1], O_RDONLY);
