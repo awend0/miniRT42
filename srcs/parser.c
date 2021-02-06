@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 10:21:50 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/06 15:23:15 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_object		*ft_parse_triangle(char *line)
 	t_object			*ret;
 	t_triangleParams	params;
 
-	ret = malloc(sizeof(t_triangle));
+	ret = malloc(sizeof(t_object));
 	words = ft_split(line, ' ');
 	params.a = ft_stop(words[1]);
 	params.b = ft_stop(words[2]);
@@ -161,6 +161,28 @@ t_object		*ft_parse_triangle(char *line)
 	if (words[6])
 		params.spec = ft_stof(words[6]);
 	ret = ft_create_triangle(params);
+	free (words);
+	return (ret);
+}
+
+t_object		*ft_parse_plane(char *line)
+{
+	char			**words;
+	t_object		*ret;
+	t_planeParams	params;
+
+	ret = malloc(sizeof(t_object));
+	words = ft_split(line, ' ');
+	params.p = ft_stop(words[1]);
+	params.norm = ft_stop(words[2]);
+	params.color = ft_stoc(words[3]);
+	params.reflection = 0.5;
+	params.spec = 500;
+	if (words[4])
+		params.reflection = ft_stof(words[4]);
+	if (words[5])
+		params.spec = ft_stof(words[5]);
+	ret = ft_create_plane(params);
 	free (words);
 	return (ret);
 }
@@ -179,6 +201,8 @@ t_parsedData	*ft_parse_processor(char *line, t_parsedData *data)
 		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_sphere(line)));
 	if (line[0] == 't' && line[1] == 'r')
 		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_triangle(line)));
+	if (line[0] == 'p' && line[1] == 'l')
+		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_plane(line)));
 	return (data);
 }
 

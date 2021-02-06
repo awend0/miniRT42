@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 10:21:42 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/06 13:45:44 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,24 @@ typedef struct		s_sphereParams{
 	float 			spec;
 }					t_sphereParams;
 
+typedef struct		s_planeParams{
+	t_point			p;
+	t_point			norm;
+	t_color			color;
+	float			reflection;
+	float			spec;
+}					t_planeParams;
+
+typedef struct		s_plane{
+	t_point			p;
+	t_point			norm;
+}					t_plane;
+
 typedef struct		s_object{
 	enum			type{
 					SPHERE,
-					TRIANGLE
+					TRIANGLE,
+					PLANE
 	}				e_type;
 	void			*data;
 	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
@@ -207,6 +221,7 @@ t_parsedData		*ft_parser(int argc, char *argv[]);
 */
 t_object			*ft_create_sphere(t_sphereParams params);
 t_object			*ft_create_triangle(t_triangleParams params);
+t_object			*ft_create_plane(t_planeParams params);
 
 /*
 ** Lists
