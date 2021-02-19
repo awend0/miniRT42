@@ -23,7 +23,7 @@ Basic raytracing engine on C using MiniLibX.
 - ./miniRT map.rt --save *// --save: save render as bmp file*  
 - Relish  
 
-#### Example
+#### Examples
 
 ![Beautiful render](https://github.com/awend0/miniRT/blob/master/screenshots/simple.jpg?raw=true)  
 ![Another render](https://github.com/awend0/miniRT/blob/master/screenshots/room.jpg?raw=true)

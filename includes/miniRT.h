@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/06 13:45:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/19 20:16:49 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,47 @@ typedef struct		s_plane{
 	t_point			norm;
 }					t_plane;
 
+typedef struct		s_disc{
+	t_point			p;
+	t_point			norm;
+	t_plane			*pl;
+	float			r;
+}					t_disc;
+
+typedef struct		s_discParams{
+	t_point			p;
+	t_point			norm;
+	t_color			color;
+	float			r;
+	float			reflection;
+	float			spec;
+}					t_discParams;
+
+typedef struct		s_cylinderParams{
+	t_point			p;
+	t_point			orient;
+	float			diam;
+	float			height;
+	t_color			color;
+	float			reflection;
+	float			spec;
+}					t_cylinderParams;
+
+typedef struct		s_cylinder{
+	t_point			p;
+	t_point			orient;
+	t_point			bottom;
+	float			diam;
+	float			height;
+}					t_cylinder;
+
 typedef struct		s_object{
 	enum			type{
 					SPHERE,
 					TRIANGLE,
-					PLANE
+					PLANE,
+					CYLINDER,
+					DISK
 	}				e_type;
 	void			*data;
 	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
@@ -201,7 +237,7 @@ t_point				ft_vec_cross(t_point A, t_point B);
 t_point				ft_vec_norm(t_point vec);
 float				ft_modv(float vx, float vy, float vz);
 t_point				ft_vec_mat(float **mat, t_point vec);
-
+t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
 /*
 ** Render
 */
@@ -222,6 +258,8 @@ t_parsedData		*ft_parser(int argc, char *argv[]);
 t_object			*ft_create_sphere(t_sphereParams params);
 t_object			*ft_create_triangle(t_triangleParams params);
 t_object			*ft_create_plane(t_planeParams params);
+t_object			*ft_create_cylinder(t_cylinderParams params);
+t_object			*ft_create_disc(t_discParams params);
 
 /*
 ** Lists

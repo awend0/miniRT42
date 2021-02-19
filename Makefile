@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/02/06 13:46:03 by hasv             ###   ########.fr        #
+#    Updated: 2021/02/19 19:44:41 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ CFILE =		srcs/main.c\
 			srcs/sphere.c\
 			srcs/triangle.c\
 			srcs/plane.c\
+			srcs/cylinder.c\
+			srcs/disc.c\
 
 INCLUDES =	includes/
 
