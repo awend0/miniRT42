@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/19 20:55:58 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:03:33 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,13 @@ t_objectsList	*ft_cylinder_caps(t_object *obj, t_cylinderParams params)
 	t_object		*top_cap;
 	t_object		*bottom_cap;
 
-	top_cap = ft_create_disc((t_discParams){params.p, ft_vec_multiply(-1, params.orient), (t_color){255,0,0}, params.diam / 2.0, params.reflection, params.spec});
-	bottom_cap = ft_create_disc((t_discParams){ft_vec_add(params.p, ft_vec_multiply(params.height, params.orient)), params.orient, (t_color){255,0,0}, params.diam / 2.0, params.reflection, params.spec});
+	top_cap = ft_create_disc((t_discParams){params.p, ft_vec_multiply(-1, ft_vec_norm(params.orient)),
+		params.color, params.diam / 2.0, params.reflection, params.spec});
+	bottom_cap = ft_create_disc((t_discParams){ft_vec_add(params.p, ft_vec_multiply(params.height, ft_vec_norm(params.orient))), params.orient,
+		params.color, params.diam / 2.0, params.reflection, params.spec});
 	ret = ft_olstnew(obj);
 	ret->next = ft_olstnew(top_cap);
 	((t_objectsList*)ret->next)->next = ft_olstnew(bottom_cap);
-	printf("%f\n%f\n%f\n\n", ((t_disc*)top_cap->data)->p.x, ((t_disc*)top_cap->data)->p.y, ((t_disc*)top_cap->data)->p.z);
-	printf("%f\n%f\n%f\n\n==\n", ((t_disc*)bottom_cap->data)->p.x, ((t_disc*)bottom_cap->data)->p.y, ((t_disc*)bottom_cap->data)->p.z);
 	return (ret);
 }
 
