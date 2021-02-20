@@ -6,14 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 09:15:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 09:17:43 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:32 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float g_width;
-extern float g_height;
+extern double g_width;
+extern double g_height;
 
 int		ft_create_trgb(int t, int r, int g, int b)
 {
@@ -34,7 +34,7 @@ void	ft_putpixel(t_mlxdata *data, int x, int y, t_color color)
 		(int)color.r, (int)color.g, (int)color.b);
 }
 
-t_color	ft_color_multiply(float a, t_color color)
+t_color	ft_color_multiply(double a, t_color color)
 {
 	t_color	ret;
 

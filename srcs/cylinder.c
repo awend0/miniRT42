@@ -6,14 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 19:24:36 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float g_width;
-extern float g_height;
+extern double g_width;
+extern double g_height;
 extern t_color g_background_color;
 
 t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
@@ -21,8 +21,8 @@ t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 	t_solutions	ret;
 	t_point		x;
 	t_cylinder	*cyl;
-	float		k[4];
-	float		m[2];
+	double		k[4];
+	double		m[2];
 
 	cyl = data;
 	x = ft_vec_s(origin, cyl->p);
@@ -31,22 +31,22 @@ t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 	k[2] = ft_vec_dot(x, x) - powf(ft_vec_dot(x, cyl->orient), 2) - powf(cyl->diam / 2.0, 2);
 	k[3] = k[1] * k[1] - 4 * k[0] * k[2];
 	if (k[3] < 0.0)
-		return ((t_solutions){__FLT_MAX__, __FLT_MAX__});
+		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 	ret.t1 = (-k[1] + sqrtf(k[3])) / (2.0 * k[0]);
 	ret.t2 = (-k[1] - sqrtf(k[3])) / (2.0 * k[0]);
 	m[0] = ft_vec_dot(dir, cyl->orient) * ret.t1 + ft_vec_dot(x, cyl->orient);
 	m[1] = ft_vec_dot(dir, cyl->orient) * ret.t2 + ft_vec_dot(x, cyl->orient);
 	if (m[0] < 0 || m[0] > cyl->height)
-		ret.t1 = __FLT_MAX__;
+		ret.t1 = __DBL_MAX__;
 	if (m[1] < 0 || m[1] > cyl->height)
-		ret.t2 = __FLT_MAX__;
+		ret.t2 = __DBL_MAX__;
 	return (ret); 
 }
 
 t_point		ft_get_normal_cylinder(void *data, t_point intersection)
 {
 	t_cylinder	*cyl;
-	float		t;
+	double		t;
 	t_point		pt;
 
 	cyl = data;

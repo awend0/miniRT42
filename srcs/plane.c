@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 13:30:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/10 12:38:53 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:29 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ t_solutions	ft_intersect_plane(void *data, t_point origin, t_point dir)
 {
 	t_plane		*pl;
 	t_solutions	ret;
-	float		denom;
-	float		t;
+	double		denom;
+	double		t;
 
-	ret.t1 = __FLT_MAX__;
-	ret.t2 = __FLT_MAX__;
+	ret.t1 = __DBL_MAX__;
+	ret.t2 = __DBL_MAX__;
 	pl = data;
 	denom = ft_vec_dot(pl->norm, dir);
 	if (fabs(denom) > 0.001)

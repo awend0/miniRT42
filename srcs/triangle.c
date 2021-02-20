@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 04:46:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 10:23:04 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:31 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ t_solutions	ft_intersect_triangle(void *data, t_point or, t_point dir)
 {
 	t_triangle	*tr;
 	t_solutions ret;
-	float		k;
+	double		k;
 	t_point		inter;
 
-	ret.t1 = __FLT_MAX__;
-	ret.t2 = __FLT_MAX__;
+	ret.t1 = __DBL_MAX__;
+	ret.t2 = __DBL_MAX__;
 	tr = data;
-	ret.t2 = __FLT_MAX__;
+	ret.t2 = __DBL_MAX__;
 	k = -(tr->norm.x * or.x + tr->norm.y * or.y +
 	tr->norm.z * or.z + tr->d) / ft_vec_dot(tr->norm, dir);
 	if (k < 0.1 || fabs(ft_vec_dot(tr->norm, dir)) < 0.1)

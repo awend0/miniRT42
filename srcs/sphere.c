@@ -6,14 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:22:07 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/06 18:59:32 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:30 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float g_width;
-extern float g_height;
+extern double g_width;
+extern double g_height;
 extern t_color g_background_color;
 
 t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
@@ -21,8 +21,8 @@ t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
 	t_solutions ret;
 	t_sphere	*sphere;
 	t_point		oc;
-	float		discriminant;
-	float		k[3];
+	double		discriminant;
+	double		k[3];
 
 	sphere = data;
 	oc = ft_vec_s(origin, sphere->center);
@@ -32,8 +32,8 @@ t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
 	discriminant = k[1] * k[1] - 4 * k[0] * k[2];
 	if (discriminant < 0.0)
 	{
-		ret.t1 = __FLT_MAX__;
-		ret.t2 = __FLT_MAX__;
+		ret.t1 = __DBL_MAX__;
+		ret.t2 = __DBL_MAX__;
 		return (ret);
 	}
 	ret.t1 = (-k[1] + sqrtf(discriminant)) / (2.0 * k[0]);

@@ -6,13 +6,13 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 09:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 09:17:30 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:31 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-t_point	ft_vec_multiply(float k, t_point a)
+t_point	ft_vec_multiply(double k, t_point a)
 {
 	t_point ret;
 
@@ -32,7 +32,7 @@ t_point	ft_vec_cross(t_point a, t_point b)
 	return (ret);
 }
 
-float	ft_modv(float vx, float vy, float vz)
+double	ft_modv(double vx, double vy, double vz)
 {
 	return (sqrtf(vx * vx + vy * vy + vz * vz));
 }
@@ -40,7 +40,7 @@ float	ft_modv(float vx, float vy, float vz)
 t_point	ft_vec_norm(t_point vec)
 {
 	t_point	ret;
-	float	mod_v;
+	double	mod_v;
 
 	mod_v = ft_modv(vec.x, vec.y, vec.z);
 	ret.x = vec.x / mod_v;
@@ -49,7 +49,7 @@ t_point	ft_vec_norm(t_point vec)
 	return (ret);
 }
 
-t_point	ft_vec_mat(float **mat, t_point vec)
+t_point	ft_vec_mat(double **mat, t_point vec)
 {
 	t_point	ret;
 

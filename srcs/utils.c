@@ -6,14 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 02:12:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 09:17:49 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:31 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float g_width;
-extern float g_height;
+extern double g_width;
+extern double g_height;
 extern t_color g_background_color;
 
 t_point	ft_vec_s(t_point a, t_point b)
@@ -26,12 +26,12 @@ t_point	ft_vec_s(t_point a, t_point b)
 	return (ret);
 }
 
-float	ft_vec_dot(t_point a, t_point b)
+double	ft_vec_dot(t_point a, t_point b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }
 
-float	ft_vec_length(t_point a)
+double	ft_vec_length(t_point a)
 {
 	return (sqrtf(ft_vec_dot(a, a)));
 }

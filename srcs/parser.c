@@ -6,24 +6,24 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:03:33 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:29 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float 	g_width;
-extern float 	g_height;
+extern double 	g_width;
+extern double 	g_height;
 extern t_color	g_background_color;
 
-float			ft_stof(char *line)
+double			ft_stof(char *line)
 {
 	char	**temp;
 
 	temp = ft_split(line, '.');
 	if (!temp[1])
-		return ((float)(ft_atoi(temp[0])));
-	return ((float)ft_atoi(temp[0]) + ((float)ft_atoi(temp[1]) / powf(10, ft_strlen(temp[1]))));
+		return ((double)(ft_atoi(temp[0])));
+	return ((double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / powf(10, ft_strlen(temp[1]))));
 }
 
 t_color			ft_stoc(char *line)
@@ -77,21 +77,21 @@ void			ft_parse_res(char *line)
 	words = ft_split(line, ' ');
 	g_width = 0;
 	g_height = 0;
-	g_width = (float)ft_atoi(words[1]);
-	g_height = (float)ft_atoi(words[2]);
+	g_width = (double)ft_atoi(words[1]);
+	g_height = (double)ft_atoi(words[2]);
 	free (words);
 }
 
-float			**ft_rotation_matrix(t_point A)
+double			**ft_rotation_matrix(t_point A)
 {
-	float	**ret;
+	double	**ret;
 	t_point B;
 	t_point C;
 
-	ret = malloc(3 * sizeof(float));
-	ret[0] = malloc(3 * sizeof(float));
-	ret[1] = malloc(3 * sizeof(float));
-	ret[2] = malloc(3 * sizeof(float));
+	ret = malloc(3 * sizeof(double));
+	ret[0] = malloc(3 * sizeof(double));
+	ret[1] = malloc(3 * sizeof(double));
+	ret[2] = malloc(3 * sizeof(double));
 	B = (t_point){0.0, 0.0, 1.0};
 	C = ft_vec_cross(A, B);
 	B = ft_vec_cross(C, A);

@@ -6,14 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 10:20:51 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:30 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float g_width;
-extern float g_height;
+extern double g_width;
+extern double g_height;
 extern t_color g_background_color;
 
 t_point		ft_reflect_ray(t_point r, t_point n)
@@ -21,7 +21,7 @@ t_point		ft_reflect_ray(t_point r, t_point n)
 	return (ft_vec_s(ft_vec_multiply(2.0 * ft_vec_dot(r, n), n), r));
 }
 
-t_point		ft_canvas_to_viewport(float x, float y, t_viewport viewport)
+t_point		ft_canvas_to_viewport(double x, double y, t_viewport viewport)
 {
 	t_point	ret;
 
@@ -37,7 +37,7 @@ t_closest	ft_closest_inter(t_closestParams params)
 	t_solutions		ir;
 	t_objectsList	*cur;
 
-	ret.t = __FLT_MAX__;
+	ret.t = __DBL_MAX__;
 	ret.object = 0;
 	cur = params.objects;
 	while (cur)
@@ -59,19 +59,19 @@ t_closest	ft_closest_inter(t_closestParams params)
 	return (ret);
 }
 
-float		ft_compute_lighting(t_computeParams args)
+double		ft_compute_lighting(t_computeParams args)
 {
 	t_point			light;
 	t_point			ray;
 	t_lightsList	*cur;
 	t_closest		blocker;
-	float			intensity;
-	float			n_l;
-	float			r_v;
-	float			t_max;
+	double			intensity;
+	double			n_l;
+	double			r_v;
+	double			t_max;
 
 	intensity = 0.0;
-	t_max = __FLT_MAX__;
+	t_max = __DBL_MAX__;
 	cur = args.lights;
 	while (cur)
 	{
@@ -117,7 +117,7 @@ t_color		ft_trace_ray(t_traceParams args)
 	t_closest		closest;
 	t_point			reRay;
 	t_color			colors[2];
-	float			intensity;
+	double			intensity;
 
 	closest = ft_closest_inter((t_closestParams){args.origin, args.direction,
 						args.t_min, args.t_max, args.objects});
@@ -132,7 +132,7 @@ t_color		ft_trace_ray(t_traceParams args)
 	reRay = ft_reflect_ray(ft_vec_multiply(-1, args.direction),
 	closest.object->ft_getNormal(closest.object->data, closest.inter));
 	colors[1] = ft_trace_ray((t_traceParams){closest.inter, reRay, args.objects,
-						args.lights, 0.1, __FLT_MAX__,  args.recDepth -  1});
+						args.lights, 0.1, __DBL_MAX__,  args.recDepth -  1});
 	return (ft_color_add(ft_color_multiply(1.0 - closest.object->refl, colors[0]),
 						ft_color_multiply(closest.object->refl, colors[1])));
 }

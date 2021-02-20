@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/19 20:16:49 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:34 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,28 @@
 #endif
 
 typedef struct		s_point{
-	float			x;
-	float			y;
-	float			z;
+	double			x;
+	double			y;
+	double			z;
 }					t_point;
 
 typedef struct		s_color{
-	float			r;
-	float			g;
-	float			b;
+	double			r;
+	double			g;
+	double			b;
 }					t_color;
 
 typedef struct		s_viewport{
-	float			width;
-	float			height;
-	float			d;
+	double			width;
+	double			height;
+	double			d;
 }					t_viewport;
 
 typedef struct		s_camera{
 	t_point			pos;
 	t_viewport		viewport;
-	float			fov;
-	float			**rotation;
+	double			fov;
+	double			**rotation;
 }					t_camera;
 
 typedef struct		s_mlxdata{
@@ -57,13 +57,13 @@ typedef struct		s_mlxdata{
 }					t_mlxdata;
 
 typedef struct		s_solutions{
-	float			t1;
-	float			t2;
+	double			t1;
+	double			t2;
 }					t_solutions;
 
 typedef struct		s_sphere{
 	t_point			center;
-	float			radius;
+	double			radius;
 }					t_sphere;
 
 typedef struct		s_triangle{
@@ -71,7 +71,7 @@ typedef struct		s_triangle{
 	t_point			b;
 	t_point			c;
 	t_point			norm;
-	float			d;
+	double			d;
 }					t_triangle;
 
 typedef struct		s_triangleParams{
@@ -79,24 +79,24 @@ typedef struct		s_triangleParams{
 	t_point			b;
 	t_point			c;
 	t_color			color;
-	float			reflection;
-	float			spec;
+	double			reflection;
+	double			spec;
 }					t_triangleParams;
 
 typedef struct		s_sphereParams{
 	t_point			center;
 	t_color			color;
-	float			radius;
-	float			reflection;
-	float 			spec;
+	double			radius;
+	double			reflection;
+	double 			spec;
 }					t_sphereParams;
 
 typedef struct		s_planeParams{
 	t_point			p;
 	t_point			norm;
 	t_color			color;
-	float			reflection;
-	float			spec;
+	double			reflection;
+	double			spec;
 }					t_planeParams;
 
 typedef struct		s_plane{
@@ -108,34 +108,34 @@ typedef struct		s_disc{
 	t_point			p;
 	t_point			norm;
 	t_plane			*pl;
-	float			r;
+	double			r;
 }					t_disc;
 
 typedef struct		s_discParams{
 	t_point			p;
 	t_point			norm;
 	t_color			color;
-	float			r;
-	float			reflection;
-	float			spec;
+	double			r;
+	double			reflection;
+	double			spec;
 }					t_discParams;
 
 typedef struct		s_cylinderParams{
 	t_point			p;
 	t_point			orient;
-	float			diam;
-	float			height;
+	double			diam;
+	double			height;
 	t_color			color;
-	float			reflection;
-	float			spec;
+	double			reflection;
+	double			spec;
 }					t_cylinderParams;
 
 typedef struct		s_cylinder{
 	t_point			p;
 	t_point			orient;
 	t_point			bottom;
-	float			diam;
-	float			height;
+	double			diam;
+	double			height;
 }					t_cylinder;
 
 typedef struct		s_object{
@@ -150,13 +150,13 @@ typedef struct		s_object{
 	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
 	t_point			(*ft_getNormal)(void *data, t_point intersection);
 	t_color			color;
-	float			refl;
-	float			spec;
+	double			refl;
+	double			spec;
 }					t_object;
 
 typedef struct		s_lightParams{
 	int				type;
-	float			intensity;
+	double			intensity;
 	t_point			position;
 }					t_lightParams;
 
@@ -166,7 +166,7 @@ typedef struct		s_light{
 					POINT,
 					DIRECTION
 	}				e_type;
-	float			intensity;
+	double			intensity;
 	t_point			position;
 	t_color			color;
 }					t_light;
@@ -190,15 +190,15 @@ typedef struct		s_parsedData{
 typedef struct		s_closestParams{
 	t_point			origin;
 	t_point			direction;
-	float			t_min;
-	float			t_max;
+	double			t_min;
+	double			t_max;
 	t_objectsList	*objects;
 }					t_closestParams;
 
 typedef struct		s_closest{
 	t_point			inter;
 	t_object		*object;
-	float			t;
+	double			t;
 }					t_closest;
 
 typedef struct		s_traceParams{
@@ -206,8 +206,8 @@ typedef struct		s_traceParams{
 	t_point			direction;
 	t_objectsList	*objects;
 	t_lightsList	*lights;
-	float			t_min;
-	float			t_max;
+	double			t_min;
+	double			t_max;
 	int				recDepth;
 }					t_traceParams;
 
@@ -222,29 +222,29 @@ typedef struct		s_computeParams{
 /*
 ** Utils;
 */
-float				ft_vec_dot(t_point a, t_point b);
+double				ft_vec_dot(t_point a, t_point b);
 t_point				ft_vec_s(t_point O, t_point D);
-float				ft_vec_length(t_point a);
-t_point 			ft_vec_multiply(float k, t_point a);
+double				ft_vec_length(t_point a);
+t_point 			ft_vec_multiply(double k, t_point a);
 t_point 			ft_vec_add(t_point a, t_point b);
 void				ft_putpixel(t_mlxdata *data, int x, int y, t_color color);
 int					ft_create_trgb(int t, int r, int g, int b);
-t_color				ft_color_multiply(float a, t_color color);
+t_color				ft_color_multiply(double a, t_color color);
 t_color				ft_color_add(t_color a, t_color b);
 char				**ft_split(char	const *s, char c);
 int					ft_atoi(char *str);
 t_point				ft_vec_cross(t_point A, t_point B);
 t_point				ft_vec_norm(t_point vec);
-float				ft_modv(float vx, float vy, float vz);
-t_point				ft_vec_mat(float **mat, t_point vec);
+double				ft_modv(double vx, double vy, double vz);
+t_point				ft_vec_mat(double **mat, t_point vec);
 t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
 /*
 ** Render
 */
 t_color				ft_trace_ray(t_traceParams args);
-float				ft_compute_lighting(t_computeParams args);
+double				ft_compute_lighting(t_computeParams args);
 t_closest			ft_closest_inter(t_closestParams params);
-t_point				ft_canvas_to_viewport(float x, float y, t_viewport viewport);
+t_point				ft_canvas_to_viewport(double x, double y, t_viewport viewport);
 t_point				ft_reflect_ray(t_point R, t_point N);
 
 /*

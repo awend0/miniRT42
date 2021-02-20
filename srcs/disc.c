@@ -6,14 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:29:02 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/19 19:59:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:12:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern float g_width;
-extern float g_height;
+extern double g_width;
+extern double g_height;
 extern t_color g_background_color;
 
 t_solutions	ft_intersect_disk(void *data, t_point origin, t_point dir)
@@ -23,10 +23,10 @@ t_solutions	ft_intersect_disk(void *data, t_point origin, t_point dir)
 
 	disc = data;
 	ret = ft_intersect_plane((void*)disc->pl, origin, dir);
-	if (ret.t1 < __FLT_MAX__ &&
+	if (ret.t1 < __DBL_MAX__ &&
 	ft_vec_length(ft_vec_s(ft_vec_add(origin, ft_vec_multiply(ret.t1, dir)), disc->p)) <= disc->r)
 		return (ret);
-	return ((t_solutions){__FLT_MAX__, __FLT_MAX__});
+	return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 }
 
 t_point		ft_get_normal_disc(void *data, t_point intersection)
