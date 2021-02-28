@@ -11,11 +11,12 @@ Basic raytracing engine on C using MiniLibX.
 
 - R [width] [height] *// display resolution (at the moment only 1:1)*  
 - c [X],[Y],[Y] [rotation X],[rotation Y],[rotation Z] [FOV] *// camera (rotation as normalized vector)*  
-- A [intensity] [R],[G],[B] *// ambient lighting
-- l [X],[Y],[Z] [intensity] [R],[G],[B] *// point lighting*
-- sp [X],[Y],[Z] [radius] [R],[G],[B] [reflection rate] [specular rate] *// sphere*
-- tr [X],[Y],[Z] [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [reflection rate] [specular rate] *// triangle*
-- cy [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [diameter] [height] [reflection rate] [specular rate] *//cylinder, replacy "cy" with "CY" to add caps*
+- A [intensity] [R],[G],[B] *// ambient lighting  
+- l [X],[Y],[Z] [intensity] [R],[G],[B] *// point lighting*  
+- sp [X],[Y],[Z] [radius] [R],[G],[B] [reflection rate] [specular rate] *// sphere*  
+- tr [X],[Y],[Z] [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [reflection rate] [specular rate] *// triangle*  
+- cy [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [diameter] [height] [reflection rate] [specular rate] *// cylinder, replacy "cy" with "CY" to add caps*  
+- ds [X],[Y],[Z] [X],[Y],[Z] [radius] [reflection rate] [specular rate] *// disc*  
 #### Usage
 
 - export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0 *// WSL only*  
