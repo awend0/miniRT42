@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:19:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 10:23:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ t_solutions	ft_intersect_cone(void *data, t_point origin, t_point dir)
 	return (ret); 
 }
 
-t_point		ft_get_normal_cone(void *data, t_point I)
+t_point		ft_get_normal_cone(void *data, t_point i)
 {
 	t_cone		*cone;
-	t_point		A;
+	t_point		a;
 	double		d;
 	double		dis;
 
 	cone = data;
-	dis = ft_vec_length(ft_vec_s(I, cone->p));
+	dis = ft_vec_length(ft_vec_s(i, cone->p));
 	d = dis * sqrt(1.0 + cone->k * cone->k);
-	A = ft_vec_add(cone->p, ft_vec_multiply(d, ft_vec_norm(cone->orient)));
-	return (ft_vec_norm(ft_vec_s(I, A)));
+	a = ft_vec_add(cone->p, ft_vec_multiply(d, ft_vec_norm(cone->orient)));
+	return (ft_vec_norm(ft_vec_s(i, a)));
 }
 
 t_object	*ft_create_cone(t_coneParams params)

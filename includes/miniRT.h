@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 07:57:54 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 09:56:31 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ typedef struct		s_closestParams{
 
 typedef struct		s_closest{
 	t_point			inter;
-	t_object		*object;
+	t_object		*obj;
 	double			t;
 }					t_closest;
 

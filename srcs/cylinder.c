@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 10:22:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 	cyl = data;
 	x = ft_vec_s(origin, cyl->p);
 	k[0] = ft_vec_dot(dir, dir) - powf(ft_vec_dot(dir, cyl->orient), 2);
-	k[1] = (ft_vec_dot(dir, x) - ft_vec_dot(dir, cyl->orient) * ft_vec_dot(x, cyl->orient)) * 2.0;
-	k[2] = ft_vec_dot(x, x) - powf(ft_vec_dot(x, cyl->orient), 2) - powf(cyl->diam / 2.0, 2);
+	k[1] = (ft_vec_dot(dir, x) - ft_vec_dot(dir, cyl->orient)
+		* ft_vec_dot(x, cyl->orient)) * 2.0;
+	k[2] = ft_vec_dot(x, x) - powf(ft_vec_dot(x, cyl->orient), 2)
+		- powf(cyl->diam / 2.0, 2);
 	k[3] = k[1] * k[1] - 4 * k[0] * k[2];
 	if (k[3] < 0.0)
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
@@ -41,7 +43,7 @@ t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 		ret.t1 = __DBL_MAX__;
 	if (m[1] < 0 || m[1] > cyl->height)
 		ret.t2 = __DBL_MAX__;
-	return (ret); 
+	return (ret);
 }
 
 t_point		ft_get_normal_cylinder(void *data, t_point intersection)

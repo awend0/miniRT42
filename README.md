@@ -15,7 +15,7 @@ Basic raytracing engine on C using MiniLibX.
 - l [X],[Y],[Z] [intensity] [R],[G],[B] *// point lighting*
 - sp [X],[Y],[Z] [radius] [R],[G],[B] [reflection rate] [specular rate] *// sphere*
 - tr [X],[Y],[Z] [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [reflection rate] [specular rate] *// triangle*
-
+- cy [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [diameter] [height] [reflection rate] [specular rate] *//cylinder, replacy "cy" with "CY" to add caps*
 #### Usage
 
 - export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0 *// WSL only*  
