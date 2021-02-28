@@ -6,25 +6,30 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 00:22:08 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 03:41:20 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:09:55 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
+
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*cur;
+	t_list	*ret;
 
-	cur = malloc(sizeof(t_list));
-	if (!cur)
+	ret = ft_malloc_save(sizeof(t_list));
+	if (!ret)
 		return (0);
 	if (!content)
-		cur->node = 0;
+		ret->node = 0;
 	else
-		cur->node = content;
-	cur->next = 0;
-	return (cur);
+		ret->node = content;
+	ret->next = 0;
+	return (ret);
 }
 
 t_list	*ft_lstadd_back(t_list *lst, t_list *new)

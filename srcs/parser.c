@@ -6,40 +6,50 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 03:40:11 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:07:24 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern double 	g_width;
-extern double 	g_height;
+extern double	g_width;
+extern double	g_height;
 extern t_color	g_background_color;
+extern t_list	*memory;
 
 double			ft_stof(char *line)
 {
 	char	**temp;
+	double	ret;
 
 	temp = ft_split(line, '.');
 	if (!temp[1])
 		return ((double)(ft_atoi(temp[0])));
-	return ((double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / pow(10, ft_strlen(temp[1]))));
+	ret = (double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / pow(10, ft_strlen(temp[1])));
+	free(temp);
+	return (ret);
 }
 
 t_color			ft_stoc(char *line)
 {
 	char	**temp;
+	t_color	ret;
 
 	temp = ft_split(line, ',');
-	return ((t_color){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});	
+	ret = (t_color){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])};
+	free(temp);
+	return (ret);	
 }
 
 t_point			ft_stop(char *line)
 {
 	char	**temp;
+	t_point	ret;
 
 	temp = ft_split(line, ',');
-	return ((t_point){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});	
+	ret = (t_point){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])};
+	free(temp);
+	return (ret);	
 }
 
 t_light			*ft_parse_pnt(char *line)
@@ -47,7 +57,7 @@ t_light			*ft_parse_pnt(char *line)
 	char	**words;
 	t_light	*ret;
 
-	ret = malloc(sizeof(t_light));
+	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ' ');
 	ret->e_type = POINT;
 	ret->position = ft_stop(words[1]);
@@ -62,7 +72,7 @@ t_light			*ft_parse_amb(char *line)
 	char	**words;
 	t_light	*ret;
 
-	ret = malloc(sizeof(t_light));
+	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ' ');
 	ret->e_type = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
@@ -88,10 +98,10 @@ double			**ft_rotation_matrix(t_point A)
 	t_point B;
 	t_point C;
 
-	ret = malloc(3 * sizeof(double));
-	ret[0] = malloc(3 * sizeof(double));
-	ret[1] = malloc(3 * sizeof(double));
-	ret[2] = malloc(3 * sizeof(double));
+	ret = ft_malloc_save(3 * sizeof(double));
+	ret[0] = ft_malloc_save(3 * sizeof(double));
+	ret[1] = ft_malloc_save(3 * sizeof(double));
+	ret[2] = ft_malloc_save(3 * sizeof(double));
 	B = (t_point){0.0, 0.0, 1.0};
 	C = ft_vec_cross(A, B);
 	B = ft_vec_cross(C, A);
@@ -106,6 +116,7 @@ double			**ft_rotation_matrix(t_point A)
 	ret[2][2] = A.z;
 	return (ret); 	
 }
+
 t_camera		ft_parse_camera(char *line)
 {
 	char	**words;
@@ -304,7 +315,7 @@ t_parsedData	*ft_parser(int argc, char *argv[])
 	char			*line;
 	int				i;
 
-	ret = malloc(sizeof(t_parsedData));
+	ret = ft_malloc_save(sizeof(t_parsedData));
 	ret->lights = 0;
 	ret->objects = 0;
 	if (argc >= 2)

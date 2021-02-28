@@ -6,14 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 09:15:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:32 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:50:17 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern double g_width;
-extern double g_height;
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 int		ft_create_trgb(int t, int r, int g, int b)
 {

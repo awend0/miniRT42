@@ -6,11 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 04:46:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:31 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:00:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 t_point		ft_get_normal_triangle(void *data, t_point intersection)
 {
@@ -61,8 +66,8 @@ t_object	*ft_create_triangle(t_triangleParams params)
 	t_triangle	*triangle;
 	t_object	*obj;
 
-	triangle = malloc(sizeof(t_triangle));
-	obj = malloc(sizeof(t_object));
+	triangle = ft_malloc_save(sizeof(t_triangle));
+	obj = ft_malloc_save(sizeof(t_object));
 	triangle->a = params.a;
 	triangle->b = params.b;
 	triangle->c = params.c;

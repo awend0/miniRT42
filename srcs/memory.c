@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 02:12:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 03:50:12 by hasv             ###   ########.fr       */
+/*   Created: 2021/02/28 03:42:39 by hasv              #+#    #+#             */
+/*   Updated: 2021/02/28 05:11:51 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,40 @@ extern double	g_height;
 extern t_color	g_background_color;
 extern t_list	*memory;
 
-t_point	ft_vec_s(t_point a, t_point b)
+void	*ft_malloc_save(int size)
 {
-	t_point	ret;
+	void	*ret;
+	t_list	*cur;
+	t_list	*new;
 
-	ret.x = a.x - b.x;
-	ret.y = a.y - b.y;
-	ret.z = a.z - b.z;
+	ret = malloc(size);
+	new = malloc(sizeof(t_list));
+	new->node = ret;
+	new->next = 0;
+	if (!memory)
+	{
+		memory = malloc(sizeof(t_list));
+		memory->node = malloc(1);
+		memory->next = 0;
+	}
+	cur = memory;
+	while (cur->next)
+		cur = cur->next;
+	cur->next = new;
 	return (ret);
 }
 
-double	ft_vec_dot(t_point a, t_point b)
+void	ft_free(void)
 {
-	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
-}
+	t_list	*cur;
+	t_list	*temp;
 
-double	ft_vec_length(t_point a)
-{
-	return (sqrtf(ft_vec_dot(a, a)));
-}
-
-t_point	ft_vec_add(t_point a, t_point b)
-{
-	t_point ret;
-
-	ret.x = a.x + b.x;
-	ret.y = a.y + b.y;
-	ret.z = a.z + b.z;
-	return (ret);
-}
-
-t_color	ft_color_add(t_color a, t_color b)
-{
-	t_color	ret;
-
-	ret.r = a.r + b.r;
-	ret.g = a.g + b.g;
-	ret.b = a.b + b.b;
-	return (ret);
+	cur = memory;
+	while (cur)
+	{
+		temp = cur;
+		cur = temp->next;
+		free(temp->node);
+		free(temp);
+	}
 }

@@ -6,15 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:29:02 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:19:30 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:00:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern double g_width;
-extern double g_height;
-extern t_color g_background_color;
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 t_solutions	ft_intersect_disc(void *data, t_point origin, t_point dir)
 {
@@ -40,9 +41,9 @@ t_object	*ft_create_disc(t_discParams params)
 	t_disc		*disc;
 	t_object	*obj;
 
-	disc = malloc(sizeof(t_disc));
-	disc->pl = malloc(sizeof(t_plane));
-	obj = malloc(sizeof(t_object));
+	disc = ft_malloc_save(sizeof(t_disc));
+	disc->pl = ft_malloc_save(sizeof(t_plane));
+	obj = ft_malloc_save(sizeof(t_object));
 	disc->p = params.p;
 	disc->norm = ft_vec_norm(params.norm);
 	disc->r = params.r;

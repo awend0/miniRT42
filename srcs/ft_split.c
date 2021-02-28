@@ -6,11 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 17:43:44 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/05 08:54:24 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:58:47 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 static int		ft_countwords(char const *s, char c)
 {

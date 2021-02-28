@@ -6,15 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:25:45 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/04 03:24:57 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:49:49 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
-#endif
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 int		ft_appendremainder(char **remainder, char *buf)
 {

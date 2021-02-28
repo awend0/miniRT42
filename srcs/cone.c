@@ -6,15 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:19:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/25 13:08:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:00:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern double g_width;
-extern double g_height;
-extern t_color g_background_color;
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 t_solutions	ft_intersect_cone(void *data, t_point origin, t_point dir)
 {
@@ -62,8 +63,8 @@ t_object	*ft_create_cone(t_coneParams params)
 	t_cone		*cone;
 	t_object	*obj;
 
-	cone = malloc(sizeof(t_cone));
-	obj = malloc(sizeof(t_object));
+	cone = ft_malloc_save(sizeof(t_cone));
+	obj = ft_malloc_save(sizeof(t_object));
 	cone->p = params.p;
 	cone->orient = params.orient;
 	cone->minm = params.minm;

@@ -6,11 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:28:39 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/04 03:24:56 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:58:47 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 char	*ft_strnew(int size)
 {

@@ -6,15 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:28 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 05:11:49 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-double g_width;
-double g_height;
-t_color g_background_color = {0.0, 0.0, 0.0};
+double	g_width;
+double	g_height;
+t_color	g_background_color = {0.0, 0.0, 0.0};
+t_list	*memory = 0;
 
 void ft_draw_canvas(t_mlxdata *img, t_parsedData *data)
 {

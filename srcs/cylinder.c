@@ -6,15 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/24 04:29:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:00:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern double g_width;
-extern double g_height;
-extern t_color g_background_color;
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 {
@@ -60,8 +61,8 @@ t_object	*ft_create_cylinder(t_cylinderParams params)
 	t_cylinder		*cyl;
 	t_object		*obj;
 
-	cyl = malloc(sizeof(t_cylinder));
-	obj = malloc(sizeof(t_object));
+	cyl = ft_malloc_save(sizeof(t_cylinder));
+	obj = ft_malloc_save(sizeof(t_object));
 	cyl->p = params.p;
 	cyl->orient = ft_vec_norm(params.orient);
 	cyl->diam = params.diam;

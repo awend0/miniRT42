@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/02/28 03:36:50 by hasv             ###   ########.fr        #
+#    Updated: 2021/02/28 03:53:40 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ CFILE =		srcs/main.c\
 			srcs/cylinder.c\
 			srcs/disc.c\
 			srcs/cone.c\
+			srcs/memory.c\
 
 INCLUDES =	includes/
 

@@ -6,12 +6,13 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 03:40:57 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:01:15 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+# define BUFFER_SIZE 1
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
@@ -269,6 +270,9 @@ t_point				ft_vec_norm(t_point vec);
 double				ft_modv(double vx, double vy, double vz);
 t_point				ft_vec_mat(double **mat, t_point vec);
 t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
+void    			*ft_malloc_save(int size);
+void				ft_free(void);
+
 /*
 ** Render
 */

@@ -6,11 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 13:30:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:29 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:00:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 t_solutions	ft_intersect_plane(void *data, t_point origin, t_point dir)
 {
@@ -43,8 +48,8 @@ t_object	*ft_create_plane(t_planeParams params)
 	t_plane		*plane;
 	t_object	*obj;
 
-	plane = malloc(sizeof(t_plane));
-	obj = malloc(sizeof(t_object));
+	plane = ft_malloc_save(sizeof(t_plane));
+	obj = ft_malloc_save(sizeof(t_object));
 	plane->p = params.p;
 	plane->norm = ft_vec_norm(params.norm);
 	obj->data = plane;

@@ -6,15 +6,16 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:22:07 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:30 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 04:00:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-extern double g_width;
-extern double g_height;
-extern t_color g_background_color;
+extern double	g_width;
+extern double	g_height;
+extern t_color	g_background_color;
+extern t_list	*memory;
 
 t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
 {
@@ -57,8 +58,8 @@ t_object	*ft_create_sphere(t_sphereParams params)
 	t_sphere		*sphere;
 	t_object		*obj;
 
-	sphere = malloc(sizeof(t_sphere));
-	obj = malloc(sizeof(t_object));
+	sphere = ft_malloc_save(sizeof(t_sphere));
+	obj = ft_malloc_save(sizeof(t_object));
 	sphere->center = params.center;
 	sphere->radius = params.radius;
 	obj->data = sphere;
