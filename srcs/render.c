@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:30 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:39:28 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,24 @@ t_closest	ft_closest_inter(t_closestParams params)
 {
 	t_closest		ret;
 	t_solutions		ir;
-	t_objectsList	*cur;
+	t_list	*cur;
 
 	ret.t = __DBL_MAX__;
 	ret.object = 0;
 	cur = params.objects;
 	while (cur)
 	{
-		ir = cur->obj->ft_intersect(cur->obj->data,
+		ir = ((t_object*)cur->node)->ft_intersect(((t_object*)cur->node)->data,
 		params.origin, params.direction);
 		if (ir.t1 < ret.t && params.t_min < ir.t1 && ir.t1 < params.t_max)
 		{
 			ret.t = ir.t1;
-			ret.object = cur->obj;
+			ret.object = ((t_object*)cur->node);
 		}
 		if (ir.t2 < ret.t && params.t_min < ir.t2 && ir.t2 < params.t_max)
 		{
 			ret.t = ir.t2;
-			ret.object = cur->obj;
+			ret.object = ((t_object*)cur->node);
 		}
 		cur = cur->next;
 	}
@@ -63,7 +63,7 @@ double		ft_compute_lighting(t_computeParams args)
 {
 	t_point			light;
 	t_point			ray;
-	t_lightsList	*cur;
+	t_list			*cur;
 	t_closest		blocker;
 	double			intensity;
 	double			n_l;
@@ -75,17 +75,17 @@ double		ft_compute_lighting(t_computeParams args)
 	cur = args.lights;
 	while (cur)
 	{
-		if (cur->light->e_type == AMBIENT)
-			intensity += cur->light->intensity;
+		if (((t_light*)cur->node)->e_type == AMBIENT)
+			intensity +=((t_light*)cur->node)->intensity;
 		else
 		{
-			if (cur->light->e_type == POINT)
+			if (((t_light*)cur->node)->e_type == POINT)
 			{
-				light = ft_vec_s(cur->light->position, args.P);
+				light = ft_vec_s(((t_light*)cur->node)->position, args.P);
 				t_max = 1.0;
 			}
-			else if (cur->light->e_type == DIRECTION)
-				light = cur->light->position;
+			else if (((t_light*)cur->node)->e_type == DIRECTION)
+				light = ((t_light*)cur->node)->position;
 			blocker = ft_closest_inter((t_closestParams)
 			{args.P, light, 0.1, t_max, args.objects});
 			if (blocker.object)
@@ -96,14 +96,14 @@ double		ft_compute_lighting(t_computeParams args)
 			n_l = ft_vec_dot(args.obj->ft_getNormal
 			(args.obj->data, args.P), light);
 			if (n_l > 0.0)
-				intensity += cur->light->intensity * n_l /
+				intensity += ((t_light*)cur->node)->intensity * n_l /
 				(ft_vec_length(args.obj->ft_getNormal(args.obj->data, args.P)) * ft_vec_length(light));
 			if (args.obj->spec != -1)
 			{
 				ray = ft_reflect_ray(light, args.obj->ft_getNormal(args.obj->data, args.P));
 				r_v = ft_vec_dot(ray, args.view);
 				if (r_v > 0.0)
-					intensity += cur->light->intensity * powf(r_v /
+					intensity += ((t_light*)cur->node)->intensity * powf(r_v /
 					(ft_vec_length(ray) * ft_vec_length(args.view)), args.obj->spec);
 			}
 		}

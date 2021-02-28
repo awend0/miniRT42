@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:29 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:40:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ double			ft_stof(char *line)
 	temp = ft_split(line, '.');
 	if (!temp[1])
 		return ((double)(ft_atoi(temp[0])));
-	return ((double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / powf(10, ft_strlen(temp[1]))));
+	return ((double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / pow(10, ft_strlen(temp[1]))));
 }
 
 t_color			ft_stoc(char *line)
@@ -126,7 +126,6 @@ t_object		*ft_parse_sphere(char *line)
 	t_object		*ret;
 	t_sphereParams	params;
 
-	ret = malloc(sizeof(t_sphere));
 	words = ft_split(line, ' ');
 	params.center = ft_stop(words[1]);
 	params.radius = ft_stof(words[2]);
@@ -142,32 +141,31 @@ t_object		*ft_parse_sphere(char *line)
 	return (ret);
 }
 
-t_objectsList	*ft_cylinder_caps(t_object *obj, t_cylinderParams params)
+t_list	*ft_cylinder_caps(t_object *obj, t_cylinderParams params)
 {
-	t_objectsList	*ret;
+	t_list	*ret;
 	t_object		*top_cap;
 	t_object		*bottom_cap;
 
-	top_cap = ft_create_disc((t_discParams){params.p, ft_vec_multiply(-1, ft_vec_norm(params.orient)),
+	top_cap = ft_create_disc((t_discParams){params.p, ft_vec_multiply(-1, params.orient),
 		params.color, params.diam / 2.0, params.reflection, params.spec});
-	bottom_cap = ft_create_disc((t_discParams){ft_vec_add(params.p, ft_vec_multiply(params.height, ft_vec_norm(params.orient))), params.orient,
+	bottom_cap = ft_create_disc((t_discParams){ft_vec_add(params.p, ft_vec_multiply(params.height, params.orient)), params.orient,
 		params.color, params.diam / 2.0, params.reflection, params.spec});
-	ret = ft_olstnew(obj);
-	ret->next = ft_olstnew(top_cap);
-	((t_objectsList*)ret->next)->next = ft_olstnew(bottom_cap);
+	ret = ft_lstnew(obj);
+	ret->next = ft_lstnew(top_cap);
+	((t_list*)ret->next)->next = ft_lstnew(bottom_cap);
 	return (ret);
 }
 
-t_objectsList	*ft_parse_cylinder(char *line)
+t_list	*ft_parse_cylinder(char *line, int caps)
 {
 	char				**words;
 	t_object			*ret;
 	t_cylinderParams	params;
 
-	ret = malloc(sizeof(t_object));
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
-	params.orient = ft_stop(words[2]);
+	params.orient = ft_vec_norm(ft_stop(words[2]));
 	params.color = ft_stoc(words[3]);
 	params.diam = ft_stof(words[4]);
 	params.height = ft_stof(words[5]);
@@ -179,9 +177,33 @@ t_objectsList	*ft_parse_cylinder(char *line)
 		params.spec = ft_stof(words[7]);
 	ret = ft_create_cylinder(params);
 	free (words);
-	return (ft_cylinder_caps(ret, params));
+	if (caps)
+		return (ft_cylinder_caps(ret, params));
+	return (ft_lstnew(ret));
 }
 
+t_object		*ft_parse_cone(char *line)
+{
+	char			**words;
+	t_object		*ret;
+	t_coneParams	params;
+
+	words = ft_split(line, ' ');
+	params.p = ft_stop(words[1]);
+	params.orient = ft_vec_norm(ft_stop(words[2]));
+	params.minm = ft_stof(words[3]);
+	params.maxm = ft_stof(words[4]);
+	params.k = ft_stof(words[5]);
+	params.color = ft_stoc(words[6]);
+	params.reflection = 0.5;
+	params.spec = 500;
+	if (words[7])
+		params.reflection = ft_stof(words[7]);
+	if (words[8])
+		params.spec = ft_stof(words[8]);
+	ret = ft_create_cone(params);
+	return (ret);
+}
 
 t_object		*ft_parse_triangle(char *line)
 {
@@ -189,7 +211,6 @@ t_object		*ft_parse_triangle(char *line)
 	t_object			*ret;
 	t_triangleParams	params;
 
-	ret = malloc(sizeof(t_object));
 	words = ft_split(line, ' ');
 	params.a = ft_stop(words[1]);
 	params.b = ft_stop(words[2]);
@@ -212,7 +233,6 @@ t_object		*ft_parse_plane(char *line)
 	t_object		*ret;
 	t_planeParams	params;
 
-	ret = malloc(sizeof(t_object));
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
 	params.norm = ft_stop(words[2]);
@@ -234,7 +254,6 @@ t_object		*ft_parse_disc(char *line)
 	t_object		*ret;
 	t_discParams	params;
 
-	ret = malloc(sizeof(t_object));
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
 	params.norm = ft_stop(words[2]);
@@ -257,20 +276,24 @@ t_parsedData	*ft_parse_processor(char *line, t_parsedData *data)
 		ft_parse_res(line);
 	if (line[0] == 'A')
 		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parse_amb(line)));
-	if (line[0] == 'c' && line[1] != 'y')
+	if (line[0] == 'c' && line[1] == ' ')
 		data->camera = ft_parse_camera(line);
-	if (line[0] == 'l')
+	if (line[0] == 'l' && line[1] == ' ')
 		data->lights = ft_lstadd_back(data->lights, ft_lstnew(ft_parse_pnt(line)));
-	if (line[0] == 's' && line[1] == 'p')
-		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_sphere(line)));
-	if (line[0] == 't' && line[1] == 'r')
-		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_triangle(line)));
-	if (line[0] == 'p' && line[1] == 'l')
-		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_plane(line)));
-	if (line[0] == 'c' && line[1] == 'y')
-		data->objects = ft_olstadd_back(data->objects, ft_parse_cylinder(line));
-	if (line[0] == 'd' && line[1] == 's')
-		data->objects = ft_olstadd_back(data->objects, ft_olstnew(ft_parse_disc(line)));
+	if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_sphere(line)));
+	if (line[0] == 't' && line[1] == 'r' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_triangle(line)));
+	if (line[0] == 'p' && line[1] == 'l' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_plane(line)));
+	if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_parse_cylinder(line, 0));
+	if (line[0] == 'C' && line[1] == 'Y' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_parse_cylinder(line, 1));
+	if (line[0] == 'd' && line[1] == 's' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_disc(line)));
+	if (line[0] == 'c' && line[1] == 'o' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_cone(line)));
 	return (data);
 }
 

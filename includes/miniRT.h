@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:34 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 03:40:57 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,22 @@ typedef struct		s_disc{
 	double			r;
 }					t_disc;
 
+typedef struct		s_square{
+	t_point			p;
+	t_point			norm;
+	t_plane			*pl;
+	float			size;
+}					t_square;
+
+typedef struct		s_squareParams{
+	t_point			p;
+	t_point			norm;
+	t_color			color;
+	float			size;
+	float			reflection;
+	float			spec;
+}					t_squareParams;
+
 typedef struct		s_discParams{
 	t_point			p;
 	t_point			norm;
@@ -138,13 +154,33 @@ typedef struct		s_cylinder{
 	double			height;
 }					t_cylinder;
 
+typedef struct		s_coneParams{
+	t_point			p;
+	t_point			orient;
+	float			k;
+	float			minm;
+	float			maxm;
+	t_color			color;
+	double			reflection;
+	double			spec;
+}					t_coneParams;
+
+typedef struct		s_cone{
+	t_point			p;
+	t_point			orient;
+	float			k;
+	float			minm;
+	float			maxm;
+}					t_cone;
+
 typedef struct		s_object{
 	enum			type{
 					SPHERE,
 					TRIANGLE,
 					PLANE,
 					CYLINDER,
-					DISK
+					DISC,
+					CONE
 	}				e_type;
 	void			*data;
 	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
@@ -171,19 +207,14 @@ typedef struct		s_light{
 	t_color			color;
 }					t_light;
 
-typedef struct		s_objectsList{
-	t_object		*obj;
+typedef struct		s_list{
+	void			*node;
 	void			*next;
-}					t_objectsList;
-
-typedef struct		s_lightsList{
-	t_light			*light;
-	void			*next;
-}					t_lightsList;
+}					t_list;
 
 typedef struct		s_parsedData{
-	t_objectsList	*objects;
-	t_lightsList	*lights;
+	t_list			*objects;
+	t_list			*lights;
 	t_camera		camera;
 }					t_parsedData;
 
@@ -192,7 +223,7 @@ typedef struct		s_closestParams{
 	t_point			direction;
 	double			t_min;
 	double			t_max;
-	t_objectsList	*objects;
+	t_list	*objects;
 }					t_closestParams;
 
 typedef struct		s_closest{
@@ -204,8 +235,8 @@ typedef struct		s_closest{
 typedef struct		s_traceParams{
 	t_point			origin;
 	t_point			direction;
-	t_objectsList	*objects;
-	t_lightsList	*lights;
+	t_list			*objects;
+	t_list			*lights;
 	double			t_min;
 	double			t_max;
 	int				recDepth;
@@ -215,8 +246,8 @@ typedef struct		s_computeParams{
 	t_point			P;
 	t_point			view;
 	t_object		*obj;
-	t_objectsList	*objects;
-	t_lightsList	*lights;
+	t_list			*objects;
+	t_list			*lights;
 }					t_computeParams;
 
 /*
@@ -260,14 +291,13 @@ t_object			*ft_create_triangle(t_triangleParams params);
 t_object			*ft_create_plane(t_planeParams params);
 t_object			*ft_create_cylinder(t_cylinderParams params);
 t_object			*ft_create_disc(t_discParams params);
+t_object			*ft_create_cone(t_coneParams params);
 
 /*
 ** Lists
 */
-t_lightsList		*ft_lstadd_back(t_lightsList *lst, t_lightsList *new);
-t_lightsList		*ft_lstnew(t_light *content);
-t_objectsList		*ft_olstadd_back(t_objectsList *lst, t_objectsList *new);
-t_objectsList		*ft_olstnew(t_object *content);
+t_list				*ft_lstadd_back(t_list *lst, t_list *new);
+t_list				*ft_lstnew(void *content);
 
 /*
 ** get_next_line

@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/02/19 19:44:41 by hasv             ###   ########.fr        #
+#    Updated: 2021/02/28 03:36:50 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,13 @@ CFILE =		srcs/main.c\
 			srcs/get_next_line.c\
 			srcs/get_next_line_utils.c\
 			srcs/ft_split.c\
-			srcs/lights_list.c\
-			srcs/objects_list.c\
+			srcs/list.c\
 			srcs/sphere.c\
 			srcs/triangle.c\
 			srcs/plane.c\
 			srcs/cylinder.c\
 			srcs/disc.c\
+			srcs/cone.c\
 
 INCLUDES =	includes/
 

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects_list.c                                     :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 00:23:59 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/05 08:50:53 by hasv             ###   ########.fr       */
+/*   Created: 2021/02/04 00:22:08 by hasv              #+#    #+#             */
+/*   Updated: 2021/02/28 03:41:20 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-t_objectsList	*ft_olstnew(t_object *content)
+t_list	*ft_lstnew(void *content)
 {
-	t_objectsList	*node;
+	t_list	*cur;
 
-	node = malloc(sizeof(t_objectsList));
+	cur = malloc(sizeof(t_list));
+	if (!cur)
+		return (0);
 	if (!content)
-		node->obj = 0;
+		cur->node = 0;
 	else
-		node->obj = content;
-	node->next = 0;
-	return (node);
+		cur->node = content;
+	cur->next = 0;
+	return (cur);
 }
 
-t_objectsList	*ft_olstadd_back(t_objectsList *lst, t_objectsList *new)
+t_list	*ft_lstadd_back(t_list *lst, t_list *new)
 {
-	t_objectsList	*ret;
-	t_objectsList	*cur;
+	t_list	*ret;
+	t_list	*cur;
 
 	if (!lst)
 	{

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:29:02 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/20 20:12:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/20 20:19:30 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern double g_width;
 extern double g_height;
 extern t_color g_background_color;
 
-t_solutions	ft_intersect_disk(void *data, t_point origin, t_point dir)
+t_solutions	ft_intersect_disc(void *data, t_point origin, t_point dir)
 {
 	t_solutions	ret;
 	t_disc		*disc;
@@ -49,8 +49,8 @@ t_object	*ft_create_disc(t_discParams params)
 	disc->pl->p = params.p;
 	disc->pl->norm = ft_vec_norm(params.norm);
 	obj->data = disc;
-	obj->e_type = DISK;
-	obj->ft_intersect = ft_intersect_disk;
+	obj->e_type = DISC;
+	obj->ft_intersect = ft_intersect_disc;
 	obj->ft_getNormal = ft_get_normal_disc;
 	obj->color = params.color;
 	obj->refl = params.reflection;
