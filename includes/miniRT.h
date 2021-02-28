@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 04:01:15 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 07:57:54 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,11 @@ typedef struct		s_computeParams{
 	t_list			*objects;
 	t_list			*lights;
 }					t_computeParams;
+
+typedef struct		s_mlxvars{
+    void			*mlx;
+    void			*win;
+}					t_mlxvars;
 
 /*
 ** Utils;

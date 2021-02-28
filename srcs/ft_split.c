@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 17:43:44 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/28 03:58:47 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern double	g_width;
 extern double	g_height;
 extern t_color	g_background_color;
-extern t_list	*memory;
+extern t_list	*g_memory;
 
 static int		ft_countwords(char const *s, char c)
 {
@@ -48,20 +48,6 @@ static int		ft_wordlen(char const *s, char c)
 	return (len);
 }
 
-static void		*ft_leakprotect(char **ret, int w)
-{
-	int	i;
-
-	i = 0;
-	while (i < w)
-	{
-		free(ret[i]);
-		i++;
-	}
-	free(ret);
-	return (0);
-}
-
 static char		**ft_fill(char const *s, int w, char c, char **ret)
 {
 	int		i;
@@ -74,8 +60,7 @@ static char		**ft_fill(char const *s, int w, char c, char **ret)
 		while (*s == c)
 			s++;
 		len = ft_wordlen(s, c);
-		if (!(ret[i] = (char *)malloc(sizeof(char) * (len + 1))))
-			return (ft_leakprotect(ret, i));
+		ret[i] = ft_malloc_save(sizeof(char) * (len + 1));
 		j = 0;
 		while (j < len)
 			ret[i][j++] = *s++;
@@ -94,8 +79,7 @@ char			**ft_split(char	const *s, char c)
 	if (!s)
 		return (0);
 	w = ft_countwords(s, c);
-	if (!(ret = (char **)malloc(sizeof(char *) * (w + 1))))
-		return (0);
+	ret = ft_malloc_save(sizeof(char *) * (w + 1));
 	ret = ft_fill(s, w, c, ret);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:42:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 05:11:51 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern double	g_width;
 extern double	g_height;
 extern t_color	g_background_color;
-extern t_list	*memory;
+extern t_list	*g_memory;
 
 void	*ft_malloc_save(int size)
 {
@@ -27,13 +27,13 @@ void	*ft_malloc_save(int size)
 	new = malloc(sizeof(t_list));
 	new->node = ret;
 	new->next = 0;
-	if (!memory)
+	if (!g_memory)
 	{
-		memory = malloc(sizeof(t_list));
-		memory->node = malloc(1);
-		memory->next = 0;
+		g_memory = malloc(sizeof(t_list));
+		g_memory->node = malloc(1);
+		g_memory->next = 0;
 	}
-	cur = memory;
+	cur = g_memory;
 	while (cur->next)
 		cur = cur->next;
 	cur->next = new;
@@ -45,7 +45,7 @@ void	ft_free(void)
 	t_list	*cur;
 	t_list	*temp;
 
-	cur = memory;
+	cur = g_memory;
 	while (cur)
 	{
 		temp = cur;

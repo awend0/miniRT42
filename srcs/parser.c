@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 04:07:24 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,32 @@
 extern double	g_width;
 extern double	g_height;
 extern t_color	g_background_color;
-extern t_list	*memory;
+extern t_list	*g_memory;
 
 double			ft_stof(char *line)
 {
 	char	**temp;
-	double	ret;
 
 	temp = ft_split(line, '.');
 	if (!temp[1])
 		return ((double)(ft_atoi(temp[0])));
-	ret = (double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / pow(10, ft_strlen(temp[1])));
-	free(temp);
-	return (ret);
+	return ((double)ft_atoi(temp[0]) + ((double)ft_atoi(temp[1]) / pow(10, ft_strlen(temp[1]))));
 }
 
 t_color			ft_stoc(char *line)
 {
 	char	**temp;
-	t_color	ret;
 
 	temp = ft_split(line, ',');
-	ret = (t_color){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])};
-	free(temp);
-	return (ret);	
+	return ((t_color){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});	
 }
 
 t_point			ft_stop(char *line)
 {
 	char	**temp;
-	t_point	ret;
 
 	temp = ft_split(line, ',');
-	ret = (t_point){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])};
-	free(temp);
-	return (ret);	
+	return ((t_point){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});	
 }
 
 t_light			*ft_parse_pnt(char *line)
@@ -63,7 +54,6 @@ t_light			*ft_parse_pnt(char *line)
 	ret->position = ft_stop(words[1]);
 	ret->intensity = ft_stof(words[2]);
 	ret->color = ft_stoc(words[3]);
-	free(words);
 	return (ret);
 }
 
@@ -89,7 +79,6 @@ void			ft_parse_res(char *line)
 	g_height = 0;
 	g_width = (double)ft_atoi(words[1]);
 	g_height = (double)ft_atoi(words[2]);
-	free (words);
 }
 
 double			**ft_rotation_matrix(t_point A)
@@ -127,7 +116,6 @@ t_camera		ft_parse_camera(char *line)
 	ret.rotation = ft_rotation_matrix(ft_stop(words[2]));
 	ret.fov = ft_stof(words[3]);
 	ret.viewport = (t_viewport){1.0, 1.0, 1.0};
-	free (words);
 	return (ret);
 }
 
@@ -148,7 +136,6 @@ t_object		*ft_parse_sphere(char *line)
 	if (words[5])
 		params.spec = ft_stof(words[5]);
 	ret = ft_create_sphere(params);
-	free (words);
 	return (ret);
 }
 
@@ -187,7 +174,6 @@ t_list	*ft_parse_cylinder(char *line, int caps)
 	if (words[7])
 		params.spec = ft_stof(words[7]);
 	ret = ft_create_cylinder(params);
-	free (words);
 	if (caps)
 		return (ft_cylinder_caps(ret, params));
 	return (ft_lstnew(ret));
@@ -234,7 +220,6 @@ t_object		*ft_parse_triangle(char *line)
 	if (words[6])
 		params.spec = ft_stof(words[6]);
 	ret = ft_create_triangle(params);
-	free (words);
 	return (ret);
 }
 
@@ -255,7 +240,6 @@ t_object		*ft_parse_plane(char *line)
 	if (words[5])
 		params.spec = ft_stof(words[5]);
 	ret = ft_create_plane(params);
-	free (words);
 	return (ret);
 }
 
@@ -277,7 +261,6 @@ t_object		*ft_parse_disc(char *line)
 	if (words[6])
 		params.spec = ft_stof(words[6]);
 	ret = ft_create_disc(params);
-	free (words);
 	return (ret);
 }
 

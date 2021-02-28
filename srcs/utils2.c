@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 09:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 03:50:14 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern double	g_width;
 extern double	g_height;
 extern t_color	g_background_color;
-extern t_list	*memory;
+extern t_list	*g_memory;
 
 t_point	ft_vec_multiply(double k, t_point a)
 {

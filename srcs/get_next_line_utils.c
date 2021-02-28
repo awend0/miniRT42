@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:28:39 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/28 03:58:47 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern double	g_width;
 extern double	g_height;
 extern t_color	g_background_color;
-extern t_list	*memory;
+extern t_list	*g_memory;
 
 char	*ft_strnew(int size)
 {
@@ -48,9 +48,7 @@ void	*ft_memalloc(int size)
 	void	*ptr;
 	char	*tmp;
 
-	ptr = malloc(size);
-	if (ptr == NULL)
-		return (NULL);
+	ptr = ft_malloc_save(size);
 	tmp = ptr;
 	while (size--)
 		*tmp++ = '\0';

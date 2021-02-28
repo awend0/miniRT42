@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:25:45 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/28 03:49:49 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,20 @@
 extern double	g_width;
 extern double	g_height;
 extern t_color	g_background_color;
-extern t_list	*memory;
+extern t_list	*g_memory;
 
 int		ft_appendremainder(char **remainder, char *buf)
 {
 	char	*ptr;
 
 	ptr = ft_strnew(ft_strlen(*remainder) + BUFFER_SIZE);
-	if (!ptr)
-	{
-		free(*remainder);
-		free(buf);
-		return (-1);
-	}
 	ft_memcpy(ptr, *remainder, ft_strlen(*remainder));
 	ft_memcpy(ptr + ft_strlen(*remainder), buf, ft_strlen(buf));
-	free(*remainder);
 	*remainder = ptr;
 	return (0);
 }
 
-int		ft_appendline(char **line, char **remainder, char *buf)
+int		ft_appendline(char **line, char **remainder)
 {
 	char	*new;
 	char	*tmp;
@@ -43,35 +36,19 @@ int		ft_appendline(char **line, char **remainder, char *buf)
 	tmp = ft_strchr(*remainder, '\n');
 	*line = ft_strnew(tmp - *remainder);
 	new = ft_strnew(ft_strlen(*remainder));
-	if (!*line || !new)
-	{
-		free(*remainder);
-		free(buf);
-		return (-1);
-	}
 	ft_memcpy(*line, *remainder, (tmp - *remainder));
 	*tmp = 0;
 	tmp++;
 	ft_memcpy(new, tmp, ft_strlen(tmp));
-	free(*remainder);
 	*remainder = new;
-	free(buf);
 	return (0);
 }
 
-int		ft_appendline2(char **line, char **remainder, char *buf)
+int		ft_appendline2(char **line, char **remainder)
 {
 	*line = ft_strnew(ft_strlen(*remainder));
-	if (!*line)
-	{
-		free(*remainder);
-		free(buf);
-		return (-1);
-	}
 	ft_memcpy(*line, *remainder, ft_strlen(*remainder));
-	free(*remainder);
 	*remainder = 0;
-	free(buf);
 	return (0);
 }
 
@@ -90,12 +67,11 @@ int		get_next_line(int fd, char **line)
 	while ((readret = read(fd, buf, BUFFER_SIZE)) >= 0)
 	{
 		buf[readret] = 0;
-		if (ft_appendremainder(&remainder, buf) == -1)
-			return (-1);
+		ft_appendremainder(&remainder, buf);
 		if (ft_strchr(remainder, '\n'))
-			return ((ft_appendline(line, &remainder, buf) == -1) ? -1 : 1);
+			return ((ft_appendline(line, &remainder) == -1) ? -1 : 1);
 		if (readret < BUFFER_SIZE)
-			return ((ft_appendline2(line, &remainder, buf) == -1) ? -1 : 0);
+			return ((ft_appendline2(line, &remainder) == -1) ? -1 : 0);
 	}
 	return (-1);
 }

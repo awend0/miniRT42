@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 05:11:49 by hasv             ###   ########.fr       */
+/*   Updated: 2021/02/28 08:37:19 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,21 @@
 double	g_width;
 double	g_height;
 t_color	g_background_color = {0.0, 0.0, 0.0};
-t_list	*memory = 0;
+t_list	*g_memory = 0;
 
-void ft_draw_canvas(t_mlxdata *img, t_parsedData *data)
+int		ft_exit_hook(int keycode, t_mlxvars *vars)
+{
+	if (keycode == 65307)
+	{
+		mlx_clear_window(vars->mlx, vars->win);
+		mlx_destroy_window(vars->mlx, vars->win);
+		ft_free();
+		exit(1);
+	}
+	return (0);
+}
+
+void	ft_draw_canvas(t_mlxdata *img, t_parsedData *data)
 {
 	t_point direction;
 	t_color color;
@@ -41,21 +53,21 @@ void ft_draw_canvas(t_mlxdata *img, t_parsedData *data)
 	}
 }
 
-int main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
-	void *mlx;
-	void *mlx_win;
-	t_parsedData *data;
-	t_mlxdata img;
+	t_mlxvars		vars;
+	t_parsedData	*data;
+	t_mlxdata		img;
 
 	data = ft_parser(argc, argv);
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx,
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx,
 							 g_width, g_height, "miniRT");
-	img.img = mlx_new_image(mlx, g_width, g_height);
+	mlx_key_hook(vars.win, ft_exit_hook, &vars);
+	img.img = mlx_new_image(vars.mlx, g_width, g_height);
 	img.addr = mlx_get_data_addr(img.img,
 								 &img.bbp, &img.lineLength, &img.endian);
 	ft_draw_canvas(&img, data);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_loop(vars.mlx);
 }
