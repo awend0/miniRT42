@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 10:22:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/02 15:51:05 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 {
 	t_solutions	ret;
 	t_point		x;
-	t_cylinder	*cyl;
 	double		k[4];
 	double		m[2];
+	t_cylinder	*cyl;
 
 	cyl = data;
 	x = ft_vec_s(origin, cyl->p);

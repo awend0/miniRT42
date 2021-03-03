@@ -6,13 +6,14 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 09:56:31 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/03 16:09:01 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 # define BUFFER_SIZE 1
+# define KEYCODE_ESC 65307
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
@@ -43,9 +44,9 @@ typedef struct		s_viewport{
 
 typedef struct		s_camera{
 	t_point			pos;
+	t_point			rotation;
 	t_viewport		viewport;
 	double			fov;
-	double			**rotation;
 }					t_camera;
 
 typedef struct		s_mlxdata{
@@ -213,18 +214,24 @@ typedef struct		s_list{
 	void			*next;
 }					t_list;
 
+typedef struct		s_dlist{
+	void			*node;
+	void			*next;
+	void			*prev;
+}					s_dlist;
+
 typedef struct		s_parsedData{
 	t_list			*objects;
 	t_list			*lights;
 	t_camera		camera;
-}					t_parsedData;
+}					t_parsed_data;
 
 typedef struct		s_closestParams{
 	t_point			origin;
 	t_point			direction;
 	double			t_min;
 	double			t_max;
-	t_list	*objects;
+	t_list			*objects;
 }					t_closestParams;
 
 typedef struct		s_closest{
@@ -254,6 +261,7 @@ typedef struct		s_computeParams{
 typedef struct		s_mlxvars{
     void			*mlx;
     void			*win;
+	t_mlxdata		img;
 }					t_mlxvars;
 
 /*
@@ -277,6 +285,7 @@ t_point				ft_vec_mat(double **mat, t_point vec);
 t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
 void    			*ft_malloc_save(int size);
 void				ft_free(void);
+t_point				ft_rotate(t_point dir, t_point rotation);
 
 /*
 ** Render
@@ -290,7 +299,7 @@ t_point				ft_reflect_ray(t_point R, t_point N);
 /*
 ** Parser
 */
-t_parsedData		*ft_parser(int argc, char *argv[]);
+t_parsed_data		*ft_parser(int argc, char *argv[]);
 
 /*
 ** Constructors

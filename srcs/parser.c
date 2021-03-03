@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/03 16:10:53 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,11 @@ t_camera		ft_parse_camera(char *line)
 
 	words = ft_split(line, ' ');
 	ret.pos = ft_stop(words[1]);
-	ret.rotation = ft_rotation_matrix(ft_stop(words[2]));
+	ret.rotation = ft_vec_norm(ft_stop(words[2]));
 	ret.fov = ft_stof(words[3]);
-	ret.viewport = (t_viewport){1.0, 1.0, 1.0};
+	ret.viewport.width = 2.0 * tan((ret.fov / 2.0) * (M_PI / 180.0));
+	ret.viewport.height = ret.viewport.width / (g_width / g_height);
+	ret.viewport.d = 1.0;
 	return (ret);
 }
 
@@ -264,7 +266,7 @@ t_object		*ft_parse_disc(char *line)
 	return (ret);
 }
 
-t_parsedData	*ft_parse_processor(char *line, t_parsedData *data)
+t_parsed_data	*ft_parse_processor(char *line, t_parsed_data *data)
 {
 	if (line[0] == 'R')
 		ft_parse_res(line);
@@ -291,14 +293,14 @@ t_parsedData	*ft_parse_processor(char *line, t_parsedData *data)
 	return (data);
 }
 
-t_parsedData	*ft_parser(int argc, char *argv[])
+t_parsed_data	*ft_parser(int argc, char *argv[])
 {
-	t_parsedData	*ret;
+	t_parsed_data	*ret;
 	int				fd;
 	char			*line;
 	int				i;
 
-	ret = ft_malloc_save(sizeof(t_parsedData));
+	ret = ft_malloc_save(sizeof(t_parsed_data));
 	ret->lights = 0;
 	ret->objects = 0;
 	if (argc >= 2)
