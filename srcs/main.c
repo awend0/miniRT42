@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/05 17:07:42 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 02:48:44 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 double		g_width;
 double		g_height;
+t_list		*g_first_cam;
 t_color		g_background_color = {0.0, 0.0, 0.0};
 t_list		*g_memory = 0;
 
@@ -29,40 +30,29 @@ int		ft_key_pressed(int keycode, t_mlxvars *vars)
 {
 	if (keycode == KEYCODE_ESC)
 		ft_exit(vars);
-	return (0);
-}
-
-void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
-{
-	t_point	direction;
-	t_color	color;
-	int		x;
-	int		y;
-
-	x = -g_width / 2;
-	y = -g_height / 2;
-	while (x < g_width / 2)
+	if (keycode == KEYCODE_Q)
 	{
-		y = -g_height / 2;
-		while (y < g_height / 2)
+		if (vars->data->cameras->next)
 		{
-			direction = ft_canvas_to_viewport(x, y, data->camera.viewport);\
-			direction = ft_rotate(direction, data->camera.rotation);
-			color = ft_trace_ray((t_traceParams){data->camera.pos, direction,
-				data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
-			ft_putpixel(img, x, y, color);
-			y++;
+			vars->data->cameras = vars->data->cameras->next;
+			ft_draw(vars);
 		}
-		x++;
+		else if (vars->data->cameras != g_first_cam)
+		{
+			vars->data->cameras = g_first_cam;
+			ft_draw(vars);
+		}
+		
 	}
+	return (0);
 }
 
 int		main(int argc, char *argv[])
 {
-	t_parsed_data	*data;
 	t_mlxvars		vars;
 
-	data = ft_parser(argc, argv);
+	vars.data = ft_parser(argc, argv);
+	g_first_cam = vars.data->cameras;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx,
 		g_width, g_height, "miniRT");
@@ -70,7 +60,5 @@ int		main(int argc, char *argv[])
 	vars.img.img = mlx_new_image(vars.mlx, g_width, g_height);
 	vars.img.addr = mlx_get_data_addr(vars.img.img,
 		&vars.img.bbp, &vars.img.lineLength, &vars.img.endian);
-	ft_fill_image(&vars.img, data);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
-	mlx_loop(vars.mlx);
+	ft_draw(&vars);
 }

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 21:28:39 by mraymun           #+#    #+#             */
-/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 extern double	g_width;
 extern double	g_height;
+extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 

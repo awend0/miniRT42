@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/05 16:46:15 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 02:45:44 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_H
 # define BUFFER_SIZE 1
 # define KEYCODE_ESC 65307
+# define KEYCODE_Q 113
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
@@ -215,16 +216,10 @@ typedef struct		s_list{
 	void			*next;
 }					t_list;
 
-typedef struct		s_dlist{
-	void			*node;
-	void			*next;
-	void			*prev;
-}					s_dlist;
-
 typedef struct		s_parsedData{
 	t_list			*objects;
 	t_list			*lights;
-	t_camera		camera;
+	t_list			*cameras;
 }					t_parsed_data;
 
 typedef struct		s_closestParams{
@@ -263,7 +258,19 @@ typedef struct		s_mlxvars{
     void			*mlx;
     void			*win;
 	t_mlxdata		img;
+	t_parsed_data	*data;
 }					t_mlxvars;
+
+typedef struct		s_matrix
+{
+	double			d[4][4];
+}					t_matrix;
+
+typedef struct		s_ray
+{
+	t_point			origin;
+	t_point			direction;
+}					t_ray;
 
 /*
 ** Utils;
@@ -287,6 +294,9 @@ t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
 void    			*ft_malloc_save(int size);
 void				ft_free(void);
 t_point				ft_rotate(t_point dir, t_point rotation);
+void				ft_draw(t_mlxvars *vars);
+void				ft_fill_image(t_mlxdata *img, t_parsed_data *data);
+int					ft_key_pressed(int keycode, t_mlxvars *vars);
 
 /*
 ** Render
