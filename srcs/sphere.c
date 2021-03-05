@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:22:07 by hasv              #+#    #+#             */
-/*   Updated: 2021/02/28 08:37:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/05 16:48:08 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
 	}
 	ret.t1 = (-k[1] + sqrtf(discriminant)) / (2.0 * k[0]);
 	ret.t2 = (-k[1] - sqrtf(discriminant)) / (2.0 * k[0]);
+	if ((ret.t1 < 0 && ret.t2 > 0) || (ret.t1 > 0 && ret.t2 < 0))
+		sphere->inside = 1;
 	return (ret);
 }
 
@@ -50,6 +52,8 @@ t_point		ft_get_normal_sphere(void *data, t_point intersection)
 	sphere = data;
 	ret = ft_vec_s(intersection, sphere->center);
 	ret = ft_vec_multiply(1.0 / ft_vec_length(ret), ret);
+	if (sphere->inside == 1)
+		return (ft_vec_multiply(-1, ret));
 	return (ret);
 }
 

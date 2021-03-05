@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/03 16:09:01 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/05 16:46:15 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_solutions{
 typedef struct		s_sphere{
 	t_point			center;
 	double			radius;
+	int				inside;
 }					t_sphere;
 
 typedef struct		s_triangle{
@@ -113,22 +114,6 @@ typedef struct		s_disc{
 	double			r;
 }					t_disc;
 
-typedef struct		s_square{
-	t_point			p;
-	t_point			norm;
-	t_plane			*pl;
-	float			size;
-}					t_square;
-
-typedef struct		s_squareParams{
-	t_point			p;
-	t_point			norm;
-	t_color			color;
-	float			size;
-	float			reflection;
-	float			spec;
-}					t_squareParams;
-
 typedef struct		s_discParams{
 	t_point			p;
 	t_point			norm;
@@ -175,22 +160,20 @@ typedef struct		s_cone{
 	float			maxm;
 }					t_cone;
 
-typedef struct		s_object{
-	enum			type{
-					SPHERE,
-					TRIANGLE,
-					PLANE,
-					CYLINDER,
-					DISC,
-					CONE
-	}				e_type;
-	void			*data;
-	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
-	t_point			(*ft_getNormal)(void *data, t_point intersection);
+typedef struct		s_square{
+	t_point			p;
+	t_point			orient;
+	double			size;
+}					t_square;
+
+typedef struct		s_squareParams{
+	t_point			p;
+	t_point			orient;
+	double			size;
 	t_color			color;
-	double			refl;
+	double			reflection;
 	double			spec;
-}					t_object;
+}					t_squareParams;
 
 typedef struct		s_lightParams{
 	int				type;
@@ -208,6 +191,24 @@ typedef struct		s_light{
 	t_point			position;
 	t_color			color;
 }					t_light;
+
+typedef struct		s_object{
+	enum			type{
+					SPHERE,
+					TRIANGLE,
+					PLANE,
+					CYLINDER,
+					DISC,
+					CONE,
+					SQUARE
+	}				e_type;
+	void			*data;
+	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
+	t_point			(*ft_getNormal)(void *data, t_point intersection);
+	t_color			color;
+	double			refl;
+	double			spec;
+}					t_object;
 
 typedef struct		s_list{
 	void			*node;
@@ -310,6 +311,7 @@ t_object			*ft_create_plane(t_planeParams params);
 t_object			*ft_create_cylinder(t_cylinderParams params);
 t_object			*ft_create_disc(t_discParams params);
 t_object			*ft_create_cone(t_coneParams params);
+t_object			*ft_create_square(t_squareParams params);
 
 /*
 ** Lists
