@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:57:16 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		main(int argc, char *argv[])
 		g_width, g_height, "miniRT");
 	vars.img.img = mlx_new_image(vars.mlx, g_width, g_height);
 	vars.img.addr = mlx_get_data_addr(vars.img.img,
-		&vars.img.bbp, &vars.img.lineLength, &vars.img.endian);
+		&vars.img.bbp, &vars.img.line_len, &vars.img.endian);
 	mlx_key_hook(vars.win, ft_key_pressed, &vars);
 	mlx_expose_hook(vars.win, ft_expose, &vars);
 	mlx_hook(vars.win, 33, 0L, ft_exit, &vars);

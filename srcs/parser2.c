@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:57:50 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_light			*ft_parse_pnt(char *line)
 
 	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ' ');
-	ret->type = POINT;
+	ret->ltype = POINT;
 	ret->position = ft_stop(words[1]);
 	ret->intensity = ft_stof(words[2]);
 	ret->color = ft_stoc(words[3]);
@@ -39,7 +39,7 @@ t_light			*ft_parse_amb(char *line)
 
 	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ' ');
-	ret->type = AMBIENT;
+	ret->ltype = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
 	ret->color = ft_stoc(words[2]);
 	return (ret);

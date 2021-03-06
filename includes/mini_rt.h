@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:45 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:56:45 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,12 +190,12 @@ typedef struct		s_l_params{
 }					t_l_params;
 
 typedef struct		s_light{
-	enum			e_type
+	enum			e_ltype
 	{
 		AMBIENT,
 		POINT,
 		DIRECTION
-	}				type;
+	}				ltype;
 	double			intensity;
 	t_point			position;
 	t_color			color;

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 09:15:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:58:04 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_putpixel(t_mlxdata *data, int x, int y, t_color color)
 
 	x = g_width / 2 + x;
 	y = g_height / 2 - y - 1;
-	dst = data->addr + (y * data->lineLength + x * (data->bbp / 8));
+	dst = data->addr + (y * data->line_len + x * (data->bbp / 8));
 	*(unsigned int*)dst = ft_create_trgb(255,
 		(int)color.r, (int)color.g, (int)color.b);
 }

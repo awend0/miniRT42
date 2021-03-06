@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:57:38 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ t_closest	ft_closest_inter(t_clpar params)
 
 void		ft_compute_lighting3(t_covars *vars, t_copar args)
 {
-	if (((t_light*)vars->cur->node)->type == POINT)
+	if (((t_light*)vars->cur->node)->ltype == POINT)
 	{
 		vars->light = ft_vec_s(((t_light*)vars->cur->node)->position,
 		args.p);
 		vars->t_max = 1.0;
 	}
-	else if (((t_light*)vars->cur->node)->type == DIRECTION)
+	else if (((t_light*)vars->cur->node)->ltype == DIRECTION)
 		vars->light = ((t_light*)vars->cur->node)->position;
 }
 
@@ -91,7 +91,7 @@ double		ft_compute_lighting(t_copar args)
 	vars.cur = args.lights;
 	while (vars.cur)
 	{
-		if (((t_light*)vars.cur->node)->type == AMBIENT)
+		if (((t_light*)vars.cur->node)->ltype == AMBIENT)
 			vars.intensity += ((t_light*)vars.cur->node)->intensity;
 		else
 		{
