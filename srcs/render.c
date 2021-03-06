@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:24:35 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,6 @@ extern double	g_height;
 extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
-
-t_point		ft_reflect_ray(t_point r, t_point n)
-{
-	return (ft_vec_s(ft_vec_multiply(2.0 * ft_vec_dot(r, n), n), r));
-}
-
-t_point		ft_canvas_to_viewport(double x, double y, t_viewport viewport)
-{
-	t_point	ret;
-
-	ret.x = x * viewport.width / g_width;
-	ret.y = y * viewport.height / g_height;
-	ret.z = viewport.d;
-	return (ret);
-}
 
 t_closest	ft_closest_inter(t_closestParams params)
 {
@@ -61,57 +46,67 @@ t_closest	ft_closest_inter(t_closestParams params)
 	return (ret);
 }
 
-double		ft_compute_lighting(t_computeParams args)
+void		ft_compute_lighting3(t_comp_vars *vars, t_compParams args)
 {
-	t_point			light;
-	t_point			ray;
-	t_list			*cur;
-	t_closest		blocker;
-	double			intensity;
-	double			n_l;
-	double			r_v;
-	double			t_max;
-
-	intensity = 0.0;
-	t_max = __DBL_MAX__;
-	cur = args.lights;
-	while (cur)
+	if (((t_light*)vars->cur->node)->e_type == POINT)
 	{
-		if (((t_light*)cur->node)->e_type == AMBIENT)
-			intensity += ((t_light*)cur->node)->intensity;
+		vars->light = ft_vec_s(((t_light*)vars->cur->node)->position,
+		args.P);
+		vars->t_max = 1.0;
+	}
+	else if (((t_light*)vars->cur->node)->e_type == DIRECTION)
+		vars->light = ((t_light*)vars->cur->node)->position;
+}
+
+double		ft_compute_lighting2(t_comp_vars vars, t_compParams args)
+{
+	double	ret;
+
+	ret = 0;
+	vars.n_l = ft_vec_dot(args.obj->ft_getNormal(args.obj->data,
+		args.P), vars.light);
+	if (vars.n_l > 0.0)
+		ret += ((t_light*)vars.cur->node)->intensity * vars.n_l /
+		(ft_vec_length(args.obj->ft_getNormal(args.obj->data,
+		args.P)) * ft_vec_length(vars.light));
+	if (args.obj->spec != -1)
+	{
+		vars.ray = ft_reflect_ray(vars.light,
+		args.obj->ft_getNormal(args.obj->data, args.P));
+		vars.r_v = ft_vec_dot(vars.ray, args.view);
+		if (vars.r_v > 0.0)
+			ret += ((t_light*)vars.cur->node)->intensity * powf(vars.r_v /
+			(ft_vec_length(vars.ray) *
+			ft_vec_length(args.view)), args.obj->spec);
+	}
+	return (ret);
+}
+
+double		ft_compute_lighting(t_compParams args)
+{
+	t_comp_vars vars;
+
+	vars.intensity = 0.0;
+	vars.t_max = __DBL_MAX__;
+	vars.cur = args.lights;
+	while (vars.cur)
+	{
+		if (((t_light*)vars.cur->node)->e_type == AMBIENT)
+			vars.intensity += ((t_light*)vars.cur->node)->intensity;
 		else
 		{
-			if (((t_light*)cur->node)->e_type == POINT)
+			ft_compute_lighting3(&vars, args);
+			if ((ft_closest_inter((t_closestParams)
+			{args.P, vars.light, 0.1, vars.t_max, args.objects})).obj)
 			{
-				light = ft_vec_s(((t_light*)cur->node)->position, args.P);
-				t_max = 1.0;
-			}
-			else if (((t_light*)cur->node)->e_type == DIRECTION)
-				light = ((t_light*)cur->node)->position;
-			blocker = ft_closest_inter((t_closestParams)
-			{args.P, light, 0.1, t_max, args.objects});
-			if (blocker.obj)
-			{
-				cur = cur->next;
+				vars.cur = vars.cur->next;
 				continue ;
 			}
-			n_l = ft_vec_dot(args.obj->ft_getNormal
-			(args.obj->data, args.P), light);
-			if (n_l > 0.0)
-				intensity += ((t_light*)cur->node)->intensity * n_l /
-				(ft_vec_length(args.obj->ft_getNormal(args.obj->data, args.P)) * ft_vec_length(light));
-			if (args.obj->spec != -1)
-			{
-				ray = ft_reflect_ray(light, args.obj->ft_getNormal(args.obj->data, args.P));
-				r_v = ft_vec_dot(ray, args.view);
-				if (r_v > 0.0)
-					intensity += ((t_light*)cur->node)->intensity * powf(r_v /
-					(ft_vec_length(ray) * ft_vec_length(args.view)), args.obj->spec);
-			}
+			vars.intensity += ft_compute_lighting2(vars, args);
 		}
-		cur = cur->next;
+		vars.cur = vars.cur->next;
 	}
-	return (intensity);
+	return (vars.intensity);
 }
 
 t_color		ft_trace_ray(t_traceParams args)
@@ -125,16 +120,17 @@ t_color		ft_trace_ray(t_traceParams args)
 						args.t_min, args.t_max, args.objects});
 	if (!closest.obj)
 		return (g_background_color);
-	closest.inter = ft_vec_add(args.origin, ft_vec_multiply(closest.t, args.direction));
-	intensity = ft_compute_lighting((t_computeParams){closest.inter, ft_vec_multiply(-1, args.direction), closest.obj
-													, args.objects, args.lights});
+	closest.inter = ft_vec_add(args.origin,
+		ft_vec_mul(closest.t, args.direction));
+	intensity = ft_compute_lighting((t_compParams){closest.inter, ft_vec_mul(-1,
+		args.direction), closest.obj, args.objects, args.lights});
 	colors[0] = ft_color_multiply(intensity, closest.obj->color);
 	if (closest.obj->refl <= 0 || args.recDepth <= 0)
 		return (colors[0]);
-	re_ray = ft_reflect_ray(ft_vec_multiply(-1, args.direction),
+	re_ray = ft_reflect_ray(ft_vec_mul(-1, args.direction),
 	closest.obj->ft_getNormal(closest.obj->data, closest.inter));
-	colors[1] = ft_trace_ray((t_traceParams){closest.inter, re_ray, args.objects,
-						args.lights, 0.1, __DBL_MAX__,  args.recDepth - 1});
+	colors[1] = ft_trace_ray((t_traceParams){closest.inter, re_ray,
+		args.objects, args.lights, 0.1, __DBL_MAX__, args.recDepth - 1});
 	return (ft_color_add(ft_color_multiply(1.0 - closest.obj->refl, colors[0]),
 						ft_color_multiply(closest.obj->refl, colors[1])));
 }

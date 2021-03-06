@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:06:03 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_solutions	ft_intersect_cylinder(void *data, t_point origin, t_point dir)
 	k[1] = (ft_vec_dot(dir, x) - ft_vec_dot(dir, cyl->orient)
 		* ft_vec_dot(x, cyl->orient)) * 2.0;
 	k[2] = ft_vec_dot(x, x) - powf(ft_vec_dot(x, cyl->orient), 2)
-		- powf(cyl->diam / 2.0, 2);	
+		- powf(cyl->diam / 2.0, 2);
 	k[3] = k[1] * k[1] - 4 * k[0] * k[2];
 	if (k[3] < 0.0)
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
@@ -55,7 +55,7 @@ t_point		ft_get_normal_cylinder(void *data, t_point intersection)
 
 	cyl = data;
 	t = ft_vec_dot(ft_vec_s(intersection, cyl->bottom), cyl->orient);
-	pt = ft_vec_add(cyl->bottom, ft_vec_multiply(t, cyl->orient));
+	pt = ft_vec_add(cyl->bottom, ft_vec_mul(t, cyl->orient));
 	return (ft_vec_norm(ft_vec_s(intersection, pt)));
 }
 
@@ -70,7 +70,7 @@ t_object	*ft_create_cylinder(t_cylinderParams params)
 	cyl->orient = ft_vec_norm(params.orient);
 	cyl->diam = params.diam;
 	cyl->height = params.height;
-	cyl->bottom = ft_vec_add(cyl->p, ft_vec_multiply(cyl->height, cyl->orient));
+	cyl->bottom = ft_vec_add(cyl->p, ft_vec_mul(cyl->height, cyl->orient));
 	obj->data = cyl;
 	obj->e_type = CYLINDER;
 	obj->ft_intersect = ft_intersect_cylinder;

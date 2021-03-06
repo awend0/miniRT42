@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:22:07 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 11:48:41 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ t_point		ft_get_normal_sphere(void *data, t_point intersection)
 
 	sphere = data;
 	ret = ft_vec_s(intersection, sphere->center);
-	ret = ft_vec_multiply(1.0 / ft_vec_length(ret), ret);
+	ret = ft_vec_mul(1.0 / ft_vec_length(ret), ret);
 	if (sphere->inside == 1)
-		return (ft_vec_multiply(-1, ret));
+		return (ft_vec_mul(-1, ret));
 	return (ret);
 }
 

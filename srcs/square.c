@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:21:38 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:05:13 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_solutions	ft_intersect_square(void *data, t_point origin, t_point dir)
 	if (k[1] == 0 || (k[0] < 0 && k[1] < 0) || (k[0] > 0 && k[1] > 0))
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 	ret.t1 = -k[0] / k[1];
-	d = ft_vec_s(ft_vec_add(ft_vec_multiply(ret.t1, dir), origin), sq->p);
+	d = ft_vec_s(ft_vec_add(ft_vec_mul(ret.t1, dir), origin), sq->p);
 	ret.t2 = sq->size / 2;
 	if (fabs(d.x) > ret.t2 || fabs(d.y) > ret.t2 || fabs(d.z) > ret.t2)
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 08:32:02 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:17:43 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,11 +261,11 @@ typedef struct		s_computeParams{
 	t_object		*obj;
 	t_list			*objects;
 	t_list			*lights;
-}					t_computeParams;
+}					t_compParams;
 
 typedef struct		s_mlxvars{
-    void			*mlx;
-    void			*win;
+	void			*mlx;
+	void			*win;
 	t_mlxdata		img;
 	t_parsed_data	*data;
 }					t_mlxvars;
@@ -281,13 +281,24 @@ typedef struct		s_ray
 	t_point			direction;
 }					t_ray;
 
+typedef struct		s_comp_vars{
+	t_point			light;
+	t_point			ray;
+	t_list			*cur;
+	t_closest		blocker;
+	double			intensity;
+	double			n_l;
+	double			r_v;
+	double			t_max;
+}					t_comp_vars;
+
 /*
 ** Utils;
 */
 double				ft_vec_dot(t_point a, t_point b);
 t_point				ft_vec_s(t_point O, t_point D);
 double				ft_vec_length(t_point a);
-t_point 			ft_vec_multiply(double k, t_point a);
+t_point 			ft_vec_mul(double k, t_point a);
 t_point 			ft_vec_add(t_point a, t_point b);
 void				ft_putpixel(t_mlxdata *data, int x, int y, t_color color);
 int					ft_create_trgb(int t, int r, int g, int b);
@@ -306,12 +317,13 @@ t_point				ft_rotate(t_point dir, t_point rotation);
 void				ft_draw(t_mlxvars *vars);
 void				ft_fill_image(t_mlxdata *img, t_parsed_data *data);
 int					ft_key_pressed(int keycode, t_mlxvars *vars);
+t_point				ft_reflect_ray(t_point r, t_point n);
 
 /*
 ** Render
 */
 t_color				ft_trace_ray(t_traceParams args);
-double				ft_compute_lighting(t_computeParams args);
+double				ft_compute_lighting(t_compParams args);
 t_closest			ft_closest_inter(t_closestParams params);
 t_point				ft_canvas_to_viewport(double x, double y, t_viewport viewport);
 t_point				ft_reflect_ray(t_point R, t_point N);
@@ -320,6 +332,25 @@ t_point				ft_reflect_ray(t_point R, t_point N);
 ** Parser
 */
 t_parsed_data		*ft_parser(int argc, char *argv[]);
+t_parsed_data		*ft_parse_processor(char *line, t_parsed_data *data);
+t_point				ft_stop(char *line);
+t_color				ft_stoc(char *line);
+double				ft_stof(char *line);
+t_object			*ft_parse_sphere(char *line);
+t_camera			*ft_parse_camera(char *line);
+void				ft_parse_res(char *line);
+t_light				*ft_parse_amb(char *line);
+t_light				*ft_parse_pnt(char *line);
+t_object			*ft_parse_plane(char *line);
+t_object			*ft_parse_tr(char *line);
+t_object			*ft_parse_cone(char *line);
+t_list  			*ft_parse_cylinder(char *line);
+t_list  			*ft_cylinder_caps(t_object *obj, t_cylinderParams params);
+t_parsed_data		*ft_init_pd();
+t_list				*ft_parse_cube(char *line);
+t_list				*ft_parse_cube2(t_cubeParams params);
+t_object			*ft_parse_square(char *line);
+t_object			*ft_parse_disc(char *line);
 
 /*
 ** Constructors
@@ -335,8 +366,8 @@ t_object			*ft_create_square(t_squareParams params);
 /*
 ** Lists
 */
-t_list				*ft_lstadd_back(t_list *lst, t_list *new);
-t_list				*ft_lstnew(void *content);
+t_list				*ft_ladd(t_list *lst, t_list *new);
+t_list				*ft_lnew(void *content);
 
 /*
 ** get_next_line

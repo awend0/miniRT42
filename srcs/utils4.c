@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 00:22:08 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:06:17 by hasv             ###   ########.fr       */
+/*   Created: 2021/03/06 12:17:18 by hasv              #+#    #+#             */
+/*   Updated: 2021/03/06 12:25:01 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,7 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_list	*ft_lnew(void *content)
+t_point		ft_reflect_ray(t_point r, t_point n)
 {
-	t_list	*ret;
-
-	ret = ft_malloc_save(sizeof(t_list));
-	if (!ret)
-		return (0);
-	if (!content)
-		ret->node = 0;
-	else
-		ret->node = content;
-	ret->next = 0;
-	return (ret);
-}
-
-t_list	*ft_ladd(t_list *lst, t_list *new)
-{
-	t_list	*ret;
-	t_list	*cur;
-
-	if (!lst)
-	{
-		lst = new;
-		return (lst);
-	}
-	cur = lst;
-	ret = lst;
-	while (cur->next)
-		cur = cur->next;
-	cur->next = new;
-	return (ret);
+	return (ft_vec_s(ft_vec_mul(2.0 * ft_vec_dot(r, n), n), r));
 }

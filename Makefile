@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/03/06 02:44:26 by hasv             ###   ########.fr        #
+#    Updated: 2021/03/06 12:17:51 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,11 @@ CFILE =		srcs/main.c\
 			srcs/utils.c\
 			srcs/utils2.c\
 			srcs/utils3.c\
+			srcs/utils4.c\
 			srcs/parser.c\
+			srcs/parser2.c\
+			srcs/parser3.c\
+			srcs/parser_utils.c\
 			srcs/get_next_line.c\
 			srcs/get_next_line_utils.c\
 			srcs/ft_split.c\

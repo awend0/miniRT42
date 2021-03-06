@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:29:02 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 11:48:41 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_solutions	ft_intersect_disc(void *data, t_point origin, t_point dir)
 	disc = data;
 	ret = ft_intersect_plane((void*)disc->pl, origin, dir);
 	if (ret.t1 < __DBL_MAX__ && ft_vec_length(ft_vec_s(ft_vec_add(
-		origin, ft_vec_multiply(ret.t1, dir)), disc->p)) <= disc->r)
+		origin, ft_vec_mul(ret.t1, dir)), disc->p)) <= disc->r)
 		return (ret);
 	return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 }
