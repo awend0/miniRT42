@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:45:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 08:32:02 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,15 @@ typedef struct		s_squareParams{
 	double			reflection;
 	double			spec;
 }					t_squareParams;
+
+typedef struct		s_cubeParams{
+	t_point			p;
+	double			size;
+	t_color			color;
+	double			reflection;
+	double			spec;
+	t_point			normals[6];
+}					t_cubeParams;
 
 typedef struct		s_lightParams{
 	int				type;

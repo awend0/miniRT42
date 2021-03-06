@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 08:29:02 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,6 +268,53 @@ t_object		*ft_parse_square(char *line)
 	return (ret);
 }
 
+// cu 0,0,0 0,1,0 0,0,-1 1.0 255,255,255 0.5 500
+
+t_list			*ft_parse_cube2(t_cubeParams params)
+{
+	t_list		*ret;
+	int			i;
+
+	ret = 0;
+	i = 0;
+	while (i < 6)
+	{
+		ret = ft_lstadd_back(ret, ft_lstnew(ft_create_square((t_squareParams){
+		(ft_vec_add(params.p, ft_vec_multiply(params.size / 2, params.normals[i]))),
+		params.normals[i],
+		params.size,
+		params.color,
+		params.reflection,
+		params.spec})));
+		i++;
+	}
+	return (ret);
+}
+
+t_list			*ft_parse_cube(char *line)
+{
+	char			**words;
+	t_cubeParams	params;
+
+	words = ft_split(line, ' ');
+	params.p = ft_stop(words[1]);
+	params.size = ft_stof(words[2]);
+	params.color = ft_stoc(words[3]);
+	params.reflection = 0.5;
+	params.spec = 500;
+	if (words[4])
+		params.reflection = ft_stof(words[4]);
+	if (words[5])
+		params.spec = ft_stof(words[5]);
+	params.normals[0] = (t_point){0, 1, 0};
+	params.normals[1] = (t_point){0, -1, 0};
+	params.normals[2] = (t_point){1, 0, 0};
+	params.normals[3] = (t_point){-1, 0, 0};
+	params.normals[4] = (t_point){0, 0, 1};
+	params.normals[5] = (t_point){0, 0, -1};
+	return (ft_parse_cube2(params));
+}
+
 t_parsed_data	*ft_parse_processor(char *line, t_parsed_data *data)
 {
 	if (line[0] == 'R')
@@ -292,6 +339,8 @@ t_parsed_data	*ft_parse_processor(char *line, t_parsed_data *data)
 		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_cone(line)));
 	if (line[0] == 's' && line[1] == 'q' && line[2] == ' ')
 		data->objects = ft_lstadd_back(data->objects, ft_lstnew(ft_parse_square(line)));
+	if (line[0] == 'c' && line[1] == 'u' && line[2] == ' ')
+		data->objects = ft_lstadd_back(data->objects, ft_parse_cube(line));
 	return (data);
 }
 

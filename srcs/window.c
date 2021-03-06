@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:45:48 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 06:23:28 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-void		ft_fill_image(t_mlxdata *img, t_parsed_data *data)
+void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 {
 	t_point		direction;
 	t_color		color;
@@ -45,7 +45,7 @@ void		ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 	}
 }
 
-void		ft_draw(t_mlxvars *vars)
+void	ft_draw(t_mlxvars *vars)
 {
 	ft_fill_image(&vars->img, vars->data);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
