@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:24:57 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -46,7 +46,7 @@ void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 		{
 			direction = ft_canvas_to_viewport(x, y, camera->viewport);\
 			direction = ft_rotate(direction, camera->rotation);
-			color = ft_trace_ray((t_traceParams){camera->pos, direction,
+			color = ft_trace_ray((t_trpar){camera->pos, direction,
 				data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
 			ft_putpixel(img, x, y, color);
 			y++;

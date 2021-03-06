@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 13:30:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -44,7 +44,7 @@ t_point		ft_get_normal_plane(void *data, t_point intersection)
 	return (((t_plane*)data)->norm);
 }
 
-t_object	*ft_create_plane(t_planeParams params)
+t_object	*ft_create_plane(t_pl_params params)
 {
 	t_plane		*plane;
 	t_object	*obj;
@@ -54,9 +54,9 @@ t_object	*ft_create_plane(t_planeParams params)
 	plane->p = params.p;
 	plane->norm = ft_vec_norm(params.norm);
 	obj->data = plane;
-	obj->e_type = PLANE;
+	obj->type = PLANE;
 	obj->ft_intersect = ft_intersect_plane;
-	obj->ft_getNormal = ft_get_normal_plane;
+	obj->ft_get_norm = ft_get_normal_plane;
 	obj->color = params.color;
 	obj->refl = params.reflection;
 	obj->spec = params.spec;

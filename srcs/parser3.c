@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:42:25 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 11:54:38 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:17 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -18,20 +18,20 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_list		*ft_cylinder_caps(t_object *obj, t_cylinderParams params)
+t_list		*ft_cylinder_caps(t_object *obj, t_cy_params params)
 {
 	t_list		*ret;
 	t_object	*top_cap;
 	t_object	*bottom_cap;
 
-	top_cap = ft_create_disc((t_discParams){
+	top_cap = ft_create_disc((t_ds_params){
 		params.p,
 		ft_vec_mul(-1, params.orient),
 		params.color,
 		params.diam / 2.0,
 		params.reflection,
 		params.spec});
-	bottom_cap = ft_create_disc((t_discParams){
+	bottom_cap = ft_create_disc((t_ds_params){
 		ft_vec_add(params.p, ft_vec_mul(params.height, params.orient)),
 		params.orient,
 		params.color,
@@ -46,10 +46,10 @@ t_list		*ft_cylinder_caps(t_object *obj, t_cylinderParams params)
 
 t_list		*ft_parse_cylinder(char *line)
 {
-	char				**words;
-	t_object			*ret;
-	t_cylinderParams	params;
-	int					caps;
+	char		**words;
+	t_object	*ret;
+	t_cy_params	params;
+	int			caps;
 
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
@@ -74,9 +74,9 @@ t_list		*ft_parse_cylinder(char *line)
 
 t_object	*ft_parse_cone(char *line)
 {
-	char			**words;
-	t_object		*ret;
-	t_coneParams	params;
+	char		**words;
+	t_object	*ret;
+	t_co_params	params;
 
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
@@ -97,9 +97,9 @@ t_object	*ft_parse_cone(char *line)
 
 t_object	*ft_parse_tr(char *line)
 {
-	char				**words;
-	t_object			*ret;
-	t_triangleParams	params;
+	char		**words;
+	t_object	*ret;
+	t_tr_params	params;
 
 	words = ft_split(line, ' ');
 	params.a = ft_stop(words[1]);
@@ -118,9 +118,9 @@ t_object	*ft_parse_tr(char *line)
 
 t_object	*ft_parse_plane(char *line)
 {
-	char			**words;
-	t_object		*ret;
-	t_planeParams	params;
+	char		**words;
+	t_object	*ret;
+	t_pl_params	params;
 
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);

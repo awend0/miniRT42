@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 11:55:01 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -22,7 +22,7 @@ t_object		*ft_parse_disc(char *line)
 {
 	char			**words;
 	t_object		*ret;
-	t_discParams	params;
+	t_ds_params		params;
 
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
@@ -43,7 +43,7 @@ t_object		*ft_parse_square(char *line)
 {
 	char			**words;
 	t_object		*ret;
-	t_squareParams	params;
+	t_sq_params		params;
 
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);
@@ -60,7 +60,7 @@ t_object		*ft_parse_square(char *line)
 	return (ret);
 }
 
-t_list			*ft_parse_cube2(t_cubeParams params)
+t_list			*ft_parse_cube2(t_cu_params params)
 {
 	t_list		*ret;
 	int			i;
@@ -69,7 +69,7 @@ t_list			*ft_parse_cube2(t_cubeParams params)
 	i = 0;
 	while (i < 6)
 	{
-		ret = ft_ladd(ret, ft_lnew(ft_create_square((t_squareParams){
+		ret = ft_ladd(ret, ft_lnew(ft_create_square((t_sq_params){
 		(ft_vec_add(params.p, ft_vec_mul(params.size / 2, params.normals[i]))),
 		params.normals[i],
 		params.size,
@@ -84,7 +84,7 @@ t_list			*ft_parse_cube2(t_cubeParams params)
 t_list			*ft_parse_cube(char *line)
 {
 	char			**words;
-	t_cubeParams	params;
+	t_cu_params		params;
 
 	words = ft_split(line, ' ');
 	params.p = ft_stop(words[1]);

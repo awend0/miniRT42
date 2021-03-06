@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:22:07 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 11:48:41 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -58,7 +58,7 @@ t_point		ft_get_normal_sphere(void *data, t_point intersection)
 	return (ret);
 }
 
-t_object	*ft_create_sphere(t_sphereParams params)
+t_object	*ft_create_sphere(t_sp_params params)
 {
 	t_sphere		*sphere;
 	t_object		*obj;
@@ -68,9 +68,9 @@ t_object	*ft_create_sphere(t_sphereParams params)
 	sphere->center = params.center;
 	sphere->radius = params.radius;
 	obj->data = sphere;
-	obj->e_type = SPHERE;
+	obj->type = SPHERE;
 	obj->ft_intersect = ft_intersect_sphere;
-	obj->ft_getNormal = ft_get_normal_sphere;
+	obj->ft_get_norm = ft_get_normal_sphere;
 	obj->color = params.color;
 	obj->refl = params.reflection;
 	obj->spec = params.spec;

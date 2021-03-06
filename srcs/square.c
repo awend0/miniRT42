@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:21:38 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:05:13 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -49,7 +49,7 @@ t_point		ft_get_normal_square(void *data, t_point intersection)
 	return (ft_vec_norm(sq->orient));
 }
 
-t_object	*ft_create_square(t_squareParams params)
+t_object	*ft_create_square(t_sq_params params)
 {
 	t_square	*square;
 	t_object	*obj;
@@ -60,9 +60,9 @@ t_object	*ft_create_square(t_squareParams params)
 	square->orient = params.orient;
 	square->size = params.size;
 	obj->data = square;
-	obj->e_type = SQUARE;
+	obj->type = SQUARE;
 	obj->ft_intersect = ft_intersect_square;
-	obj->ft_getNormal = ft_get_normal_square;
+	obj->ft_get_norm = ft_get_normal_square;
 	obj->color = params.color;
 	obj->refl = params.reflection;
 	obj->spec = params.spec;

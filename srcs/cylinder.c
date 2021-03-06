@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:42 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:06:03 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:54:15 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -59,7 +59,7 @@ t_point		ft_get_normal_cylinder(void *data, t_point intersection)
 	return (ft_vec_norm(ft_vec_s(intersection, pt)));
 }
 
-t_object	*ft_create_cylinder(t_cylinderParams params)
+t_object	*ft_create_cylinder(t_cy_params params)
 {
 	t_cylinder		*cyl;
 	t_object		*obj;
@@ -72,9 +72,9 @@ t_object	*ft_create_cylinder(t_cylinderParams params)
 	cyl->height = params.height;
 	cyl->bottom = ft_vec_add(cyl->p, ft_vec_mul(cyl->height, cyl->orient));
 	obj->data = cyl;
-	obj->e_type = CYLINDER;
+	obj->type = CYLINDER;
 	obj->ft_intersect = ft_intersect_cylinder;
-	obj->ft_getNormal = ft_get_normal_cylinder;
+	obj->ft_get_norm = ft_get_normal_cylinder;
 	obj->color = params.color;
 	obj->refl = params.reflection;
 	obj->spec = params.spec;

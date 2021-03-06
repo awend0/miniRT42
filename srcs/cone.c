@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:19:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:06:41 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:54:11 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -55,7 +55,7 @@ t_point		ft_get_normal_cone(void *data, t_point i)
 	return (ft_vec_norm(ft_vec_s(i, a)));
 }
 
-t_object	*ft_create_cone(t_coneParams params)
+t_object	*ft_create_cone(t_co_params params)
 {
 	t_cone		*cone;
 	t_object	*obj;
@@ -68,9 +68,9 @@ t_object	*ft_create_cone(t_coneParams params)
 	cone->maxm = params.maxm;
 	cone->k = params.k;
 	obj->data = cone;
-	obj->e_type = CONE;
+	obj->type = CONE;
 	obj->ft_intersect = ft_intersect_cone;
-	obj->ft_getNormal = ft_get_normal_cone;
+	obj->ft_get_norm = ft_get_normal_cone;
 	obj->color = params.color;
 	obj->refl = params.reflection;
 	obj->spec = params.spec;

@@ -6,11 +6,11 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 04:46:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 02:31:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../includes/mini_rt.h"
 
 extern double	g_width;
 extern double	g_height;
@@ -62,7 +62,7 @@ t_solutions	ft_intersect_triangle(void *data, t_point or, t_point dir)
 	return (ret);
 }
 
-t_object	*ft_create_triangle(t_triangleParams params)
+t_object	*ft_create_triangle(t_tr_params params)
 {
 	t_triangle	*triangle;
 	t_object	*obj;
@@ -76,12 +76,12 @@ t_object	*ft_create_triangle(t_triangleParams params)
 	ft_vec_s(triangle->a, triangle->c), ft_vec_s(triangle->c, triangle->b)));
 	triangle->d = -(triangle->a.x * triangle->norm.x
 	+ triangle->a.y * triangle->norm.y + triangle->a.z * triangle->norm.z);
-	obj->e_type = TRIANGLE;
+	obj->type = TRIANGLE;
 	obj->data = triangle;
 	obj->color = params.color;
 	obj->refl = params.reflection;
 	obj->spec = params.spec;
 	obj->ft_intersect = ft_intersect_triangle;
-	obj->ft_getNormal = ft_get_normal_triangle;
+	obj->ft_get_norm = ft_get_normal_triangle;
 	return (obj);
 }

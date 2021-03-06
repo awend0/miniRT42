@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:17:43 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 12:55:45 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINI_RT_H
+# define MINI_RT_H
 # define BUFFER_SIZE 1
 # define KEYCODE_ESC 65307
 # define KEYCODE_Q 113
+# define R_DEPTH 3
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
-#ifndef R_DEPTH
-# define R_DEPTH 3
-#endif
 
 typedef struct		s_point{
 	double			x;
@@ -54,7 +52,7 @@ typedef struct		s_mlxdata{
 	void			*img;
 	char			*addr;
 	int				bbp;
-	int				lineLength;
+	int				line_len;
 	int				endian;
 	int				offset;
 }					t_mlxdata;
@@ -78,30 +76,30 @@ typedef struct		s_triangle{
 	double			d;
 }					t_triangle;
 
-typedef struct		s_triangleParams{
+typedef struct		s_tr_params{
 	t_point			a;
 	t_point			b;
 	t_point			c;
 	t_color			color;
 	double			reflection;
 	double			spec;
-}					t_triangleParams;
+}					t_tr_params;
 
-typedef struct		s_sphereParams{
+typedef struct		s_sp_params{
 	t_point			center;
 	t_color			color;
 	double			radius;
 	double			reflection;
-	double 			spec;
-}					t_sphereParams;
+	double			spec;
+}					t_sp_params;
 
-typedef struct		s_planeParams{
+typedef struct		s_pl_params{
 	t_point			p;
 	t_point			norm;
 	t_color			color;
 	double			reflection;
 	double			spec;
-}					t_planeParams;
+}					t_pl_params;
 
 typedef struct		s_plane{
 	t_point			p;
@@ -115,16 +113,16 @@ typedef struct		s_disc{
 	double			r;
 }					t_disc;
 
-typedef struct		s_discParams{
+typedef struct		s_ds_params{
 	t_point			p;
 	t_point			norm;
 	t_color			color;
 	double			r;
 	double			reflection;
 	double			spec;
-}					t_discParams;
+}					t_ds_params;
 
-typedef struct		s_cylinderParams{
+typedef struct		s_cy_params{
 	t_point			p;
 	t_point			orient;
 	double			diam;
@@ -132,7 +130,7 @@ typedef struct		s_cylinderParams{
 	t_color			color;
 	double			reflection;
 	double			spec;
-}					t_cylinderParams;
+}					t_cy_params;
 
 typedef struct		s_cylinder{
 	t_point			p;
@@ -142,7 +140,7 @@ typedef struct		s_cylinder{
 	double			height;
 }					t_cylinder;
 
-typedef struct		s_coneParams{
+typedef struct		s_co_params{
 	t_point			p;
 	t_point			orient;
 	float			k;
@@ -151,7 +149,7 @@ typedef struct		s_coneParams{
 	t_color			color;
 	double			reflection;
 	double			spec;
-}					t_coneParams;
+}					t_co_params;
 
 typedef struct		s_cone{
 	t_point			p;
@@ -167,54 +165,56 @@ typedef struct		s_square{
 	double			size;
 }					t_square;
 
-typedef struct		s_squareParams{
+typedef struct		s_sq_params{
 	t_point			p;
 	t_point			orient;
 	double			size;
 	t_color			color;
 	double			reflection;
 	double			spec;
-}					t_squareParams;
+}					t_sq_params;
 
-typedef struct		s_cubeParams{
+typedef struct		s_cu_params{
 	t_point			p;
 	double			size;
 	t_color			color;
 	double			reflection;
 	double			spec;
 	t_point			normals[6];
-}					t_cubeParams;
+}					t_cu_params;
 
-typedef struct		s_lightParams{
+typedef struct		s_l_params{
 	int				type;
 	double			intensity;
 	t_point			position;
-}					t_lightParams;
+}					t_l_params;
 
 typedef struct		s_light{
-	enum			ltype{
-					AMBIENT,
-					POINT,
-					DIRECTION
-	}				e_type;
+	enum			e_type
+	{
+		AMBIENT,
+		POINT,
+		DIRECTION
+	}				type;
 	double			intensity;
 	t_point			position;
 	t_color			color;
 }					t_light;
 
 typedef struct		s_object{
-	enum			type{
-					SPHERE,
-					TRIANGLE,
-					PLANE,
-					CYLINDER,
-					DISC,
-					CONE,
-					SQUARE
-	}				e_type;
+	enum			e_type
+	{
+		SPHERE,
+		TRIANGLE,
+		PLANE,
+		CYLINDER,
+		DISC,
+		CONE,
+		SQUARE
+	}				type;
 	void			*data;
-	t_solutions		(*ft_intersect)(void *data, t_point O, t_point D);
-	t_point			(*ft_getNormal)(void *data, t_point intersection);
+	t_solutions		(*ft_intersect)(void *data, t_point or, t_point dir);
+	t_point			(*ft_get_norm)(void *data, t_point intersection);
 	t_color			color;
 	double			refl;
 	double			spec;
@@ -225,19 +225,19 @@ typedef struct		s_list{
 	void			*next;
 }					t_list;
 
-typedef struct		s_parsedData{
+typedef struct		s_parsed_data{
 	t_list			*objects;
 	t_list			*lights;
 	t_list			*cameras;
 }					t_parsed_data;
 
-typedef struct		s_closestParams{
+typedef struct		s_clpar{
 	t_point			origin;
 	t_point			direction;
 	double			t_min;
 	double			t_max;
 	t_list			*objects;
-}					t_closestParams;
+}					t_clpar;
 
 typedef struct		s_closest{
 	t_point			inter;
@@ -245,23 +245,23 @@ typedef struct		s_closest{
 	double			t;
 }					t_closest;
 
-typedef struct		s_traceParams{
+typedef struct		s_trpar{
 	t_point			origin;
 	t_point			direction;
 	t_list			*objects;
 	t_list			*lights;
 	double			t_min;
 	double			t_max;
-	int				recDepth;
-}					t_traceParams;
+	int				r_depth;
+}					t_trpar;
 
-typedef struct		s_computeParams{
-	t_point			P;
+typedef struct		s_copar{
+	t_point			p;
 	t_point			view;
 	t_object		*obj;
 	t_list			*objects;
 	t_list			*lights;
-}					t_compParams;
+}					t_copar;
 
 typedef struct		s_mlxvars{
 	void			*mlx;
@@ -281,7 +281,7 @@ typedef struct		s_ray
 	t_point			direction;
 }					t_ray;
 
-typedef struct		s_comp_vars{
+typedef struct		s_covars{
 	t_point			light;
 	t_point			ray;
 	t_list			*cur;
@@ -290,28 +290,28 @@ typedef struct		s_comp_vars{
 	double			n_l;
 	double			r_v;
 	double			t_max;
-}					t_comp_vars;
+}					t_covars;
 
 /*
 ** Utils;
 */
 double				ft_vec_dot(t_point a, t_point b);
-t_point				ft_vec_s(t_point O, t_point D);
+t_point				ft_vec_s(t_point o, t_point d);
 double				ft_vec_length(t_point a);
-t_point 			ft_vec_mul(double k, t_point a);
-t_point 			ft_vec_add(t_point a, t_point b);
+t_point				ft_vec_mul(double k, t_point a);
+t_point				ft_vec_add(t_point a, t_point b);
 void				ft_putpixel(t_mlxdata *data, int x, int y, t_color color);
 int					ft_create_trgb(int t, int r, int g, int b);
 t_color				ft_color_multiply(double a, t_color color);
 t_color				ft_color_add(t_color a, t_color b);
 char				**ft_split(char	const *s, char c);
 int					ft_atoi(char *str);
-t_point				ft_vec_cross(t_point A, t_point B);
+t_point				ft_vec_cross(t_point a, t_point b);
 t_point				ft_vec_norm(t_point vec);
 double				ft_modv(double vx, double vy, double vz);
 t_point				ft_vec_mat(double **mat, t_point vec);
 t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
-void    			*ft_malloc_save(int size);
+void				*ft_malloc_save(int size);
 void				ft_free(void);
 t_point				ft_rotate(t_point dir, t_point rotation);
 void				ft_draw(t_mlxvars *vars);
@@ -322,11 +322,12 @@ t_point				ft_reflect_ray(t_point r, t_point n);
 /*
 ** Render
 */
-t_color				ft_trace_ray(t_traceParams args);
-double				ft_compute_lighting(t_compParams args);
-t_closest			ft_closest_inter(t_closestParams params);
-t_point				ft_canvas_to_viewport(double x, double y, t_viewport viewport);
-t_point				ft_reflect_ray(t_point R, t_point N);
+t_color				ft_trace_ray(t_trpar args);
+double				ft_compute_lighting(t_copar args);
+t_closest			ft_closest_inter(t_clpar params);
+t_point				ft_canvas_to_viewport(double x,
+					double y, t_viewport viewport);
+t_point				ft_reflect_ray(t_point r, t_point n);
 
 /*
 ** Parser
@@ -344,24 +345,24 @@ t_light				*ft_parse_pnt(char *line);
 t_object			*ft_parse_plane(char *line);
 t_object			*ft_parse_tr(char *line);
 t_object			*ft_parse_cone(char *line);
-t_list  			*ft_parse_cylinder(char *line);
-t_list  			*ft_cylinder_caps(t_object *obj, t_cylinderParams params);
+t_list				*ft_parse_cylinder(char *line);
+t_list				*ft_cylinder_caps(t_object *obj, t_cy_params params);
 t_parsed_data		*ft_init_pd();
 t_list				*ft_parse_cube(char *line);
-t_list				*ft_parse_cube2(t_cubeParams params);
+t_list				*ft_parse_cube2(t_cu_params params);
 t_object			*ft_parse_square(char *line);
 t_object			*ft_parse_disc(char *line);
 
 /*
 ** Constructors
 */
-t_object			*ft_create_sphere(t_sphereParams params);
-t_object			*ft_create_triangle(t_triangleParams params);
-t_object			*ft_create_plane(t_planeParams params);
-t_object			*ft_create_cylinder(t_cylinderParams params);
-t_object			*ft_create_disc(t_discParams params);
-t_object			*ft_create_cone(t_coneParams params);
-t_object			*ft_create_square(t_squareParams params);
+t_object			*ft_create_sphere(t_sp_params params);
+t_object			*ft_create_triangle(t_tr_params params);
+t_object			*ft_create_plane(t_pl_params params);
+t_object			*ft_create_cylinder(t_cy_params params);
+t_object			*ft_create_disc(t_ds_params params);
+t_object			*ft_create_cone(t_co_params params);
+t_object			*ft_create_square(t_sq_params params);
 
 /*
 ** Lists
