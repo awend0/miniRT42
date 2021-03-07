@@ -28,5 +28,5 @@ Basic raytracing engine on C using MiniLibX.
 
 #### Examples
 
-![Beautiful render](https://git.chokemachine.ru/awend0/test/-/blob/master/screenshots/room.jpg)  
-![Another render](https://git.chokemachine.ru/awend0/test/-/blob/master/screenshots/simple.jpg)
+![Beautiful render](https://github.com/awend0/miniRT/blob/master/screenshots/simple.jpg?raw=true)  
+![Another render](https://github.com/awend0/miniRT/blob/master/screenshots/room.jpg?raw=true)
