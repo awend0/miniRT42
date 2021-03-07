@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:57:50 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 17:47:27 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_light			*ft_parse_pnt(char *line)
 	t_light	*ret;
 
 	ret = ft_malloc_save(sizeof(t_light));
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	ret->ltype = POINT;
 	ret->position = ft_stop(words[1]);
 	ret->intensity = ft_stof(words[2]);
@@ -38,7 +38,7 @@ t_light			*ft_parse_amb(char *line)
 	t_light	*ret;
 
 	ret = ft_malloc_save(sizeof(t_light));
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	ret->ltype = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
 	ret->color = ft_stoc(words[2]);
@@ -49,7 +49,7 @@ void			ft_parse_res(char *line)
 {
 	char	**words;
 
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	g_width = 0;
 	g_height = 0;
 	g_width = (double)ft_atoi(words[1]);
@@ -62,7 +62,7 @@ t_camera		*ft_parse_camera(char *line)
 	t_camera	*ret;
 
 	ret = ft_malloc_save(sizeof(t_camera));
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	ret->pos = ft_stop(words[1]);
 	ret->rotation = ft_vec_norm(ft_stop(words[2]));
 	ret->fov = ft_stof(words[3]);
@@ -78,16 +78,18 @@ t_object		*ft_parse_sphere(char *line)
 	t_object		*ret;
 	t_sp_params		params;
 
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	params.center = ft_stop(words[1]);
 	params.radius = ft_stof(words[2]);
 	params.color = ft_stoc(words[3]);
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[4])
+	{
 		params.reflection = ft_stof(words[4]);
-	if (words[5])
-		params.spec = ft_stof(words[5]);
+		if (words[5])
+			params.spec = ft_stof(words[5]);
+	}
 	ret = ft_create_sphere(params);
 	return (ret);
 }

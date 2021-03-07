@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:57:16 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 19:14:17 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_exit(t_mlxvars *vars)
 
 int		ft_expose(t_mlxvars *vars)
 {
+	printf("a\n");
 	ft_draw(vars);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 17:43:44 by mraymun           #+#    #+#             */
-/*   Updated: 2021/03/06 12:54:20 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 17:40:26 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,69 +18,96 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-static int		ft_countwords(char const *s, char c)
+int		ft_strlcpy(char *dst, char *src, int dstsize)
 {
 	int		i;
-	int		w;
 
-	w = 0;
+	if (!dst || !src)
+		return (0);
 	i = 0;
+	while (src[i])
+		i++;
+	if (dstsize == 0)
+		return (i);
+	i = 0;
+	while (src[i] && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	i = 0;
+	while (src[i])
+		i++;
+	return (i);
+}
+
+static unsigned int	ft_countwords(char *s, char *delimiters)
+{
+	unsigned int	i;
+	unsigned int	nb_strs;
+
+	if (!s[0])
+		return (0);
+	i = 0;
+	nb_strs = 0;
+	while (s[i] && ft_strchr(delimiters, s[i]))
+		i++;
 	while (s[i])
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-			w++;
+		if (ft_strchr(delimiters, s[i]))
+		{
+			nb_strs++;
+			while (s[i] && ft_strchr(delimiters, s[i]))
+				i++;
+			continue ;
+		}
 		i++;
 	}
-	return (w);
+	if (!ft_strchr(delimiters, s[i - 1]))
+		nb_strs++;
+	return (nb_strs);
 }
 
-static int		ft_wordlen(char const *s, char c)
+static void			ft_next_str(char **next_str, unsigned int *next_str_len,
+					char *delimiters)
 {
-	int		i;
-	int		len;
+	unsigned int i;
 
+	*next_str += *next_str_len;
+	*next_str_len = 0;
 	i = 0;
-	len = 0;
-	while (s[i] != c && s[i] != '\0')
+	while (**next_str && ft_strchr(delimiters, **next_str))
+		(*next_str)++;
+	while ((*next_str)[i])
 	{
+		if (ft_strchr(delimiters, (*next_str)[i]))
+			return ;
+		(*next_str_len)++;
 		i++;
-		len++;
 	}
-	return (len);
 }
 
-static char		**ft_fill(char const *s, int w, char c, char **ret)
+char				**ft_split(char *s, char *delimiters)
 {
-	int		i;
-	int		j;
-	int		len;
+	char			**tab;
+	char			*next_str;
+	unsigned int	next_str_len;
+	unsigned int	nb_strs;
+	unsigned int	i;
 
+	nb_strs = ft_countwords(s, delimiters);
+	tab = ft_malloc_save(sizeof(char *) * (nb_strs + 1));
 	i = 0;
-	while (i < w)
+	next_str = (char *)s;
+	next_str_len = 0;
+	while (i < nb_strs)
 	{
-		while (*s == c)
-			s++;
-		len = ft_wordlen(s, c);
-		ret[i] = ft_malloc_save(sizeof(char) * (len + 1));
-		j = 0;
-		while (j < len)
-			ret[i][j++] = *s++;
-		ret[i][j] = '\0';
+		ft_next_str(&next_str, &next_str_len, delimiters);
+		tab[i] = ft_malloc_save(sizeof(char) * (next_str_len + 1));
+		ft_strlcpy(tab[i], next_str, next_str_len + 1);
 		i++;
 	}
-	ret[i] = 0;
-	return (ret);
-}
-
-char			**ft_split(char	const *s, char c)
-{
-	char	**ret;
-	int		w;
-
-	if (!s)
-		return (0);
-	w = ft_countwords(s, c);
-	ret = ft_malloc_save(sizeof(char *) * (w + 1));
-	ret = ft_fill(s, w, c, ret);
-	return (ret);
+	tab[i] = NULL;
+	return (tab);
 }

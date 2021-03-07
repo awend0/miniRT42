@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:37:59 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 17:39:42 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double			ft_stof(char *line)
 {
 	char	**temp;
 
-	temp = ft_split(line, '.');
+	temp = ft_split(line, ".");
 	if (!temp[1])
 		return ((double)(ft_atoi(temp[0])));
 	return ((double)ft_atoi(temp[0])
@@ -45,7 +45,7 @@ t_color			ft_stoc(char *line)
 {
 	char	**temp;
 
-	temp = ft_split(line, ',');
+	temp = ft_split(line, ",");
 	return ((t_color){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});
 }
 
@@ -53,7 +53,7 @@ t_point			ft_stop(char *line)
 {
 	char	**temp;
 
-	temp = ft_split(line, ',');
+	temp = ft_split(line, ",");
 	return ((t_point){ft_stof(temp[0]), ft_stof(temp[1]), ft_stof(temp[2])});
 }
 

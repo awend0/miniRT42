@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:56:45 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 17:40:39 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define KEYCODE_ESC 65307
 # define KEYCODE_Q 113
 # define R_DEPTH 3
+# define ISSPACE " \t"
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
@@ -304,7 +305,7 @@ void				ft_putpixel(t_mlxdata *data, int x, int y, t_color color);
 int					ft_create_trgb(int t, int r, int g, int b);
 t_color				ft_color_multiply(double a, t_color color);
 t_color				ft_color_add(t_color a, t_color b);
-char				**ft_split(char	const *s, char c);
+char				**ft_split(char *s, char *delimiters);
 int					ft_atoi(char *str);
 t_point				ft_vec_cross(t_point a, t_point b);
 t_point				ft_vec_norm(t_point vec);

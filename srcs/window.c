@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 20:35:36 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	ft_draw(t_mlxvars *vars)
 {
 	ft_fill_image(&vars->img, vars->data);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	mlx_loop(vars->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/06 17:48:00 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_object		*ft_parse_disc(char *line)
 	t_object		*ret;
 	t_ds_params		params;
 
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	params.p = ft_stop(words[1]);
 	params.norm = ft_stop(words[2]);
 	params.r = ft_stof(words[3]);
@@ -32,9 +32,11 @@ t_object		*ft_parse_disc(char *line)
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[5])
+	{
 		params.reflection = ft_stof(words[5]);
-	if (words[6])
-		params.spec = ft_stof(words[6]);
+		if (words[6])
+			params.spec = ft_stof(words[6]);
+	}
 	ret = ft_create_disc(params);
 	return (ret);
 }
@@ -45,7 +47,7 @@ t_object		*ft_parse_square(char *line)
 	t_object		*ret;
 	t_sq_params		params;
 
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	params.p = ft_stop(words[1]);
 	params.orient = ft_stop(words[2]);
 	params.size = ft_stof(words[3]);
@@ -53,9 +55,11 @@ t_object		*ft_parse_square(char *line)
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[5])
+	{
 		params.reflection = ft_stof(words[5]);
-	if (words[6])
-		params.spec = ft_stof(words[6]);
+		if (words[6])
+			params.spec = ft_stof(words[6]);
+	}
 	ret = ft_create_square(params);
 	return (ret);
 }
@@ -86,16 +90,18 @@ t_list			*ft_parse_cube(char *line)
 	char			**words;
 	t_cu_params		params;
 
-	words = ft_split(line, ' ');
+	words = ft_split(line, ISSPACE);
 	params.p = ft_stop(words[1]);
 	params.size = ft_stof(words[2]);
 	params.color = ft_stoc(words[3]);
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[4])
+	{
 		params.reflection = ft_stof(words[4]);
-	if (words[5])
-		params.spec = ft_stof(words[5]);
+		if (words[5])
+			params.spec = ft_stof(words[5]);
+	}
 	params.normals[0] = (t_point){0, 1, 0};
 	params.normals[1] = (t_point){0, -1, 0};
 	params.normals[2] = (t_point){1, 0, 0};
