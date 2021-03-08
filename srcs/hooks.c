@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/06 12:17:18 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 19:52:20 by hasv             ###   ########.fr       */
+/*   Created: 2021/03/08 19:41:45 by hasv              #+#    #+#             */
+/*   Updated: 2021/03/08 19:43:36 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,34 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_point		ft_reflect_ray(t_point r, t_point n)
+int		ft_red_cross(t_mlxvars *vars)
 {
-	return (ft_vec_s(ft_vec_mul(2.0 * ft_vec_dot(r, n), n), r));
+	ft_exit(vars, 0);
+	return (0);
 }
 
-int			ft_isdigit(char *str)
+int		ft_expose(t_mlxvars *vars)
 {
-	char	*ptr;
+	ft_draw(vars);
+	return (0);
+}
 
-	ptr = str;
-	if (*ptr == '-' || *ptr == '+')
-		ptr++;
-	while (*ptr)
+int		ft_key_pressed(int keycode, t_mlxvars *vars)
+{
+	if (keycode == KEYCODE_ESC)
+		ft_exit(vars, 0);
+	if (keycode == KEYCODE_Q)
 	{
-		if (!(*ptr >= '0' && *ptr <= '9'))
-			return (0);
-		ptr++;
+		if (vars->data->cameras->next)
+		{
+			vars->data->cameras = vars->data->cameras->next;
+			ft_draw(vars);
+		}
+		else if (vars->data->cameras != g_first_cam)
+		{
+			vars->data->cameras = g_first_cam;
+			ft_draw(vars);
+		}
 	}
-	return (1);
+	return (0);
 }

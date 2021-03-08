@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:42:25 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 17:47:15 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 19:37:36 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_list		*ft_parse_cylinder(char *line)
 	int			caps;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3] || !words[4] || !words[5])
+		ft_exit(0, "Required parameter missing in cylinder!");
 	params.p = ft_stop(words[1]);
 	params.orient = ft_stop(words[2]);
 	params.color = ft_stoc(words[3]);
@@ -83,6 +85,8 @@ t_object	*ft_parse_cone(char *line)
 	t_co_params	params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3] || !words[4] || !words[5] || !words[6])
+		ft_exit(0, "Required parameter missing in cone!");
 	params.p = ft_stop(words[1]);
 	params.orient = ft_vec_norm(ft_stop(words[2]));
 	params.minm = ft_stof(words[3]);
@@ -108,6 +112,8 @@ t_object	*ft_parse_tr(char *line)
 	t_tr_params	params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3] || !words[4])
+		ft_exit(0, "Required parameter missing in triangle!");
 	params.a = ft_stop(words[1]);
 	params.b = ft_stop(words[2]);
 	params.c = ft_stop(words[3]);
@@ -131,6 +137,8 @@ t_object	*ft_parse_plane(char *line)
 	t_pl_params	params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3])
+		ft_exit(0, "Required parameter missing in plane!");
 	params.p = ft_stop(words[1]);
 	params.norm = ft_stop(words[2]);
 	params.color = ft_stoc(words[3]);

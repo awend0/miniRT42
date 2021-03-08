@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/03/06 12:17:51 by hasv             ###   ########.fr        #
+#    Updated: 2021/03/08 19:42:53 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ CFILE =		srcs/main.c\
 			srcs/rotate.c\
 			srcs/square.c\
 			srcs/window.c\
+			srcs/hooks.c\
 
 INCLUDES =	includes/
 

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 17:43:44 by mraymun           #+#    #+#             */
-/*   Updated: 2021/03/06 17:40:26 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 17:48:38 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int		ft_strlcpy(char *dst, char *src, int dstsize)
 
 static unsigned int	ft_countwords(char *s, char *delimiters)
 {
-	unsigned int	i;
-	unsigned int	nb_strs;
+	int	i;
+	int	nb_strs;
 
 	if (!s[0])
 		return (0);
@@ -69,10 +69,10 @@ static unsigned int	ft_countwords(char *s, char *delimiters)
 	return (nb_strs);
 }
 
-static void			ft_next_str(char **next_str, unsigned int *next_str_len,
+static void			ft_next_str(char **next_str, int *next_str_len,
 					char *delimiters)
 {
-	unsigned int i;
+	int i;
 
 	*next_str += *next_str_len;
 	*next_str_len = 0;
@@ -90,11 +90,11 @@ static void			ft_next_str(char **next_str, unsigned int *next_str_len,
 
 char				**ft_split(char *s, char *delimiters)
 {
-	char			**tab;
-	char			*next_str;
-	unsigned int	next_str_len;
-	unsigned int	nb_strs;
-	unsigned int	i;
+	char	**tab;
+	char	*next_str;
+	int		next_str_len;
+	int		nb_strs;
+	int		i;
 
 	nb_strs = ft_countwords(s, delimiters);
 	tab = ft_malloc_save(sizeof(char *) * (nb_strs + 1));

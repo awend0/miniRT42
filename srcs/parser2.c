@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 17:47:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 19:36:13 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_light			*ft_parse_pnt(char *line)
 
 	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3])
+		ft_exit(0, "Required parameter missing in point light!");
 	ret->ltype = POINT;
 	ret->position = ft_stop(words[1]);
 	ret->intensity = ft_stof(words[2]);
@@ -39,6 +41,8 @@ t_light			*ft_parse_amb(char *line)
 
 	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2])
+		ft_exit(0, "Required parameter missing in ambient light!");
 	ret->ltype = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
 	ret->color = ft_stoc(words[2]);
@@ -50,6 +54,8 @@ void			ft_parse_res(char *line)
 	char	**words;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2])
+		ft_exit(0, "Required parameter missing in resolution!");
 	g_width = 0;
 	g_height = 0;
 	g_width = (double)ft_atoi(words[1]);
@@ -63,6 +69,8 @@ t_camera		*ft_parse_camera(char *line)
 
 	ret = ft_malloc_save(sizeof(t_camera));
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3])
+		ft_exit(0, "Required parameter missing in camera!");
 	ret->pos = ft_stop(words[1]);
 	ret->rotation = ft_vec_norm(ft_stop(words[2]));
 	ret->fov = ft_stof(words[3]);
@@ -79,6 +87,8 @@ t_object		*ft_parse_sphere(char *line)
 	t_sp_params		params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3])
+		ft_exit(0, "Required parameter missing in sphere!");
 	params.center = ft_stop(words[1]);
 	params.radius = ft_stof(words[2]);
 	params.color = ft_stoc(words[3]);

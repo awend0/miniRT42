@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 17:48:00 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 19:34:33 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_object		*ft_parse_disc(char *line)
 	t_ds_params		params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3] || !words[4])
+		ft_exit(0, "Required parameter missing in disc!");
 	params.p = ft_stop(words[1]);
 	params.norm = ft_stop(words[2]);
 	params.r = ft_stof(words[3]);
@@ -48,6 +50,8 @@ t_object		*ft_parse_square(char *line)
 	t_sq_params		params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3] || !words[4])
+		ft_exit(0, "Required parameter missing in square!");
 	params.p = ft_stop(words[1]);
 	params.orient = ft_stop(words[2]);
 	params.size = ft_stof(words[3]);
@@ -91,6 +95,8 @@ t_list			*ft_parse_cube(char *line)
 	t_cu_params		params;
 
 	words = ft_split(line, ISSPACE);
+	if (!words[1] || !words[2] || !words[3])
+		ft_exit(0, "Required parameter missing in cube!");
 	params.p = ft_stop(words[1]);
 	params.size = ft_stof(words[2]);
 	params.color = ft_stoc(words[3]);
@@ -128,7 +134,7 @@ t_parsed_data	*ft_parser(int argc, char *argv[])
 			if (i == 1)
 				ret = ft_parse_processor(line, ret);
 			else if (i == -1)
-				return (0);
+				ft_exit(0, "File reading error!");
 			else if (i == 0)
 			{
 				ret = ft_parse_processor(line, ret);
