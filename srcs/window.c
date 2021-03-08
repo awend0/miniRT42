@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 19:41:30 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 20:07:06 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 				data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
 			ft_putpixel(img, x, y, color);
 			y++;
-		} 
+		}
 		x++;
 	}
 }

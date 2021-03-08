@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 17:43:44 by mraymun           #+#    #+#             */
-/*   Updated: 2021/03/08 17:48:38 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 20:07:37 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-int		ft_strlcpy(char *dst, char *src, int dstsize)
+int			ft_strlcpy(char *dst, char *src, int dstsize)
 {
 	int		i;
 
@@ -42,7 +42,7 @@ int		ft_strlcpy(char *dst, char *src, int dstsize)
 	return (i);
 }
 
-static unsigned int	ft_countwords(char *s, char *delimiters)
+static int	ft_countwords(char *s, char *delimiters)
 {
 	int	i;
 	int	nb_strs;
@@ -69,7 +69,7 @@ static unsigned int	ft_countwords(char *s, char *delimiters)
 	return (nb_strs);
 }
 
-static void			ft_next_str(char **next_str, int *next_str_len,
+static void	ft_next_str(char **next_str, int *next_str_len,
 					char *delimiters)
 {
 	int i;
@@ -88,7 +88,7 @@ static void			ft_next_str(char **next_str, int *next_str_len,
 	}
 }
 
-char				**ft_split(char *s, char *delimiters)
+char		**ft_split(char *s, char *delimiters)
 {
 	char	**tab;
 	char	*next_str;

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 19:34:33 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 21:03:48 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,9 @@ t_object		*ft_parse_disc(char *line)
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[5])
-	{
 		params.reflection = ft_stof(words[5]);
-		if (words[6])
-			params.spec = ft_stof(words[6]);
-	}
+	if (words[5] && words[6])
+		params.spec = ft_stof(words[6]);
 	ret = ft_create_disc(params);
 	return (ret);
 }
@@ -59,11 +57,9 @@ t_object		*ft_parse_square(char *line)
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[5])
-	{
 		params.reflection = ft_stof(words[5]);
-		if (words[6])
-			params.spec = ft_stof(words[6]);
-	}
+	if (words[5] && words[6])
+		params.spec = ft_stof(words[6]);
 	ret = ft_create_square(params);
 	return (ret);
 }
@@ -103,11 +99,9 @@ t_list			*ft_parse_cube(char *line)
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[4])
-	{
 		params.reflection = ft_stof(words[4]);
-		if (words[5])
-			params.spec = ft_stof(words[5]);
-	}
+	if (words[4] && words[5])
+		params.spec = ft_stof(words[5]);
 	params.normals[0] = (t_point){0, 1, 0};
 	params.normals[1] = (t_point){0, -1, 0};
 	params.normals[2] = (t_point){1, 0, 0};

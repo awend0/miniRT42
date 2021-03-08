@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 19:36:13 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 21:04:05 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void			ft_parse_res(char *line)
 		ft_exit(0, "Required parameter missing in resolution!");
 	g_width = 0;
 	g_height = 0;
-	g_width = (double)ft_atoi(words[1]);
-	g_height = (double)ft_atoi(words[2]);
+	g_width = (double)ft_stof(words[1]);
+	g_height = (double)ft_stof(words[2]);
 }
 
 t_camera		*ft_parse_camera(char *line)
@@ -95,11 +95,9 @@ t_object		*ft_parse_sphere(char *line)
 	params.reflection = 0.5;
 	params.spec = 500;
 	if (words[4])
-	{
 		params.reflection = ft_stof(words[4]);
-		if (words[5])
-			params.spec = ft_stof(words[5]);
-	}
+	if (words[4] && words[5])
+		params.spec = ft_stof(words[5]);
 	ret = ft_create_sphere(params);
 	return (ret);
 }
