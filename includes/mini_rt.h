@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 10:27:01 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 01:59:13 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define KEYCODE_Q 113
 # define R_DEPTH 3
 # define ISSPACE " \t"
+# define MAX_WIDTH 1920
+# define MAX_HEIGHT 1080
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
@@ -307,12 +309,19 @@ t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
 void				*ft_malloc_save(int size);
 void				ft_free(void);
 t_ray				ft_rotate(int x, int y, t_camera *cam);
-void				ft_draw(t_mlxvars *vars);
+void				ft_draw(t_mlxvars *vars, int save);
 void				ft_fill_image(t_mlxdata *img, t_parsed_data *data);
 t_point				ft_reflect_ray(t_point r, t_point n);
 int					ft_exit(t_mlxvars *vars, char *msg);
 int					ft_isdigit(char *str);
 int					ft_strcmp(char *s1, char *s2);
+
+/*
+** BMP
+*/
+void				ft_bmp(int argc, char *argv[]);
+int					ft_create_bmp(t_mlxvars *vars);
+
 /*
 ** Hooks
 */

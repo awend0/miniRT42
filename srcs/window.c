@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 08:55:54 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 01:58:23 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ int		ft_exit(t_mlxvars *vars, char *msg)
 
 	ret = 0;
 	if (msg)
-	{
-		ret += write(1, "Error\n", 6);
-		ret += write(1, msg, ft_strlen(msg));
-		ret += write(1, "\n", 1);
-	}
+		printf("Error\n %s\n", msg);
 	if (vars)
 	{
-		mlx_clear_window(vars->mlx, vars->win);
-		mlx_destroy_window(vars->mlx, vars->win);
+		if (vars->img.img)
+			mlx_destroy_image(vars->mlx, vars->img.img);
+		if (vars->win)
+		{
+			mlx_clear_window(vars->mlx, vars->win);
+			mlx_destroy_window(vars->mlx, vars->win);
+		}
 	}
 	ft_free();
 	exit(1);
@@ -65,8 +66,11 @@ void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 	}
 }
 
-void	ft_draw(t_mlxvars *vars)
+void	ft_draw(t_mlxvars *vars, int save)
 {
 	ft_fill_image(&vars->img, vars->data);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+	if (save)
+		ft_create_bmp(vars);
+	if (!save)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:42:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 21:14:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 01:24:45 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char*)s;
+	if (n == 0)
+		return ;
+	while (i < n)
+	{
+		str[i] = '\0';
+		i++;
+	}
+}
+
 void	*ft_malloc_save(int size)
 {
 	void	*ret;
@@ -27,6 +43,7 @@ void	*ft_malloc_save(int size)
 	ret = malloc(size);
 	if (!ret)
 		ft_exit(0, "Malloc error o.o");
+	ft_bzero(ret, size);
 	new = malloc(sizeof(t_list));
 	if (!new)
 		ft_exit(0, "Malloc error o.o");

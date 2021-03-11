@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 19:41:45 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 20:06:27 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 01:14:00 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_red_cross(t_mlxvars *vars)
 
 int		ft_expose(t_mlxvars *vars)
 {
-	ft_draw(vars);
+	ft_draw(vars, 0);
 	return (0);
 }
 
@@ -39,12 +39,12 @@ int		ft_key_pressed(int keycode, t_mlxvars *vars)
 		if (vars->data->cameras->next)
 		{
 			vars->data->cameras = vars->data->cameras->next;
-			ft_draw(vars);
+			ft_draw(vars, 0);
 		}
 		else if (vars->data->cameras != g_first_cam)
 		{
 			vars->data->cameras = g_first_cam;
-			ft_draw(vars);
+			ft_draw(vars, 0);
 		}
 	}
 	return (0);

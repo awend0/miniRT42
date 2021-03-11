@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 09:02:36 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 00:51:57 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ void			ft_parse_res(char *line)
 	words = ft_split(line, ISSPACE);
 	if (!words[1] || !words[2])
 		ft_exit(0, "Required parameter missing in resolution!");
-	g_width = 0;
-	g_height = 0;
 	g_width = (double)ft_stof(words[1]);
 	g_height = (double)ft_stof(words[2]);
+	if (g_width > MAX_WIDTH)
+		g_width = MAX_WIDTH;
+	if (g_height > MAX_HEIGHT)
+		g_height = MAX_HEIGHT;
 }
 
 t_camera		*ft_parse_camera(char *line)

@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 10:41:14 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 01:58:42 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 double		g_width = 500;
 double		g_height = 500;
-int			g_save = 0;
 t_list		*g_first_cam;
 t_color		g_background_color = {0.0, 0.0, 0.0};
 t_list		*g_memory = 0;
@@ -24,7 +23,7 @@ int		main(int argc, char *argv[])
 	t_mlxvars		vars;
 
 	if (argc == 3)
-		!ft_strcmp(argv[2], "--save") ? (g_save = 1)
+		!ft_strcmp(argv[2], "--save") ? ft_bmp(argc, argv)
 		: ft_exit(0, "Unknown argument");
 	else if (argc != 2)
 		ft_exit(0, "Usage: ./miniRT <.rt file> [--save].");
@@ -39,6 +38,6 @@ int		main(int argc, char *argv[])
 	mlx_key_hook(vars.win, ft_key_pressed, &vars);
 	mlx_expose_hook(vars.win, ft_expose, &vars);
 	mlx_hook(vars.win, 33, 0L, ft_red_cross, &vars);
-	ft_draw(&vars);
+	ft_draw(&vars, 0);
 	mlx_loop(vars.mlx);
 }
