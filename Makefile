@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/03/08 19:42:53 by hasv             ###   ########.fr        #
+#    Updated: 2021/03/08 21:10:09 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,5 +55,7 @@ clean:
 		@echo Cleaned miniRT output file!
 
 fclean: clean
+		@make -C mlx_linux/ clean
+		@echo Everything cleaned!
 
 re: clean all

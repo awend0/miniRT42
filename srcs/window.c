@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 20:07:06 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 08:55:54 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,9 @@ int		ft_exit(t_mlxvars *vars, char *msg)
 	return (ret);
 }
 
-t_point	ft_canvas_to_viewport(double x, double y, t_viewport viewport)
-{
-	t_point	ret;
-
-	ret.x = x * viewport.width / g_width;
-	ret.y = y * viewport.height / g_height;
-	ret.z = viewport.d;
-	return (ret);
-}
-
 void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 {
-	t_point		direction;
+	t_ray		ray;
 	t_color		color;
 	t_camera	*camera;
 	int			x;
@@ -65,9 +55,8 @@ void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 		y = -g_height / 2;
 		while (y < g_height / 2)
 		{
-			direction = ft_canvas_to_viewport(x, y, camera->viewport);\
-			direction = ft_rotate(direction, camera->rotation);
-			color = ft_trace_ray((t_trpar){camera->pos, direction,
+			ray = ft_rotate(x, y, camera);
+			color = ft_trace_ray((t_trpar){ray.origin, ray.direction,
 				data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
 			ft_putpixel(img, x, y, color);
 			y++;

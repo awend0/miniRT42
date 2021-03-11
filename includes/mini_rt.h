@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 19:52:34 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 08:39:20 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,9 @@ typedef struct		s_color{
 	double			b;
 }					t_color;
 
-typedef struct		s_viewport{
-	double			width;
-	double			height;
-	double			d;
-}					t_viewport;
-
 typedef struct		s_camera{
 	t_point			pos;
 	t_point			rotation;
-	t_viewport		viewport;
 	double			fov;
 }					t_camera;
 
@@ -271,8 +264,7 @@ typedef struct		s_mlxvars{
 	t_parsed_data	*data;
 }					t_mlxvars;
 
-typedef struct		s_matrix
-{
+typedef struct		s_matrix{
 	double			d[4][4];
 }					t_matrix;
 
@@ -314,7 +306,7 @@ t_point				ft_vec_mat(double **mat, t_point vec);
 t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
 void				*ft_malloc_save(int size);
 void				ft_free(void);
-t_point				ft_rotate(t_point dir, t_point rotation);
+t_ray				ft_rotate(int x, int y, t_camera *cam);
 void				ft_draw(t_mlxvars *vars);
 void				ft_fill_image(t_mlxdata *img, t_parsed_data *data);
 t_point				ft_reflect_ray(t_point r, t_point n);
@@ -335,7 +327,7 @@ t_color				ft_trace_ray(t_trpar args);
 double				ft_compute_lighting(t_copar args);
 t_closest			ft_closest_inter(t_clpar params);
 t_point				ft_canvas_to_viewport(double x,
-					double y, t_viewport viewport);
+					double y, t_camera *cam);
 t_point				ft_reflect_ray(t_point r, t_point n);
 
 /*

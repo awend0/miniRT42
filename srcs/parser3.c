@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:42:25 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 21:05:33 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 08:53:34 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ t_list		*ft_parse_cylinder(char *line)
 		ft_exit(0, "Required parameter missing in cylinder!");
 	params.p = ft_stop(words[1]);
 	params.orient = ft_stop(words[2]);
-	params.color = ft_stoc(words[3]);
-	params.diam = ft_stof(words[4]);
-	params.height = ft_stof(words[5]);
+	params.diam = ft_stof(words[3]);
+	params.height = ft_stof(words[4]);
+	params.color = ft_stoc(words[5]);
 	params.reflection = 0.5;
 	params.spec = 500;
 	caps = 0;

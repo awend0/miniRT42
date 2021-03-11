@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:08:28 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 09:07:07 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,63 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_point	ft_rotx(t_point vect, float x)
+
+t_point		ft_multdir(t_point p, t_matrix m)
+{
+	t_point res;
+
+	res.x = p.x * m.d[0][0] + p.y * m.d[1][0] + p.z * m.d[2][0] + m.d[3][0];
+	res.y = p.x * m.d[0][1] + p.y * m.d[1][1] + p.z * m.d[2][1] + m.d[3][1];
+	res.z = p.x * m.d[0][2] + p.y * m.d[1][2] + p.z * m.d[2][2] + m.d[3][2];
+	return (res);
+}
+
+t_matrix	ft_look_at(t_point origin, t_point rotation)
+{
+	t_matrix	m;
+	t_point		random;
+	t_point		right;
+	t_point		up;
+
+	random = ft_vec_norm((t_point){0, 1, 0});
+	right = ft_vec_norm(ft_vec_cross(random, rotation));
+	up = ft_vec_norm(ft_vec_cross(rotation, right));
+	m.d[0][0] = right.x;
+	m.d[0][1] = right.y;
+	m.d[0][2] = right.z;
+	m.d[1][0] = up.x;
+	m.d[1][1] = up.y;
+	m.d[1][2] = up.z;
+	m.d[2][0] = rotation.x;
+	m.d[2][1] = rotation.y;
+	m.d[2][2] = rotation.z;
+	m.d[3][0] = origin.x;
+	m.d[3][1] = origin.y;
+	m.d[3][2] = origin.z;
+	return (m);
+}
+
+t_point		ft_canvas_to_viewport(double x, double y, t_camera *cam)
 {
 	t_point	ret;
+	double	fovk;
 
-	ret.x = vect.x;
-	ret.y = vect.y * cos(x) - vect.z * sin(x);
-	ret.z = vect.y * sin(x) + vect.z * cos(x);
+	fovk = 2.0 * tan((cam->fov / 2.0) * (M_PI / 180.0));
+	ret.x = x * fovk / g_width;
+	ret.y = y * fovk / (g_width / g_height) / g_height;
+	ret.z = 1;
 	return (ret);
 }
 
-t_point	ft_roty(t_point vect, float y)
+t_ray		ft_rotate(int x, int y, t_camera *cam)
 {
-	t_point	ret;
+	t_matrix	c2w;
+	t_ray		ret;
 
-	ret.x = vect.x * cos(y) + vect.z * sin(y);
-	ret.y = vect.y;
-	ret.z = vect.x * -sin(y) + vect.z * cos(y);
-	return (ret);
-}
-
-t_point	ft_rotz(t_point vect, float z)
-{
-	t_point	ret;
-
-	ret.x = vect.x * cos(z) - vect.y * sin(z);
-	ret.y = vect.x * sin(z) + vect.y * cos(z);
-	ret.z = vect.z;
-	return (ret);
-}
-
-t_point	ft_rotate(t_point vect, t_point rotation)
-{
-	t_point	ret;
-
-	ret = ft_rotx(vect, rotation.x);
-	ret = ft_roty(vect, rotation.y);
-	ret = ft_rotz(vect, rotation.z);
+	c2w = ft_look_at(cam->pos, cam->rotation);
+	ret.origin = ft_multdir((t_point){0, 0, 0}, c2w);
+	ret.direction = ft_canvas_to_viewport(x, y, cam);
+	ret.direction = ft_multdir(ret.direction, c2w);
+	ret.direction = ft_vec_norm(ft_vec_s(ret.direction, ret.origin));
 	return (ret);
 }

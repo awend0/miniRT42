@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 03:42:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:55:09 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/08 21:14:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ void	*ft_malloc_save(int size)
 	t_list	*new;
 
 	ret = malloc(size);
+	if (!ret)
+		ft_exit(0, "Malloc error o.o");
 	new = malloc(sizeof(t_list));
+	if (!new)
+		ft_exit(0, "Malloc error o.o");
 	new->node = ret;
 	new->next = 0;
 	if (!g_memory)

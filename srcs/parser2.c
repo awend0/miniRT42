@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 21:04:05 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 09:02:36 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ t_camera		*ft_parse_camera(char *line)
 	ret->pos = ft_stop(words[1]);
 	ret->rotation = ft_vec_norm(ft_stop(words[2]));
 	ret->fov = ft_stof(words[3]);
-	ret->viewport.width = 2.0 * tan((ret->fov / 2.0) * (M_PI / 180.0));
-	ret->viewport.height = ret->viewport.width / (g_width / g_height);
-	ret->viewport.d = 1.0;
 	return (ret);
 }
 
