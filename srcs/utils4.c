@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:17:18 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 20:07:46 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 10:24:04 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,16 @@ int			ft_isdigit(char *str)
 		ptr++;
 	}
 	return (1);
+}
+
+int			ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 == *s2)
+	{
+		if (!*s1)
+			return (0);
+		s1++;
+		s2++;
+	}
+	return ((*(unsigned char *)s1 < *(unsigned char *)s2) ? -1 : +1);
 }

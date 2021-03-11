@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 08:39:20 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 10:27:01 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,7 +312,7 @@ void				ft_fill_image(t_mlxdata *img, t_parsed_data *data);
 t_point				ft_reflect_ray(t_point r, t_point n);
 int					ft_exit(t_mlxvars *vars, char *msg);
 int					ft_isdigit(char *str);
-
+int					ft_strcmp(char *s1, char *s2);
 /*
 ** Hooks
 */

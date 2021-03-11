@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:08:28 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 09:07:07 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 10:23:54 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ extern double	g_height;
 extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
-
 
 t_point		ft_multdir(t_point p, t_matrix m)
 {

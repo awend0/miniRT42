@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/08 20:18:08 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/11 10:41:14 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 double		g_width = 500;
 double		g_height = 500;
+int			g_save = 0;
 t_list		*g_first_cam;
 t_color		g_background_color = {0.0, 0.0, 0.0};
 t_list		*g_memory = 0;
@@ -22,6 +23,11 @@ int		main(int argc, char *argv[])
 {
 	t_mlxvars		vars;
 
+	if (argc == 3)
+		!ft_strcmp(argv[2], "--save") ? (g_save = 1)
+		: ft_exit(0, "Unknown argument");
+	else if (argc != 2)
+		ft_exit(0, "Usage: ./miniRT <.rt file> [--save].");
 	vars.data = ft_parser(argc, argv);
 	g_first_cam = vars.data->cameras;
 	vars.mlx = mlx_init();
