@@ -1,5 +1,5 @@
 # miniRT  
-Basic raytracing engine on C using MiniLibX.  
+Basic raytracing engine from scratch using MiniLibX.  
 
 #### Build it yourself
 
@@ -19,15 +19,21 @@ Basic raytracing engine on C using MiniLibX.
 - ds [X],[Y],[Z] [X],[Y],[Z] [radius] [reflection rate] [specular rate] *// disc* 
 - sq [X],[Y],[Z] [X],[Y],[Z] [side size] [R],[G],[B] [reflection rate] [specular rate] *// square*
 
+#### Controls
+
+- **WASD/Shift/Control** for camera translation  
+- **Arrow keys for camera** rotation  
+- **Q** for camera switching (it's looped)  
+
 #### Usage
 
 - export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0 *// WSL only*  
 - export DISPLAY=localhost:0.0 *// WSL(1) only*  
-- ./miniRT map.rt --save *// --save: save render as bmp file*  
+- ./miniRT <configuration_file.rt> [--save] *// --save: save render as bmp file*  
 - Relish  
 
 #### Examples
 
-![WOLF render](https://github.com/awend0/miniRT/blob/master/screenshots/wolf.bmp?raw=true)
+![Wolf render](https://github.com/awend0/miniRT/blob/master/screenshots/wolf.bmp?raw=true)
 ![Beautiful render](https://github.com/awend0/miniRT/blob/master/screenshots/room.bmp?raw=true)  
 ![Another render](https://github.com/awend0/miniRT/blob/master/screenshots/simple.bmp?raw=true)
