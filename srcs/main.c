@@ -6,17 +6,18 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 01:58:42 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 05:08:54 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_rt.h"
 
-double		g_width = 500;
-double		g_height = 500;
+double		g_width = 600;
+double		g_height = 600;
 t_list		*g_first_cam;
 t_color		g_background_color = {0.0, 0.0, 0.0};
 t_list		*g_memory = 0;
+int			g_sepia = 0;
 
 int		main(int argc, char *argv[])
 {

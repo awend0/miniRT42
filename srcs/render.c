@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:57:38 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 05:42:50 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ void		ft_compute_lighting3(t_covars *vars, t_copar args)
 double		ft_compute_lighting2(t_covars vars, t_copar args)
 {
 	double	ret;
+	t_point	normal;
 
 	ret = 0;
-	vars.n_l = ft_vec_dot(args.obj->ft_get_norm(args.obj->data,
-		args.p), vars.light);
+	normal = args.obj->ft_get_norm(args.obj->data,
+		args.p);
+	vars.n_l = ft_vec_dot(normal, vars.light);
 	if (vars.n_l > 0.0)
 		ret += ((t_light*)vars.cur->node)->intensity * vars.n_l /
-		(ft_vec_length(args.obj->ft_get_norm(args.obj->data,
-		args.p)) * ft_vec_length(vars.light));
+		(ft_vec_length(normal) * ft_vec_length(vars.light));
 	if (args.obj->spec != -1)
 	{
-		vars.ray = ft_reflect_ray(vars.light,
-		args.obj->ft_get_norm(args.obj->data, args.p));
+		vars.ray = ft_reflect_ray(vars.light, normal);
 		vars.r_v = ft_vec_dot(vars.ray, args.view);
 		if (vars.r_v > 0.0)
 			ret += ((t_light*)vars.cur->node)->intensity * powf(vars.r_v /

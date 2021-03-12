@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/03/12 01:59:23 by hasv             ###   ########.fr        #
+#    Updated: 2021/03/12 05:45:35 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CFILE =		srcs/main.c\
 			srcs/parser2.c\
 			srcs/parser3.c\
 			srcs/parser_utils.c\
+			srcs/parser_proc.c\
 			srcs/get_next_line.c\
 			srcs/get_next_line_utils.c\
 			srcs/ft_split.c\
@@ -47,16 +48,15 @@ all: $(NAME)
 
 $(NAME):
 		@echo miniRT start.
-		make -C mlx_linux/
-		gcc -Wall -Wextra -Werror -I $(INCLUDES) $(CFILE) $(MLX_FLAGS) -o $(NAME) -O3
+		@make -s -C mlx_linux/
+		@gcc -Wall -Wextra -Werror -I $(INCLUDES) $(CFILE) $(MLX_FLAGS) -o $(NAME) -O3
 		@echo miniRT compiled!
 
 clean:
-		@rm -rf $(NAME)
-		@echo Cleaned miniRT output file!
+		@make -s -C mlx_linux/ clean
 
 fclean: clean
-		@make -C mlx_linux/ clean
-		@echo Everything cleaned!
+		@rm -rf $(NAME)
+		@rm -rf img.bmp
 
-re: clean all
+re: fclean $(NAME)

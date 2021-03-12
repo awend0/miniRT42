@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 00:51:57 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 05:22:46 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ t_light			*ft_parse_pnt(char *line)
 	words = ft_split(line, ISSPACE);
 	if (!words[1] || !words[2] || !words[3])
 		ft_exit(0, "Required parameter missing in point light!");
-	ret->ltype = POINT;
+	if (words[4])
+		ret->ltype = DIRECTION;
+	else
+		ret->ltype = POINT;
 	ret->position = ft_stop(words[1]);
 	ret->intensity = ft_stof(words[2]);
 	ret->color = ft_stoc(words[3]);
@@ -42,7 +45,7 @@ t_light			*ft_parse_amb(char *line)
 	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ISSPACE);
 	if (!words[1] || !words[2])
-		ft_exit(0, "Required parameter missing in ambient light!");
+		ft_exit(0, "Required parameter missing in ambient light!");\
 	ret->ltype = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
 	ret->color = ft_stoc(words[2]);

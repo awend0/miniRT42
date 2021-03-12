@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 10:25:59 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 02:26:43 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_parsed_data	*ft_parser(int argc, char *argv[])
 	ret = ft_init_pd();
 	if (argc >= 2)
 	{
-		fd = open(argv[1], O_RDONLY);
+		fd = ft_open_map(argv[1]);
 		while (1)
 		{
 			i = get_next_line(fd, &line);

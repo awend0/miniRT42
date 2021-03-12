@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 01:58:23 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 05:23:18 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_exit(t_mlxvars *vars, char *msg)
 
 	ret = 0;
 	if (msg)
-		printf("Error\n %s\n", msg);
+		printf("Error\n%s\n", msg);
 	if (vars)
 	{
 		if (vars->img.img)
@@ -72,5 +72,8 @@ void	ft_draw(t_mlxvars *vars, int save)
 	if (save)
 		ft_create_bmp(vars);
 	if (!save)
+	{
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+		printf("Done!\n");
+	}
 }

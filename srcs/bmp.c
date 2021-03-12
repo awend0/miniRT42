@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 01:57:54 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 02:19:00 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 03:44:43 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int		ft_create_bmp(t_mlxvars *vars)
 	ret = 0;
 	padding = ft_malloc_save(3 * sizeof(unsigned char));
 	padding_size = (4 - ((int)g_height * vars->img.bbp / 8) % 4) % 4;
-	if (!(fd = open("screenshots/screenshot.bmp",
+	if (!(fd = open("img.bmp",
 		O_CREAT | O_TRUNC | O_WRONLY, 0644)))
-		ft_exit(0, "Fail creating file.");
+		ft_exit(0, "File can't be created.");
 	ret += ft_add_header(vars, padding_size, fd);
 	ret += ft_add_info(vars, fd);
 	i = g_height;
@@ -96,6 +96,6 @@ void	ft_bmp(int argc, char *argv[])
 	vars.img.addr = mlx_get_data_addr(vars.img.img,
 		&vars.img.bbp, &vars.img.line_len, &vars.img.endian);
 	ft_draw(&vars, 1);
-	printf("Image saved in screenshots/screenshot.bmp!\n");
+	printf("Image saved in img.bmp!\n");
 	ft_exit(&vars, 0);
 }

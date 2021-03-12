@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 09:15:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:58:04 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 02:55:55 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@ extern double	g_height;
 extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
+extern int		g_sepia;
 
 int		ft_create_trgb(int t, int r, int g, int b)
 {
+	if (g_sepia)
+	{
+		r = (r * 0.393) + (g * 0.769) + (b * 0.189);
+		g = (r * 0.349) + (g * 0.686) + (b * 0.168);
+		b = (r * 0.272) + (g * 0.534) + (b * 0.131);
+	}
 	r = fmin(255, fmax(0, r));
 	g = fmin(255, fmax(0, g));
 	b = fmin(255, fmax(0, b));

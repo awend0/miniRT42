@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 01:59:13 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 02:27:14 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,7 @@ t_point				ft_reflect_ray(t_point r, t_point n);
 /*
 ** Parser
 */
+int					ft_open_map(char *filename);
 t_parsed_data		*ft_parser(int argc, char *argv[]);
 t_parsed_data		*ft_parse_processor(char *line, t_parsed_data *data);
 t_point				ft_stop(char *line);
