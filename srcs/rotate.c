@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:08:28 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 10:23:54 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 07:42:48 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_ray		ft_rotate(int x, int y, t_camera *cam)
 	t_matrix	c2w;
 	t_ray		ret;
 
-	c2w = ft_look_at(cam->pos, cam->rotation);
+	c2w = ft_look_at(cam->pos, ft_vec_norm(cam->rotation));
 	ret.origin = ft_multdir((t_point){0, 0, 0}, c2w);
 	ret.direction = ft_canvas_to_viewport(x, y, cam);
 	ret.direction = ft_multdir(ret.direction, c2w);

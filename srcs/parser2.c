@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 05:22:46 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 07:43:00 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_camera		*ft_parse_camera(char *line)
 	if (!words[1] || !words[2] || !words[3])
 		ft_exit(0, "Required parameter missing in camera!");
 	ret->pos = ft_stop(words[1]);
-	ret->rotation = ft_vec_norm(ft_stop(words[2]));
+	ret->rotation = ft_stop(words[2]);
 	ret->fov = ft_stof(words[3]);
 	return (ret);
 }

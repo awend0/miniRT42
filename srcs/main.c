@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 05:08:54 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 08:24:08 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		main(int argc, char *argv[])
 	vars.data = ft_parser(argc, argv);
 	g_first_cam = vars.data->cameras;
 	vars.mlx = mlx_init();
+	mlx_do_key_autorepeatoff(vars.mlx);
 	vars.win = mlx_new_window(vars.mlx,
 		g_width, g_height, "miniRT");
 	vars.img.img = mlx_new_image(vars.mlx, g_width, g_height);

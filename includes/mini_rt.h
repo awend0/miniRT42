@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 02:27:14 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 07:49:15 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 # define BUFFER_SIZE 1
 # define KEYCODE_ESC 65307
 # define KEYCODE_Q 113
+# define KEYCODE_W 119
+# define KEYCODE_A 97
+# define KEYCODE_S 115
+# define KEYCODE_D 100
+# define KEYCODE_SHIFT 65505
+# define KEYCODE_CTRL 65507
+# define KEYCODE_UP 65362
+# define KEYCODE_LEFT 65361
+# define KEYCODE_DOWN 65364
+# define KEYCODE_RIGHT 65363
 # define R_DEPTH 3
 # define ISSPACE " \t"
 # define MAX_WIDTH 1920
