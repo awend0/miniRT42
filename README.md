@@ -12,13 +12,13 @@ Basic raytracing engine from scratch using MiniLibX.
 - R [width] [height] *// display resolution*  
 - c [X],[Y],[Y] [rotation X],[rotation Y],[rotation Z] [FOV] *// camera (rotation as normalized vector)*  
 - A [intensity] [R],[G],[B] *// ambient lighting  
-- l [X],[Y],[Z] [intensity] [R],[G],[B] *// point lighting*  
+- l [X],[Y],[Z] [intensity] [R],[G],[B] [directional, 0 or 1] *//lighting*  
 - sp [X],[Y],[Z] [radius] [R],[G],[B] [reflection rate] [specular rate] *// sphere*  
 - tr [X],[Y],[Z] [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [reflection rate] [specular rate] *// triangle*  
 - cy [X],[Y],[Z] [X],[Y],[Z] [R],[G],[B] [diameter] [height] [caps, 0 or 1] [reflection rate] [specular rate] *// cylinder*  
 - ds [X],[Y],[Z] [X],[Y],[Z] [radius] [reflection rate] [specular rate] *// disc* 
 - sq [X],[Y],[Z] [X],[Y],[Z] [side size] [R],[G],[B] [reflection rate] [specular rate] *// square*
-
+- cu [X],[Y],[Z] [side size] [R],[G],[B] [reflection rate] [specular rate] *// cube*
 #### Controls
 
 - **WASD/Shift/Control** for camera translation  
