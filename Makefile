@@ -6,7 +6,7 @@
 #    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/03/12 05:45:35 by hasv             ###   ########.fr        #
+#    Updated: 2021/03/14 20:22:46 by hasv             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ CFILE =		srcs/main.c\
 			srcs/parser.c\
 			srcs/parser2.c\
 			srcs/parser3.c\
+			srcs/parser4.c\
 			srcs/parser_utils.c\
 			srcs/parser_proc.c\
 			srcs/get_next_line.c\
@@ -38,6 +39,7 @@ CFILE =		srcs/main.c\
 			srcs/square.c\
 			srcs/window.c\
 			srcs/hooks.c\
+			srcs/hooks2.c\
 			srcs/bmp.c\
 
 INCLUDES =	includes/
@@ -45,6 +47,8 @@ INCLUDES =	includes/
 MLX_FLAGS =	-Lmlx_linux -lmlx -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 all: $(NAME)
+
+bonus: $(NAME)
 
 $(NAME):
 		@echo miniRT start.

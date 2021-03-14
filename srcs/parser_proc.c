@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 05:43:37 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 05:46:36 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/12 10:01:28 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_parsed_data	*ft_parse_processor2(char *line, t_parsed_data *data)
 		data->objects = ft_ladd(data->objects, ft_lnew(ft_parse_square(line)));
 	if (line[0] == 'c' && line[1] == 'u' && line[2] == ' ')
 		data->objects = ft_ladd(data->objects, ft_parse_cube(line));
+	if (line[0] == 'p' && line[1] == 'y' && line[2] == ' ')
+		data->objects = ft_ladd(data->objects, ft_parse_pyramid(line));
 	return (data);
 }
 

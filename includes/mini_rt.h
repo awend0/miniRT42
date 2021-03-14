@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 07:49:15 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/14 20:29:05 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,15 @@ typedef struct		s_cu_params{
 	t_point			normals[6];
 }					t_cu_params;
 
+typedef struct		s_py_params{
+	t_point			p;
+	double			size;
+	double			height;
+	t_color			color;
+	double			reflection;
+	double			spec;
+}					t_py_params;
+
 typedef struct		s_l_params{
 	int				type;
 	double			intensity;
@@ -338,6 +347,9 @@ int					ft_create_bmp(t_mlxvars *vars);
 int					ft_key_pressed(int keycode, t_mlxvars *vars);
 int					ft_expose(t_mlxvars *vars);
 int					ft_red_cross(t_mlxvars *vars);
+void				ft_rotate_cam(int keycode, t_mlxvars *vars);
+void				ft_translate_cam(int keycode, t_mlxvars *vars);
+void				ft_switch_cam(t_mlxvars *vars);
 
 /*
 ** Render
@@ -373,6 +385,7 @@ t_list				*ft_parse_cube(char *line);
 t_list				*ft_parse_cube2(t_cu_params params);
 t_object			*ft_parse_square(char *line);
 t_object			*ft_parse_disc(char *line);
+t_list				*ft_parse_pyramid(char *line);
 
 /*
 ** Constructors
