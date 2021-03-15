@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 19:41:45 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/14 20:28:00 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 20:52:55 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int		ft_key_pressed(int keycode, t_mlxvars *vars)
 		|| keycode == KEYCODE_SHIFT || keycode == KEYCODE_CTRL)
 		ft_translate_cam(keycode, vars);
 	if (keycode == KEYCODE_UP || keycode == KEYCODE_LEFT
-		|| keycode == KEYCODE_DOWN || keycode == KEYCODE_RIGHT)
+		|| keycode == KEYCODE_DOWN || keycode == KEYCODE_RIGHT
+		|| keycode == KEYCODE_RSHIFT)
 		ft_rotate_cam(keycode, vars);
 	return (0);
 }

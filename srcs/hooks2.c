@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 20:22:01 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/14 20:28:45 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 20:54:07 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ void	ft_rotate_cam(int keycode, t_mlxvars *vars)
 	t_camera	*cam;
 	t_point		rotation;
 
+	rotation = (t_point){0, 0, 0};
+	cam = vars->data->cameras->node;
+	if (keycode == KEYCODE_RSHIFT)
+		cam->rotation.z *= -1;
 	if (keycode == KEYCODE_UP)
 		rotation = (t_point){0, 0.5, 0};
 	if (keycode == KEYCODE_DOWN)
@@ -67,7 +71,6 @@ void	ft_rotate_cam(int keycode, t_mlxvars *vars)
 		rotation = (t_point){-0.5, 0, 0};
 	if (keycode == KEYCODE_RIGHT)
 		rotation = (t_point){0.5, 0, 0};
-	cam = vars->data->cameras->node;
 	cam->rotation = ft_vec_add(rotation, cam->rotation);
 	ft_draw(vars, 0);
 }

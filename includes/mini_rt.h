@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:34:24 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 20:52:28 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define KEYCODE_S 115
 # define KEYCODE_D 100
 # define KEYCODE_SHIFT 65505
+# define KEYCODE_RSHIFT 65506
 # define KEYCODE_CTRL 65507
 # define KEYCODE_UP 65362
 # define KEYCODE_LEFT 65361
