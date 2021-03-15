@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/14 20:29:05 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 20:08:10 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ typedef struct		s_color{
 	double			g;
 	double			b;
 }					t_color;
+
+typedef struct		s_color_i{
+	t_color			color;
+	double			intensity;
+}					t_color_i;
 
 typedef struct		s_camera{
 	t_point			pos;
@@ -300,7 +305,9 @@ typedef struct		s_covars{
 	t_point			ray;
 	t_list			*cur;
 	t_closest		blocker;
+	t_color_i		ret;
 	double			intensity;
+	double			tintensity;
 	double			n_l;
 	double			r_v;
 	double			t_max;
@@ -334,6 +341,7 @@ t_point				ft_reflect_ray(t_point r, t_point n);
 int					ft_exit(t_mlxvars *vars, char *msg);
 int					ft_isdigit(char *str);
 int					ft_strcmp(char *s1, char *s2);
+t_color				ft_color_average(t_color a, t_color b);
 
 /*
 ** BMP
@@ -355,8 +363,8 @@ void				ft_switch_cam(t_mlxvars *vars);
 ** Render
 */
 t_color				ft_trace_ray(t_trpar args);
-double				ft_compute_lighting(t_copar args);
-t_closest			ft_closest_inter(t_clpar params);
+t_color_i			ft_compute_lighting(t_copar args);
+t_closest			ft_closest(t_clpar params);
 t_point				ft_canvas_to_viewport(double x,
 					double y, t_camera *cam);
 t_point				ft_reflect_ray(t_point r, t_point n);

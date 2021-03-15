@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:17:18 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 05:42:59 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 01:44:20 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,15 @@ int			ft_open_map(char *filename)
 		filename[ft_strlen(filename) - 1] != 't')
 		ft_exit(0, "Configuration file must be in .rt extension.");
 	ret = open(filename, O_RDONLY);
+	return (ret);
+}
+
+t_color		ft_color_average(t_color a, t_color b)
+{
+	t_color		ret;
+
+	ret.r = (a.r + b.r) / 2.0;
+	ret.g = (a.g + b.g) / 2.0;
+	ret.b = (a.b + b.b) / 2.0;
 	return (ret);
 }
