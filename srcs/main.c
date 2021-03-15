@@ -6,18 +6,38 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 08:24:08 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 20:36:24 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_rt.h"
 
-double		g_width = 600;
-double		g_height = 600;
+double		g_width = 0;
+double		g_height = 0;
 t_list		*g_first_cam;
 t_color		g_background_color = {0.0, 0.0, 0.0};
 t_list		*g_memory = 0;
 int			g_sepia = 0;
+
+void	ft_check_resolution(t_mlxvars *vars)
+{
+	int		sizex;
+	int		sizey;
+
+	if (g_width > 6000 || g_height > 6000)
+	{
+		printf("Too large resolution. Setting your display's maximum\n");
+		mlx_get_screen_size(vars->mlx, &sizex, &sizey);
+		g_width = sizex;
+		g_height = sizey;
+	}
+	if (g_width <= 0 || g_height <= 0)
+	{
+		printf("No resolution is set. Setting default 600 x 600\n");
+		g_width = 600;
+		g_height = 600;
+	}
+}
 
 int		main(int argc, char *argv[])
 {
@@ -31,6 +51,7 @@ int		main(int argc, char *argv[])
 	vars.data = ft_parser(argc, argv);
 	g_first_cam = vars.data->cameras;
 	vars.mlx = mlx_init();
+	ft_check_resolution(&vars);
 	mlx_do_key_autorepeatoff(vars.mlx);
 	vars.win = mlx_new_window(vars.mlx,
 		g_width, g_height, "miniRT");

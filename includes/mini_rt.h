@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:08:10 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/15 20:34:24 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # define KEYCODE_RIGHT 65363
 # define R_DEPTH 3
 # define ISSPACE " \t"
-# define MAX_WIDTH 1920
-# define MAX_HEIGHT 1080
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
