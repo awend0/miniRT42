@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 01:53:05 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 03:29:54 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:42:44 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,11 @@ void			ft_init_compute(t_covars *vars, t_copar args)
 {
 	vars->t_max = __DBL_MAX__;
 	vars->cur = args.lights;
-	vars->ret.color = g_ambient;
-	vars->ret.intensity = 0;
-	vars->tintensity = 0;
+	vars->ret = g_ambient;
+	vars->intensity = 0;
 }
 
-void			ft_sum_intensity(t_covars *vars, double intensity)
-{
-	vars->ret.intensity += intensity;
-	vars->tintensity += intensity;
-}
-
-t_color_i		ft_compute_lighting(t_copar args)
+t_color			ft_compute_lighting(t_copar args)
 {
 	t_covars	vars;
 
@@ -78,7 +71,7 @@ t_color_i		ft_compute_lighting(t_copar args)
 	while (vars.cur)
 	{
 		if (((t_light*)vars.cur->node)->ltype == AMBIENT)
-			ft_sum_intensity(&vars, ((t_light*)vars.cur->node)->intensity);
+			vars.intensity += ((t_light*)vars.cur->node)->intensity;
 		else
 		{
 			ft_compute_lighting3(&vars, args);
@@ -89,11 +82,11 @@ t_color_i		ft_compute_lighting(t_copar args)
 				vars.cur = vars.cur->next;
 				continue ;
 			}
-			ft_sum_intensity(&vars, ft_compute_lighting2(vars, args));
+			vars.intensity += ft_compute_lighting2(vars, args);
 		}
-		vars.ret.color = ft_color_average(vars.ret.color,
-			((t_light*)vars.cur->node)->color);
-		vars.tintensity = 0;
+		vars.ret = ft_color_add(vars.ret, ft_color_average(args.obj->color,
+		ft_color_multiply(vars.intensity, ((t_light*)vars.cur->node)->color)));
+		vars.intensity = 0;
 		vars.cur = vars.cur->next;
 	}
 	return (vars.ret);

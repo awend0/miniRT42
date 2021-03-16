@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 12:17:18 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 23:35:35 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:39:45 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ t_color		ft_color_average(t_color a, t_color b)
 {
 	t_color		ret;
 
-	ret.r = (a.r + b.r) / 2.0;
-	ret.g = (a.g + b.g) / 2.0;
-	ret.b = (a.b + b.b) / 2.0;
+	ret.r = a.r * b.r / 255;
+	ret.g = a.g * b.g / 255;
+	ret.b = a.b * b.b / 255;
 	return (ret);
 }

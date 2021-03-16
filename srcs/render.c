@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:00:17 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 03:29:48 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:38:03 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_color		ft_trace_ray(t_trpar args)
 	t_closest		closest;
 	t_point			re_ray;
 	t_color			colors[2];
-	t_color_i		light;
 
 	closest = ft_closest((t_clpar){args.origin, args.direction,
 						args.t_min, args.t_max, args.objects});
@@ -59,10 +58,8 @@ t_color		ft_trace_ray(t_trpar args)
 		return (g_background_color);
 	closest.inter = ft_vec_add(args.origin,
 		ft_vec_mul(closest.t, args.direction));
-	light = ft_compute_lighting((t_copar){closest.inter, ft_vec_mul(-1,
+	colors[0] = ft_compute_lighting((t_copar){closest.inter, ft_vec_mul(-1,
 		args.direction), closest.obj, args.objects, args.lights});
-	colors[0] = ft_color_mix_light(ft_color_multiply(light.intensity,
-		closest.obj->color), light.color);
 	if (closest.obj->refl <= 0 || args.r_depth <= 0)
 		return (colors[0]);
 	re_ray = ft_reflect_ray(ft_vec_mul(-1, args.direction),

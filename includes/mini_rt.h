@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 02:52:52 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:40:02 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,10 +310,9 @@ typedef struct		s_covars{
 	t_point			ray;
 	t_list			*cur;
 	t_closest		blocker;
-	t_color_i		ret;
+	t_color			ret;
 	t_cmyk			temp;
 	double			intensity;
-	double			tintensity;
 	double			n_l;
 	double			r_v;
 	double			t_max;
@@ -348,11 +347,6 @@ int					ft_exit(t_mlxvars *vars, char *msg);
 int					ft_isdigit(char *str);
 int					ft_strcmp(char *s1, char *s2);
 t_color				ft_color_average(t_color a, t_color b);
-t_cmyk				ft_rgb2cmyk(t_color rgb);
-t_color				ft_cmyk2rgb(t_cmyk cmyk);
-t_cmyk				ft_cmyk_average(t_cmyk a, t_cmyk b);
-t_color				ft_color_add_light(t_color a, t_color b);
-t_color				ft_color_mix_light(t_color a, t_color b);
 
 /*
 ** BMP
@@ -374,7 +368,7 @@ void				ft_switch_cam(t_mlxvars *vars);
 ** Render
 */
 t_color				ft_trace_ray(t_trpar args);
-t_color_i			ft_compute_lighting(t_copar args);
+t_color				ft_compute_lighting(t_copar args);
 t_closest			ft_closest(t_clpar params);
 t_point				ft_canvas_to_viewport(double x,
 					double y, t_camera *cam);
