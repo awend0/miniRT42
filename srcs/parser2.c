@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:34:05 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:27:14 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ extern double	g_height;
 extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
+extern t_color	g_ambient;
 
 t_light			*ft_parse_pnt(char *line)
 {
@@ -45,10 +46,11 @@ t_light			*ft_parse_amb(char *line)
 	ret = ft_malloc_save(sizeof(t_light));
 	words = ft_split(line, ISSPACE);
 	if (!words[1] || !words[2])
-		ft_exit(0, "Required parameter missing in ambient light!");\
+		ft_exit(0, "Required parameter missing in ambient light!");
 	ret->ltype = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
 	ret->color = ft_stoc(words[2]);
+	g_ambient = ft_color_multiply(ret->intensity, ret->color);
 	return (ret);
 }
 
@@ -90,8 +92,8 @@ t_object		*ft_parse_sphere(char *line)
 	params.center = ft_stop(words[1]);
 	params.radius = ft_stof(words[2]);
 	params.color = ft_stoc(words[3]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[4])
 		params.reflection = ft_stof(words[4]);
 	if (words[4] && words[5])

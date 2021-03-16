@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 01:53:05 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:27:04 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:29:54 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ extern double	g_height;
 extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
+extern t_color	g_ambient;
 
 void			ft_compute_lighting3(t_covars *vars, t_copar args)
 {
@@ -39,14 +40,14 @@ double			ft_compute_lighting2(t_covars vars, t_copar args)
 	normal = args.obj->ft_get_norm(args.obj->data,
 		args.p);
 	vars.n_l = ft_vec_dot(normal, vars.light);
-	if (vars.n_l > 0.0)
+	if (vars.n_l > 0)
 		ret += ((t_light*)vars.cur->node)->intensity * vars.n_l /
 		(ft_vec_length(normal) * ft_vec_length(vars.light));
 	if (args.obj->spec != -1)
 	{
 		vars.ray = ft_reflect_ray(vars.light, normal);
 		vars.r_v = ft_vec_dot(vars.ray, args.view);
-		if (vars.r_v > 0.0)
+		if (vars.r_v > 0)
 			ret += ((t_light*)vars.cur->node)->intensity * powf(vars.r_v /
 			(ft_vec_length(vars.ray) *
 			ft_vec_length(args.view)), args.obj->spec);
@@ -58,9 +59,9 @@ void			ft_init_compute(t_covars *vars, t_copar args)
 {
 	vars->t_max = __DBL_MAX__;
 	vars->cur = args.lights;
-	vars->ret.color = (t_color){0.0, 0.0, 0.0};
-	vars->ret.intensity = 0.0;
-	vars->tintensity = 0.0;
+	vars->ret.color = g_ambient;
+	vars->ret.intensity = 0;
+	vars->tintensity = 0;
 }
 
 void			ft_sum_intensity(t_covars *vars, double intensity)
@@ -90,8 +91,8 @@ t_color_i		ft_compute_lighting(t_copar args)
 			}
 			ft_sum_intensity(&vars, ft_compute_lighting2(vars, args));
 		}
-		vars.ret.color = ft_color_average(vars.ret.color, ft_color_multiply(
-		vars.tintensity, ((t_light*)vars.cur->node)->color));
+		vars.ret.color = ft_color_average(vars.ret.color,
+			((t_light*)vars.cur->node)->color);
 		vars.tintensity = 0;
 		vars.cur = vars.cur->next;
 	}

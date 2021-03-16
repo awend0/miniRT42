@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 09:32:47 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/14 20:28:10 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:20:18 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ t_list			*ft_parse_pyramid3(t_list *ret, t_py_params params)
 	p = params.p;
 	s = params.size;
 	ret = ft_ladd(ret, ft_lnew(ft_create_triangle((t_tr_params){
-	(t_point){p.x + s / 2, p.y, p.z + s / 2},
 	(t_point){p.x + s / 2, p.y, p.z - s / 2},
+	(t_point){p.x + s / 2, p.y, p.z + s / 2},
 	(t_point){p.x, p.y + params.height, p.z},
 	params.color, params.reflection, params.spec})));
 	ret = ft_ladd(ret, ft_lnew(ft_create_triangle((t_tr_params){
-	(t_point){p.x - s / 2, p.y, p.z + s / 2},
 	(t_point){p.x - s / 2, p.y, p.z - s / 2},
 	(t_point){p.x, p.y + params.height, p.z},
+	(t_point){p.x - s / 2, p.y, p.z + s / 2},
 	params.color, params.reflection, params.spec})));
 	return (ret);
 }
@@ -56,8 +56,8 @@ t_list			*ft_parse_pyramid2(t_py_params params)
 	(t_point){p.x, p.y + params.height, p.z},
 	params.color, params.reflection, params.spec})));
 	ret = ft_ladd(ret, ft_lnew(ft_create_triangle((t_tr_params){
-	(t_point){p.x - s / 2, p.y, p.z + s / 2},
 	(t_point){p.x + s / 2, p.y, p.z + s / 2},
+	(t_point){p.x - s / 2, p.y, p.z + s / 2},
 	(t_point){p.x, p.y + params.height, p.z},
 	params.color, params.reflection, params.spec})));
 	return (ft_parse_pyramid3(ret, params));
@@ -75,8 +75,8 @@ t_list			*ft_parse_pyramid(char *line)
 	params.size = ft_stof(words[2]);
 	params.height = ft_stof(words[3]);
 	params.color = ft_stoc(words[4]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[5])
 		params.reflection = ft_stof(words[5]);
 	if (words[5] && words[6])

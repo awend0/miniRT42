@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:22:07 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 07:22:04 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:43:22 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
 	k[1] = 2.0 * ft_vec_dot(oc, dir);
 	k[2] = ft_vec_dot(oc, oc) - sphere->radius * sphere->radius;
 	discriminant = k[1] * k[1] - 4 * k[0] * k[2];
-	if (discriminant < 0.0)
+	if (discriminant < 0)
 	{
 		ret.t1 = __DBL_MAX__;
 		ret.t2 = __DBL_MAX__;
@@ -40,8 +40,6 @@ t_solutions	ft_intersect_sphere(void *data, t_point origin, t_point dir)
 	}
 	ret.t1 = (-k[1] + sqrtf(discriminant)) / (2.0 * k[0]);
 	ret.t2 = (-k[1] - sqrtf(discriminant)) / (2.0 * k[0]);
-	if ((ret.t1 < 0 && ret.t2 > 0) || (ret.t1 > 0 && ret.t2 < 0))
-		sphere->inside = 1;
 	return (ret);
 }
 
@@ -53,8 +51,6 @@ t_point		ft_get_normal_sphere(void *data, t_point intersection)
 	sphere = data;
 	ret = ft_vec_s(intersection, sphere->center);
 	ret = ft_vec_mul(1.0 / ft_vec_length(ret), ret);
-	if (sphere->inside == 1)
-		return (ft_vec_mul(-1, ret));
 	return (ret);
 }
 

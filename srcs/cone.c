@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 04:19:35 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:54:11 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:28:02 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_solutions	ft_intersect_cone(void *data, t_point origin, t_point dir)
 	k[2] = ft_vec_dot(x, x) - (1.0 + cone->k * cone->k)
 		* pow(ft_vec_dot(x, cone->orient), 2);
 	k[3] = k[1] * k[1] - 4 * k[0] * k[2];
-	if (k[3] < 0.0)
+	if (k[3] < 0)
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 	ret.t1 = (-k[1] + sqrtf(k[3])) / (2.0 * k[0]);
 	ret.t2 = (-k[1] - sqrtf(k[3])) / (2.0 * k[0]);

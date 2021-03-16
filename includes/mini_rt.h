@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:52:28 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:52:52 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef struct		s_color{
 	double			b;
 }					t_color;
 
+typedef struct		s_cmyk{
+	double			c;
+	double			m;
+	double			y;
+	double			k;
+}					t_cmyk;
+
 typedef struct		s_color_i{
 	t_color			color;
 	double			intensity;
@@ -75,7 +82,6 @@ typedef struct		s_solutions{
 typedef struct		s_sphere{
 	t_point			center;
 	double			radius;
-	int				inside;
 }					t_sphere;
 
 typedef struct		s_triangle{
@@ -305,6 +311,7 @@ typedef struct		s_covars{
 	t_list			*cur;
 	t_closest		blocker;
 	t_color_i		ret;
+	t_cmyk			temp;
 	double			intensity;
 	double			tintensity;
 	double			n_l;
@@ -341,6 +348,11 @@ int					ft_exit(t_mlxvars *vars, char *msg);
 int					ft_isdigit(char *str);
 int					ft_strcmp(char *s1, char *s2);
 t_color				ft_color_average(t_color a, t_color b);
+t_cmyk				ft_rgb2cmyk(t_color rgb);
+t_color				ft_cmyk2rgb(t_cmyk cmyk);
+t_cmyk				ft_cmyk_average(t_cmyk a, t_cmyk b);
+t_color				ft_color_add_light(t_color a, t_color b);
+t_color				ft_color_mix_light(t_color a, t_color b);
 
 /*
 ** BMP

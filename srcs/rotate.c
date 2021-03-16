@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:08:28 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 07:42:48 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:59:41 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_point		ft_canvas_to_viewport(double x, double y, t_camera *cam)
 	t_point	ret;
 	double	fovk;
 
-	fovk = 2.0 * tan((cam->fov / 2.0) * (M_PI / 180.0));
+	fovk = 2.0 * tan((cam->fov / 2.0) * (M_PI / 180));
 	ret.x = x * fovk / g_width;
 	ret.y = y * fovk / (g_width / g_height) / g_height;
 	ret.z = 1;

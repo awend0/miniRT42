@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 22:18:53 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 02:26:43 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:27:09 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_object		*ft_parse_disc(char *line)
 	params.norm = ft_stop(words[2]);
 	params.r = ft_stof(words[3]);
 	params.color = ft_stoc(words[4]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[5])
 		params.reflection = ft_stof(words[5]);
 	if (words[5] && words[6])
@@ -54,8 +54,8 @@ t_object		*ft_parse_square(char *line)
 	params.orient = ft_stop(words[2]);
 	params.size = ft_stof(words[3]);
 	params.color = ft_stoc(words[4]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[5])
 		params.reflection = ft_stof(words[5]);
 	if (words[5] && words[6])
@@ -96,8 +96,8 @@ t_list			*ft_parse_cube(char *line)
 	params.p = ft_stop(words[1]);
 	params.size = ft_stof(words[2]);
 	params.color = ft_stoc(words[3]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[4])
 		params.reflection = ft_stof(words[4]);
 	if (words[4] && words[5])

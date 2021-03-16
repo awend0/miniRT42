@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 01:50:03 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 03:27:23 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 		{
 			ray = ft_rotate(x, y, camera);
 			color = ft_trace_ray((t_trpar){ray.origin, ray.direction,
-				data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
+			data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
 			ft_putpixel(img, x, y, color);
 			y++;
 		}

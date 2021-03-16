@@ -6,7 +6,7 @@
 /*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:42:25 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/11 08:53:34 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/16 02:27:25 by hasv             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_list		*ft_parse_cylinder(char *line)
 	params.diam = ft_stof(words[3]);
 	params.height = ft_stof(words[4]);
 	params.color = ft_stoc(words[5]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	caps = 0;
 	if (words[6])
 		caps = ft_stof(words[6]);
@@ -88,8 +88,8 @@ t_object	*ft_parse_cone(char *line)
 	params.maxm = ft_stof(words[4]);
 	params.k = ft_stof(words[5]);
 	params.color = ft_stoc(words[6]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[7])
 		params.reflection = ft_stof(words[7]);
 	if (words[7] && words[8])
@@ -111,8 +111,8 @@ t_object	*ft_parse_tr(char *line)
 	params.b = ft_stop(words[2]);
 	params.c = ft_stop(words[3]);
 	params.color = ft_stoc(words[4]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[5])
 		params.reflection = ft_stof(words[5]);
 	if (words[5] && words[6])
@@ -133,8 +133,8 @@ t_object	*ft_parse_plane(char *line)
 	params.p = ft_stop(words[1]);
 	params.norm = ft_stop(words[2]);
 	params.color = ft_stoc(words[3]);
-	params.reflection = 0.5;
-	params.spec = 500;
+	params.reflection = 0.1;
+	params.spec = 100;
 	if (words[4])
 		params.reflection = ft_stof(words[4]);
 	if (words[4] && words[5])
