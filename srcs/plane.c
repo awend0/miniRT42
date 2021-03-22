@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 13:30:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 02:27:33 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:30:50 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_solutions	ft_intersect_plane(void *data, t_point origin, t_point dir)
+t_solutions	ft_intersect_plane(void *data, t_ray ray)
 {
 	t_plane		*pl;
 	t_solutions	ret;
@@ -28,20 +28,23 @@ t_solutions	ft_intersect_plane(void *data, t_point origin, t_point dir)
 	ret.t1 = __DBL_MAX__;
 	ret.t2 = __DBL_MAX__;
 	pl = data;
-	denom = ft_vec_dot(pl->norm, dir);
+	denom = ft_vec_dot(pl->norm, ray.direction);
 	if (fabs(denom) > 0)
 	{
-		t = ft_vec_dot(ft_vec_s(pl->p, origin), pl->norm) / denom;
+		t = ft_vec_dot(ft_vec_s(pl->p, ray.origin), pl->norm) / denom;
 		if (t >= 0)
 			ret.t1 = t;
 	}
 	return (ret);
 }
 
-t_point		ft_get_normal_plane(void *data, t_point intersection)
+t_point		ft_get_normal_plane(void *data, t_point intersection, t_ray ray)
 {
+	t_plane		*pl;
+
+	pl = data;
 	(void)intersection;
-	return (((t_plane*)data)->norm);
+	return (ft_rotate_normal(ray, pl->norm, intersection));
 }
 
 t_object	*ft_create_plane(t_pl_params params)

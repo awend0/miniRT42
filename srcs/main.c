@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:09:10 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 00:07:52 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:13:52 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,23 @@ t_list		*g_first_cam;
 t_color		g_background_color = {0.0, 0.0, 0.0};
 t_list		*g_memory = 0;
 int			g_sepia = 0;
-t_color		g_ambient;
+t_color		g_ambient = {-1.0, -1.0, -1.0};
 
 void	ft_check_resolution(t_mlxvars *vars)
 {
 	int		sizex;
 	int		sizey;
 
-	if (g_width > 6000 || g_height > 6000)
+	mlx_get_screen_size(vars->mlx, &sizex, &sizey);
+	if (g_width > sizex)
 	{
-		printf("Too large resolution. Setting your display's maximum\n");
-		mlx_get_screen_size(vars->mlx, &sizex, &sizey);
+		printf("Too large width. Setting your display's maximum\n");
 		g_width = sizex;
-		g_height = sizey;
 	}
-	if (g_width <= 0 || g_height <= 0)
+	if (g_height > sizey)
 	{
-		printf("No resolution is set. Setting default 600 x 600\n");
-		g_width = 600;
-		g_height = 600;
+		printf("Too large height. Setting your display's maximum\n");
+		g_height = sizey;
 	}
 }
 

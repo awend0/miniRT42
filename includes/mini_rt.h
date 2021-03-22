@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 01:10:06 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 03:40:02 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 18:00:38 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define BUFFER_SIZE 1
 # define KEYCODE_ESC 65307
 # define KEYCODE_Q 113
+# define KEYCODE_E 101
 # define KEYCODE_W 119
 # define KEYCODE_A 97
 # define KEYCODE_S 115
@@ -26,7 +27,7 @@
 # define KEYCODE_LEFT 65361
 # define KEYCODE_DOWN 65364
 # define KEYCODE_RIGHT 65363
-# define R_DEPTH 3
+# define R_DEPTH 10
 # define ISSPACE " \t"
 # include <stdlib.h>
 # include <stdio.h>
@@ -40,6 +41,12 @@ typedef struct		s_point{
 	double			y;
 	double			z;
 }					t_point;
+
+typedef struct		s_ray
+{
+	t_point			origin;
+	t_point			direction;
+}					t_ray;
 
 typedef struct		s_color{
 	double			r;
@@ -63,6 +70,8 @@ typedef struct		s_camera{
 	t_point			pos;
 	t_point			rotation;
 	double			fov;
+	t_point			save_pos;
+	t_point			save_rotation;
 }					t_camera;
 
 typedef struct		s_mlxdata{
@@ -83,14 +92,6 @@ typedef struct		s_sphere{
 	t_point			center;
 	double			radius;
 }					t_sphere;
-
-typedef struct		s_triangle{
-	t_point			a;
-	t_point			b;
-	t_point			c;
-	t_point			norm;
-	double			d;
-}					t_triangle;
 
 typedef struct		s_tr_params{
 	t_point			a;
@@ -121,6 +122,15 @@ typedef struct		s_plane{
 	t_point			p;
 	t_point			norm;
 }					t_plane;
+
+typedef struct		s_triangle{
+	t_point			a;
+	t_point			b;
+	t_point			c;
+	t_point			norm;
+	t_plane			*pl;
+	double			d;
+}					t_triangle;
 
 typedef struct		s_disc{
 	t_point			p;
@@ -166,14 +176,6 @@ typedef struct		s_co_params{
 	double			reflection;
 	double			spec;
 }					t_co_params;
-
-typedef struct		s_cone{
-	t_point			p;
-	t_point			orient;
-	float			k;
-	float			minm;
-	float			maxm;
-}					t_cone;
 
 typedef struct		s_square{
 	t_point			p;
@@ -234,12 +236,11 @@ typedef struct		s_object{
 		PLANE,
 		CYLINDER,
 		DISC,
-		CONE,
 		SQUARE
 	}				type;
 	void			*data;
-	t_solutions		(*ft_intersect)(void *data, t_point or, t_point dir);
-	t_point			(*ft_get_norm)(void *data, t_point intersection);
+	t_solutions		(*ft_intersect)(void *data, t_ray ray);
+	t_point			(*ft_get_norm)(void *data, t_point intersection, t_ray ray);
 	t_color			color;
 	double			refl;
 	double			spec;
@@ -257,8 +258,7 @@ typedef struct		s_parsed_data{
 }					t_parsed_data;
 
 typedef struct		s_clpar{
-	t_point			origin;
-	t_point			direction;
+	t_ray			ray;
 	double			t_min;
 	double			t_max;
 	t_list			*objects;
@@ -271,8 +271,7 @@ typedef struct		s_closest{
 }					t_closest;
 
 typedef struct		s_trpar{
-	t_point			origin;
-	t_point			direction;
+	t_ray			ray;
 	t_list			*objects;
 	t_list			*lights;
 	double			t_min;
@@ -286,6 +285,7 @@ typedef struct		s_copar{
 	t_object		*obj;
 	t_list			*objects;
 	t_list			*lights;
+	t_ray			ray;
 }					t_copar;
 
 typedef struct		s_mlxvars{
@@ -298,12 +298,6 @@ typedef struct		s_mlxvars{
 typedef struct		s_matrix{
 	double			d[4][4];
 }					t_matrix;
-
-typedef struct		s_ray
-{
-	t_point			origin;
-	t_point			direction;
-}					t_ray;
 
 typedef struct		s_covars{
 	t_point			light;
@@ -336,7 +330,7 @@ t_point				ft_vec_cross(t_point a, t_point b);
 t_point				ft_vec_norm(t_point vec);
 double				ft_modv(double vx, double vy, double vz);
 t_point				ft_vec_mat(double **mat, t_point vec);
-t_solutions			ft_intersect_plane(void *data, t_point origin, t_point dir);
+t_solutions			ft_intersect_plane(void *data, t_ray ray);
 void				*ft_malloc_save(int size);
 void				ft_free(void);
 t_ray				ft_rotate(int x, int y, t_camera *cam);
@@ -347,6 +341,8 @@ int					ft_exit(t_mlxvars *vars, char *msg);
 int					ft_isdigit(char *str);
 int					ft_strcmp(char *s1, char *s2);
 t_color				ft_color_average(t_color a, t_color b);
+t_point				ft_rotate_normal(t_ray ray, t_point normal,
+					t_point intersection);
 
 /*
 ** BMP
@@ -363,6 +359,7 @@ int					ft_red_cross(t_mlxvars *vars);
 void				ft_rotate_cam(int keycode, t_mlxvars *vars);
 void				ft_translate_cam(int keycode, t_mlxvars *vars);
 void				ft_switch_cam(t_mlxvars *vars);
+void				ft_restore_cam(t_mlxvars *vars);
 
 /*
 ** Render
@@ -390,7 +387,6 @@ t_light				*ft_parse_amb(char *line);
 t_light				*ft_parse_pnt(char *line);
 t_object			*ft_parse_plane(char *line);
 t_object			*ft_parse_tr(char *line);
-t_object			*ft_parse_cone(char *line);
 t_list				*ft_parse_cylinder(char *line);
 t_list				*ft_cylinder_caps(t_object *obj, t_cy_params params);
 t_parsed_data		*ft_init_pd();
@@ -408,7 +404,6 @@ t_object			*ft_create_triangle(t_tr_params params);
 t_object			*ft_create_plane(t_pl_params params);
 t_object			*ft_create_cylinder(t_cy_params params);
 t_object			*ft_create_disc(t_ds_params params);
-t_object			*ft_create_cone(t_co_params params);
 t_object			*ft_create_square(t_sq_params params);
 
 /*

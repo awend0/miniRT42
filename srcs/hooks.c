@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 19:41:45 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:52:55 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 00:36:04 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int		ft_key_pressed(int keycode, t_mlxvars *vars)
 		|| keycode == KEYCODE_DOWN || keycode == KEYCODE_RIGHT
 		|| keycode == KEYCODE_RSHIFT)
 		ft_rotate_cam(keycode, vars);
+	if (keycode == KEYCODE_E)
+		ft_restore_cam(vars);
 	return (0);
 }

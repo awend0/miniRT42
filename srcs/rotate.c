@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:08:28 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 02:59:41 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:46:39 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ extern double	g_height;
 extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
+
+t_point		ft_rotate_normal(t_ray ray, t_point normal, t_point intersection)
+{
+	double	res;
+
+	(void)intersection;
+	res = ft_vec_dot(ray.direction, normal);
+	if (res < 0)
+		return (ft_vec_norm(normal));
+	return (ft_vec_mul(-1, ft_vec_norm(normal)));
+}
 
 t_point		ft_multdir(t_point p, t_matrix m)
 {

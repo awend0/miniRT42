@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   square.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:21:38 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 02:27:37 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:51:17 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_solutions	ft_intersect_square(void *data, t_point origin, t_point dir)
+t_solutions	ft_intersect_square(void *data, t_ray ray)
 {
 	t_square	*sq;
 	t_solutions	ret;
@@ -26,12 +26,13 @@ t_solutions	ft_intersect_square(void *data, t_point origin, t_point dir)
 	t_point		d;
 
 	sq = data;
-	k[0] = ft_vec_dot(ft_vec_s(origin, sq->p), sq->orient);
-	k[1] = ft_vec_dot(dir, sq->orient);
+	k[0] = ft_vec_dot(ft_vec_s(ray.origin, sq->p), sq->orient);
+	k[1] = ft_vec_dot(ray.direction, sq->orient);
 	if (k[1] == 0 || (k[0] < 0 && k[1] < 0) || (k[0] > 0 && k[1] > 0))
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 	ret.t1 = -k[0] / k[1];
-	d = ft_vec_s(ft_vec_add(ft_vec_mul(ret.t1, dir), origin), sq->p);
+	d = ft_vec_s(ft_vec_add(ft_vec_mul(ret.t1, ray.direction),
+		ray.origin), sq->p);
 	ret.t2 = sq->size / 2;
 	if (fabs(d.x) > ret.t2 || fabs(d.y) > ret.t2 || fabs(d.z) > ret.t2)
 		return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
@@ -40,13 +41,13 @@ t_solutions	ft_intersect_square(void *data, t_point origin, t_point dir)
 	return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 }
 
-t_point		ft_get_normal_square(void *data, t_point intersection)
+t_point		ft_get_normal_square(void *data, t_point intersection, t_ray ray)
 {
 	t_square	*sq;
 
 	(void)intersection;
 	sq = data;
-	return (ft_vec_norm(sq->orient));
+	return (ft_rotate_normal(ray, sq->orient, intersection));
 }
 
 t_object	*ft_create_square(t_sq_params params)

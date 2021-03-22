@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:42:25 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 02:27:25 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 01:51:44 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,32 +70,6 @@ t_list		*ft_parse_cylinder(char *line)
 	if (caps)
 		return (ft_cylinder_caps(ft_create_cylinder(params), params));
 	return (ft_lnew(ft_create_cylinder(params)));
-}
-
-t_object	*ft_parse_cone(char *line)
-{
-	char		**words;
-	t_object	*ret;
-	t_co_params	params;
-
-	words = ft_split(line, ISSPACE);
-	if (!words[1] || !words[2] || !words[3] || !words[4]
-		|| !words[5] || !words[6])
-		ft_exit(0, "Required parameter missing in cone!");
-	params.p = ft_stop(words[1]);
-	params.orient = ft_vec_norm(ft_stop(words[2]));
-	params.minm = ft_stof(words[3]);
-	params.maxm = ft_stof(words[4]);
-	params.k = ft_stof(words[5]);
-	params.color = ft_stoc(words[6]);
-	params.reflection = 0.1;
-	params.spec = 100;
-	if (words[7])
-		params.reflection = ft_stof(words[7]);
-	if (words[7] && words[8])
-		params.spec = ft_stof(words[8]);
-	ret = ft_create_cone(params);
-	return (ret);
 }
 
 t_object	*ft_parse_tr(char *line)

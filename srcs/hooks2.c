@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 20:22:01 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/15 20:54:07 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 00:36:04 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,15 @@ void	ft_rotate_cam(int keycode, t_mlxvars *vars)
 	if (keycode == KEYCODE_RIGHT)
 		rotation = (t_point){0.5, 0, 0};
 	cam->rotation = ft_vec_add(rotation, cam->rotation);
+	ft_draw(vars, 0);
+}
+
+void	ft_restore_cam(t_mlxvars *vars)
+{
+	t_camera	*cam;
+
+	cam = vars->data->cameras->node;
+	cam->pos = cam->save_pos;
+	cam->rotation = cam->save_rotation;
 	ft_draw(vars, 0);
 }

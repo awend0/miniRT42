@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 22:06:23 by hasv              #+#    #+#              #
-#    Updated: 2021/03/15 23:29:03 by hasv             ###   ########.fr        #
+#    Updated: 2021/03/22 01:48:28 by mraymun          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ CFILE =		srcs/main.c\
 			srcs/utils2.c\
 			srcs/utils3.c\
 			srcs/utils4.c\
-			srcs/utils5.c\
 			srcs/parser.c\
 			srcs/parser2.c\
 			srcs/parser3.c\
@@ -34,7 +33,6 @@ CFILE =		srcs/main.c\
 			srcs/plane.c\
 			srcs/cylinder.c\
 			srcs/disc.c\
-			srcs/cone.c\
 			srcs/memory.c\
 			srcs/rotate.c\
 			srcs/square.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lights.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 01:53:05 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 03:42:44 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 01:53:39 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double			ft_compute_lighting2(t_covars vars, t_copar args)
 
 	ret = 0;
 	normal = args.obj->ft_get_norm(args.obj->data,
-		args.p);
+		args.p, args.ray);
 	vars.n_l = ft_vec_dot(normal, vars.light);
 	if (vars.n_l > 0)
 		ret += ((t_light*)vars.cur->node)->intensity * vars.n_l /
@@ -75,7 +75,7 @@ t_color			ft_compute_lighting(t_copar args)
 		else
 		{
 			ft_compute_lighting3(&vars, args);
-			if ((ft_closest((t_clpar){args.p, vars.light, 0.1,
+			if ((ft_closest((t_clpar){(t_ray){args.p, vars.light}, 0.1,
 			vars.t_max, args.objects})).obj
 			&& ((t_light*)vars.cur->node)->intensity > 0)
 			{

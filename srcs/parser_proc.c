@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_proc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 05:43:37 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/12 10:01:28 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 01:49:15 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,5 @@ t_parsed_data	*ft_parse_processor(char *line, t_parsed_data *data)
 		data->objects = ft_ladd(data->objects, ft_parse_cylinder(line));
 	if (line[0] == 'd' && line[1] == 's' && line[2] == ' ')
 		data->objects = ft_ladd(data->objects, ft_lnew(ft_parse_disc(line)));
-	if (line[0] == 'c' && line[1] == 'o' && line[2] == ' ')
-		data->objects = ft_ladd(data->objects, ft_lnew(ft_parse_cone(line)));
 	return (ft_parse_processor2(line, data));
 }

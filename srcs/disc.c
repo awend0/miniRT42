@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   disc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 19:29:02 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/06 12:54:18 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:30:57 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,26 @@ extern t_list	*g_first_cam;
 extern t_color	g_background_color;
 extern t_list	*g_memory;
 
-t_solutions	ft_intersect_disc(void *data, t_point origin, t_point dir)
+t_solutions	ft_intersect_disc(void *data, t_ray ray)
 {
 	t_solutions	ret;
 	t_disc		*disc;
 
 	disc = data;
-	ret = ft_intersect_plane((void*)disc->pl, origin, dir);
+	ret = ft_intersect_plane((void*)disc->pl, ray);
 	if (ret.t1 < __DBL_MAX__ && ft_vec_length(ft_vec_s(ft_vec_add(
-		origin, ft_vec_mul(ret.t1, dir)), disc->p)) <= disc->r)
+		ray.origin, ft_vec_mul(ret.t1, ray.direction)), disc->p)) <= disc->r)
 		return (ret);
 	return ((t_solutions){__DBL_MAX__, __DBL_MAX__});
 }
 
-t_point		ft_get_normal_disc(void *data, t_point intersection)
+t_point		ft_get_normal_disc(void *data, t_point intersection, t_ray ray)
 {
+	t_disc	*disc;
+
+	disc = data;
 	(void)intersection;
-	return (((t_disc*)data)->norm);
+	return (ft_rotate_normal(ray, disc->norm, intersection));
 }
 
 t_object	*ft_create_disc(t_ds_params params)

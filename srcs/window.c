@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 02:41:39 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 03:27:23 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 01:52:16 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_fill_image(t_mlxdata *img, t_parsed_data *data)
 		while (y < g_height / 2)
 		{
 			ray = ft_rotate(x, y, camera);
-			color = ft_trace_ray((t_trpar){ray.origin, ray.direction,
+			color = ft_trace_ray((t_trpar){ray,
 			data->objects, data->lights, 1.0, __DBL_MAX__, R_DEPTH});
 			ft_putpixel(img, x, y, color);
 			y++;

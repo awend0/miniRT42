@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasv <hasv@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mraymun <mraymun@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:40:52 by hasv              #+#    #+#             */
-/*   Updated: 2021/03/16 02:27:14 by hasv             ###   ########.fr       */
+/*   Updated: 2021/03/22 02:18:26 by mraymun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_light			*ft_parse_pnt(char *line)
 		ret->ltype = POINT;
 	ret->position = ft_stop(words[1]);
 	ret->intensity = ft_stof(words[2]);
+	if (ret->intensity < 0 || ret->intensity > 1)
+		ft_exit(0, "Incorrect light intensity is set.");
 	ret->color = ft_stoc(words[3]);
 	return (ret);
 }
@@ -49,7 +51,11 @@ t_light			*ft_parse_amb(char *line)
 		ft_exit(0, "Required parameter missing in ambient light!");
 	ret->ltype = AMBIENT;
 	ret->intensity = ft_stof(words[1]);
+	if (ret->intensity < 0.0 || ret->intensity > 1.0)
+		ft_exit(0, "Incorrect intensity");
 	ret->color = ft_stoc(words[2]);
+	if (g_ambient.r != -1)
+		ft_exit(0, "Multiple ambient lights are set.");
 	g_ambient = ft_color_multiply(ret->intensity, ret->color);
 	return (ret);
 }
@@ -61,8 +67,12 @@ void			ft_parse_res(char *line)
 	words = ft_split(line, ISSPACE);
 	if (!words[1] || !words[2])
 		ft_exit(0, "Required parameter missing in resolution!");
+	if (g_width != 0 || g_height != 0)
+		ft_exit(0, "Multiple resolutions are set.");
 	g_width = (double)ft_stof(words[1]);
 	g_height = (double)ft_stof(words[2]);
+	if (g_width <= 0 || g_height <= 0)
+		ft_exit(0, "Wrong resolution is set.");
 }
 
 t_camera		*ft_parse_camera(char *line)
@@ -76,7 +86,15 @@ t_camera		*ft_parse_camera(char *line)
 		ft_exit(0, "Required parameter missing in camera!");
 	ret->pos = ft_stop(words[1]);
 	ret->rotation = ft_stop(words[2]);
+	if (ret->rotation.y != 0 && ret->rotation.x == 0 && ret->rotation.z == 0)
+		ret->rotation.z = 0.001;
 	ret->fov = ft_stof(words[3]);
+	if (ret->fov > 180 || ret->fov < 0)
+		ft_exit(0, "Incorrect camera FOV.");
+	if (ret->fov == 180)
+		ret->fov = 179;
+	ret->save_pos = ret->pos;
+	ret->save_rotation = ret->rotation;
 	return (ret);
 }
 
