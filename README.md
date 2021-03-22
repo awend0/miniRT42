@@ -19,6 +19,7 @@ Basic raytracing engine from scratch using MiniLibX.
 - ds [X],[Y],[Z] [X],[Y],[Z] [radius] [reflection rate] [specular rate] *// disc* 
 - sq [X],[Y],[Z] [X],[Y],[Z] [side size] [R],[G],[B] [reflection rate] [specular rate] *// square*
 - cu [X],[Y],[Z] [side size] [R],[G],[B] [reflection rate] [specular rate] *// cube*
+- py [X],[Y].[Z] [side size] [height] [R],[G],[B] [reflection rate] [specular rate] *// pyramid*
 #### Controls
 
 - **WASD/Shift/Control** for camera translation  
