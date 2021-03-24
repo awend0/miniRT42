@@ -1,4 +1,4 @@
-# miniRT  
+# miniRT 107/100  
 Basic raytracing engine from scratch using MiniLibX.  
 
 #### Build it yourself
