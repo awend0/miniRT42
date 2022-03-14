@@ -35,6 +35,6 @@ Basic raytracing engine from scratch using MiniLibX.
 
 #### Examples
 
-![Wolf render](https://github.com/awend0/miniRT/blob/master/screenshots/wolf.bmp?raw=true)
-![Beautiful render](https://github.com/awend0/miniRT/blob/master/screenshots/cyl.bmp?raw=true)  
-![Another render](https://github.com/awend0/miniRT/blob/master/screenshots/simple.bmp?raw=true)
+![Wolf render](https://github.com/awend0/miniRT42/blob/master/screenshots/wolf.bmp?raw=true)
+![Beautiful render](https://github.com/awend0/miniRT42/blob/master/screenshots/cyl.bmp?raw=true)  
+![Another render](https://github.com/awend0/miniRT42/blob/master/screenshots/simple.bmp?raw=true)
